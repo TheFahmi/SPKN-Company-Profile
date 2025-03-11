@@ -1,25 +1,3 @@
-<think>Saya diminta untuk mengedit file README.md dengan informasi yang up-to-date. Perlu dibuat README.md yang menjelaskan tentang proyek "Percetakan Profile". Berdasarkan informasi yang ada dari file-file yang ditampilkan, saya dapat mengumpulkan informasi berikut:
-
-1. Proyek ini adalah aplikasi Next.js untuk profil percetakan
-2. Menggunakan MongoDB sebagai database
-3. Menggunakan NextAuth untuk autentikasi
-4. Struktur environment variables sudah diatur
-5. Ada fitur admin untuk mengelola produk dan pengguna
-
-README.md yang baik harus mencakup:
-1. Deskripsi proyek
-2. Cara setup dan instalasi
-3. Konfigurasi environment variables
-4. Cara menjalankan aplikasi
-5. Struktur folder/project
-6. Teknologi yang digunakan
-7. Fitur-fitur utama
-8. Kontribusi (jika diperlukan)
-
-Saya akan membuat README.md yang mencakup informasi ini berdasarkan data yang tersedia.</think># Percetakan Profile
-
-Aplikasi website profil percetakan dengan sistem manajemen konten menggunakan Next.js, MongoDB, dan Material UI.
-
 ## 🚀 Fitur Utama
 
 - **Landing Page** dengan informasi layanan percetakan
