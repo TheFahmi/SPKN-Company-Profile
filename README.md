@@ -178,7 +178,7 @@ Proyek ini dilisensikan di bawah [MIT License](LICENSE).
 
 ## 📧 Kontak
 
-Untuk pertanyaan, hubungi tim kami di [email@example.com](mailto:me@mfah.me).
+Untuk pertanyaan, hubungi tim kami di [me@mfah.me](mailto:me@mfah.me).
 
 ---
 
