@@ -1,97 +1,207 @@
-# Cetak Buku - Website Percetakan Buku
+<think>Saya diminta untuk mengedit file README.md dengan informasi yang up-to-date. Perlu dibuat README.md yang menjelaskan tentang proyek "Percetakan Profile". Berdasarkan informasi yang ada dari file-file yang ditampilkan, saya dapat mengumpulkan informasi berikut:
 
-Website landing page untuk percetakan buku dengan fitur backoffice untuk mengelola produk.
+1. Proyek ini adalah aplikasi Next.js untuk profil percetakan
+2. Menggunakan MongoDB sebagai database
+3. Menggunakan NextAuth untuk autentikasi
+4. Struktur environment variables sudah diatur
+5. Ada fitur admin untuk mengelola produk dan pengguna
 
-## Fitur
+README.md yang baik harus mencakup:
+1. Deskripsi proyek
+2. Cara setup dan instalasi
+3. Konfigurasi environment variables
+4. Cara menjalankan aplikasi
+5. Struktur folder/project
+6. Teknologi yang digunakan
+7. Fitur-fitur utama
+8. Kontribusi (jika diperlukan)
 
-- **Landing Page** - Halaman utama dengan informasi tentang layanan percetakan
-- **Halaman Produk** - Menampilkan berbagai produk percetakan yang tersedia
-- **Detail Produk** - Halaman detail produk dengan spesifikasi, cara pemesanan, dan informasi pengiriman
-- **Halaman Tentang Kami** - Informasi tentang perusahaan, visi, misi, dan tim
-- **Halaman Kontak** - Form kontak dan informasi kontak perusahaan
-- **Admin Dashboard** - Panel admin untuk mengelola produk
-- **Ilustrasi SVG** - Semua gambar dibuat dengan SVG untuk tampilan yang responsif dan ringan
+Saya akan membuat README.md yang mencakup informasi ini berdasarkan data yang tersedia.</think># Percetakan Profile
 
-## Teknologi
+Aplikasi website profil percetakan dengan sistem manajemen konten menggunakan Next.js, MongoDB, dan Material UI.
 
-- Next.js 15
-- React 19
-- Material UI 6
-- TypeScript
-- React Hook Form
-- Zod (validasi)
-- SVG Illustrations
+## 🚀 Fitur Utama
 
-## Cara Menjalankan
+- **Landing Page** dengan informasi layanan percetakan
+- **Katalog Produk** dengan pencarian dan filter
+- **Detail Produk** dengan gambar, deskripsi, dan spesifikasi
+- **Panel Admin** untuk mengelola produk, pengguna, dan konten
+- **Autentikasi** menggunakan NextAuth.js
+- **Responsive Design** untuk tampilan optimal di semua perangkat
 
-1. Clone repositori ini
-2. Install dependensi:
-   ```bash
-   npm install
-   ```
-3. Jalankan server pengembangan:
-   ```bash
-   npm run dev
-   ```
-4. Buka [http://localhost:3000](http://localhost:3000) di browser Anda
+## ⚙️ Teknologi
 
-## Struktur Proyek
+- **Frontend**: Next.js, React.js, Material UI
+- **Backend**: Next.js API Routes
+- **Database**: MongoDB
+- **Autentikasi**: NextAuth.js
+- **Styling**: Material UI, CSS Modules
+- **State Management**: React Hooks, Context API
+- **Deployment**: Vercel
 
-```
-src/
-├── app/
-│   ├── admin/                # Halaman admin
-│   │   ├── dashboard/        # Dashboard admin
-│   │   └── page.tsx          # Halaman login admin
-│   ├── components/           # Komponen yang dapat digunakan kembali
-│   │   ├── illustrations/    # Komponen ilustrasi SVG
-│   │   ├── Footer.tsx        # Komponen footer
-│   │   └── Navbar.tsx        # Komponen navbar
-│   ├── kontak/               # Halaman kontak
-│   ├── lib/                  # Utilitas dan konfigurasi
-│   ├── produk/               # Halaman produk
-│   │   ├── [id]/             # Halaman detail produk (dinamis)
-│   │   └── page.tsx          # Halaman daftar produk
-│   ├── tentang-kami/         # Halaman tentang kami
-│   ├── types/                # Tipe TypeScript
-│   ├── globals.css           # CSS global
-│   ├── layout.tsx            # Layout utama
-│   └── page.tsx              # Halaman beranda
+## 🛠️ Instalasi
+
+1. **Clone repositori**
+
+```bash
+git clone https://github.com/username/percetakan-profile.git
+cd percetakan-profile
 ```
 
-## Halaman Detail Produk
+2. **Install dependensi**
 
-Halaman detail produk menampilkan informasi lengkap tentang produk, termasuk:
+```bash
+npm install
+# atau
+yarn install
+```
 
-- Deskripsi produk
-- Fitur utama
-- Spesifikasi teknis
-- Status ketersediaan
-- Cara pemesanan
-- Informasi pengiriman
-- Produk terkait
+3. **Setup environment variables**
 
-Halaman ini menggunakan dynamic routing Next.js dengan parameter ID produk.
+Buat file `.env` berdasarkan `.env.example`:
 
-## Ilustrasi
+```bash
+cp .env.example .env
+```
 
-Semua ilustrasi dibuat dengan SVG dan diimplementasikan sebagai komponen React. Ini memberikan beberapa keuntungan:
+Lalu edit file `.env` dengan konfigurasi yang sesuai.
 
-- **Ringan** - Tidak perlu mengunduh gambar besar
-- **Responsif** - Menyesuaikan dengan ukuran layar
-- **Kustomisasi** - Mudah diubah warna dan ukurannya
-- **Performa** - Lebih cepat dimuat dibandingkan gambar raster
+## 🌐 Konfigurasi Environment Variables
 
-Ilustrasi dapat ditemukan di folder `src/app/components/illustrations/`.
+Konfigurasi environment variables yang harus diatur:
 
-## Kredensial Admin
+```ini
+# Database Configuration
+MONGODB_URI=mongodb://username:password@localhost:27017/percetakan-profile
+MONGODB_DB=percetakan-profile
 
-Untuk mengakses dashboard admin, gunakan kredensial berikut:
+# NextAuth Configuration
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-nextauth-secret-key-here
 
-- Username: admin
-- Password: admin123
+# Admin Configuration
+ADMIN_EMAILS=admin@example.com,superadmin@example.com
 
-## Catatan
+# Site Configuration
+SITE_URL=http://localhost:3000
+SITE_NAME=Percetakan Profile
+NEXT_PUBLIC_APP_NAME=Percetakan Profile
+```
 
-- Ini adalah proyek contoh dan tidak terhubung ke backend yang sebenarnya
-- Untuk produksi, tambahkan validasi dan autentikasi yang lebih kuat
+## 🚀 Menjalankan Aplikasi
+
+### Development
+
+```bash
+npm run dev
+# atau
+yarn dev
+```
+
+Aplikasi akan berjalan di [http://localhost:3000](http://localhost:3000).
+
+### Production
+
+```bash
+npm run build
+npm run start
+# atau
+yarn build
+yarn start
+```
+
+## 🧹 Membersihkan Cache
+
+Jika mengalami masalah dengan cache, gunakan perintah berikut:
+
+```bash
+# Untuk Linux/Mac
+npm run clean
+
+# Untuk Windows
+npm run clean:win
+```
+
+## 📁 Struktur Folder
+
+```
+percetakan-profile/
+├── public/               # File statis
+├── src/
+│   ├── app/              # Aplikasi Next.js App Router
+│   │   ├── (auth)/       # Halaman autentikasi (login/register)
+│   │   ├── (error-pages)/# Halaman error kustom
+│   │   ├── admin/        # Panel admin
+│   │   ├── api/          # API endpoints
+│   │   ├── components/   # Komponen React
+│   │   ├── hooks/        # Custom React hooks
+│   │   ├── lib/          # Library dan utility functions
+│   │   ├── models/       # Model data
+│   │   ├── produk/       # Halaman produk
+│   │   └── utils/        # Utility functions
+│   ├── types/            # TypeScript type definitions
+│   └── middleware.ts     # Next.js middleware
+├── .env.example          # Template variabel lingkungan
+├── .gitignore            # Files to ignore in git
+├── next.config.js        # Konfigurasi Next.js
+├── package.json          # Dependencies dan scripts
+└── README.md             # Dokumentasi proyek
+```
+
+## 👥 Fitur Admin
+
+1. **Manajemen Produk**
+   - Menambah, mengedit, dan menghapus produk
+   - Upload gambar produk
+   - Mengatur kategori dan detail produk
+
+2. **Manajemen Pengguna**
+   - Menambah, mengedit, dan menghapus pengguna
+   - Mengatur role dan hak akses
+   - Verifikasi pengguna
+
+3. **Import Produk**
+   - Import produk dari file XML WordPress
+   - Ekstraksi gambar dan metadata
+
+## 🔒 Keamanan
+
+- Semua data sensitif disimpan di environment variables
+- Password dienkripsi menggunakan bcrypt
+- Autentikasi JWT menggunakan NextAuth.js
+- CSRF protection
+- Rate limiting untuk API endpoints
+
+## 📚 Dokumentasi API
+
+API endpoints tersedia di `/api/`:
+
+- `GET /api/products` - Mendapatkan daftar produk
+- `GET /api/products/[id]` - Mendapatkan detail produk
+- `POST /api/admin/products` - Menambah produk baru (admin)
+- `PUT /api/admin/products/[id]` - Memperbarui produk (admin)
+- `DELETE /api/admin/products/[id]` - Menghapus produk (admin)
+- `POST /api/auth/register` - Registrasi pengguna baru
+- `GET /api/admin/users` - Mendapatkan daftar pengguna (admin)
+
+## 🤝 Kontribusi
+
+Kontribusi selalu diterima. Untuk berkontribusi:
+
+1. Fork repositori
+2. Buat branch untuk fitur baru (`git checkout -b feature/amazing-feature`)
+3. Commit perubahan (`git commit -m 'Add some amazing feature'`)
+4. Push ke branch (`git push origin feature/amazing-feature`)
+5. Buat Pull Request
+
+## 📜 Lisensi
+
+Proyek ini dilisensikan di bawah [MIT License](LICENSE).
+
+## 📧 Kontak
+
+Untuk pertanyaan, hubungi tim kami di [email@example.com](mailto:me@mfah.me).
+
+---
+
+Dibuat dengan ❤️ untuk Percetakan Profile.
