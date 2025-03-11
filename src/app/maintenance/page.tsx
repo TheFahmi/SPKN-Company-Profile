@@ -1,148 +1,159 @@
-'use client';
+import { Box, Typography, Container, Paper } from '@mui/material';
+import Image from 'next/image';
+import { Metadata } from 'next';
+import { Build as BuildIcon } from '@mui/icons-material';
 
-import { useState } from 'react';
-import {
-  Box,
-  Button,
-  Container,
-  Paper,
-  Typography,
-  Alert,
-  CircularProgress,
-  List,
-  ListItem,
-  ListItemText,
-} from '@mui/material';
-import { CloudUpload as CloudUploadIcon } from '@mui/icons-material';
-import { styled } from '@mui/material/styles';
+export const metadata: Metadata = {
+  title: 'Maintenance Mode - PT SPKN',
+  description: 'Website sedang dalam perbaikan',
+};
 
-const Input = styled('input')({
-  display: 'none',
-});
-
-export default function ImportProductsPage() {
-  const [file, setFile] = useState<File | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [importedProducts, setImportedProducts] = useState<any[]>([]);
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-      if (file.type !== 'text/xml') {
-        setError('File harus berformat XML');
-        return;
-      }
-      setFile(file);
-      setError('');
-    }
-  };
-
-  const handleImport = async () => {
-    if (!file) return;
-
-    setLoading(true);
-    setError('');
-    setSuccess('');
-    
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const response = await fetch('/api/admin/products/import', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Terjadi kesalahan saat mengimpor produk');
-      }
-
-      setSuccess(`Berhasil mengimpor ${data.importedCount} produk`);
-      setImportedProducts(data.products);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Terjadi kesalahan saat mengimpor produk');
-    } finally {
-      setLoading(false);
-    }
-  };
-
+export default function MaintenancePage() {
   return (
-    <Container maxWidth="md">
-      <Paper elevation={0} sx={{ p: 4, mt: 4 }}>
-        <Typography variant="h4" gutterBottom>
-          Import Produk dari WordPress
-        </Typography>
-        <Typography variant="body1" sx={{ mb: 4 }}>
-          Upload file XML ekspor dari WordPress untuk mengimpor produk
-        </Typography>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'linear-gradient(135deg, #1a237e 0%, #0d47a1 100%)',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Animated background elements */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          opacity: 0.1,
+          zIndex: 1,
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            width: '200%',
+            height: '200%',
+            backgroundColor: '#ffffff',
+            borderRadius: '50%',
+            transform: 'translate(-50%, -50%)',
+            animation: 'ripple 15s infinite linear',
+          },
+          '@keyframes ripple': {
+            '0%': {
+              transform: 'translate(-50%, -50%) scale(0.8)',
+              opacity: 0.5,
+            },
+            '50%': {
+              transform: 'translate(-50%, -50%) scale(1)',
+              opacity: 0.3,
+            },
+            '100%': {
+              transform: 'translate(-50%, -50%) scale(0.8)',
+              opacity: 0.5,
+            },
+          },
+        }}
+      />
 
-        {error && (
-          <Alert severity="error" sx={{ mb: 3 }}>
-            {error}
-          </Alert>
-        )}
-
-        {success && (
-          <Alert severity="success" sx={{ mb: 3 }}>
-            {success}
-          </Alert>
-        )}
-
-        <Box sx={{ mb: 4 }}>
-          <label htmlFor="import-file">
-            <Input
-              accept=".xml"
-              id="import-file"
-              type="file"
-              onChange={handleFileChange}
-            />
-            <Button
-              variant="outlined"
-              component="span"
-              startIcon={<CloudUploadIcon />}
-              sx={{ mr: 2 }}
-            >
-              Pilih File XML
-            </Button>
-          </label>
-          {file && (
-            <Typography variant="body2" sx={{ mt: 1 }}>
-              File terpilih: {file.name}
-            </Typography>
-          )}
-        </Box>
-
-        <Button
-          variant="contained"
-          onClick={handleImport}
-          disabled={!file || loading}
-          startIcon={loading ? <CircularProgress size={20} /> : undefined}
+      <Container maxWidth="md" sx={{ position: 'relative', zIndex: 2 }}>
+        <Paper
+          elevation={24}
+          sx={{
+            p: { xs: 3, md: 6 },
+            borderRadius: 4,
+            background: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            textAlign: 'center',
+          }}
         >
-          {loading ? 'Mengimpor...' : 'Import Produk'}
-        </Button>
-
-        {importedProducts.length > 0 && (
-          <Box sx={{ mt: 4 }}>
-            <Typography variant="h6" gutterBottom>
-              Produk yang Diimpor
-            </Typography>
-            <List>
-              {importedProducts.map((product, index) => (
-                <ListItem key={index}>
-                  <ListItemText
-                    primary={product.name}
-                    secondary={`Kategori: ${product.category || 'Tanpa Kategori'}`}
-                  />
-                </ListItem>
-              ))}
-            </List>
+          <Box sx={{ mb: 4 }}>
+            <Image
+              src="https://spkn.co.id/wp-content/uploads/elementor/thumbs/LOGO-SPKN-NEW-300x274-removebg-preview-1-qfqh90c9we3vc1w52kgko3f13r707nf8egy7ksj0fc.png"
+              alt="Logo SPKN"
+              width={180}
+              height={180}
+              priority
+              style={{ 
+                filter: 'brightness(0) invert(1)',
+                marginBottom: '1rem'
+              }}
+            />
           </Box>
-        )}
-      </Paper>
-    </Container>
+
+          <Box sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            mb: 3 
+          }}>
+            <BuildIcon sx={{ 
+              fontSize: 40, 
+              mr: 2,
+              color: 'white',
+              animation: 'spin 4s infinite linear',
+              '@keyframes spin': {
+                '0%': {
+                  transform: 'rotate(0deg)',
+                },
+                '100%': {
+                  transform: 'rotate(360deg)',
+                },
+              },
+            }} />
+            <Typography 
+              variant="h3" 
+              component="h1" 
+              sx={{ 
+                color: 'white',
+                fontWeight: 'bold',
+                textShadow: '2px 2px 4px rgba(0,0,0,0.2)',
+              }}
+            >
+              Maintenance Mode
+            </Typography>
+          </Box>
+
+          <Typography 
+            variant="h5" 
+            sx={{ 
+              mb: 4, 
+              color: 'white',
+              opacity: 0.9,
+              fontWeight: 300,
+            }}
+          >
+            Website Sedang Dalam Perbaikan
+          </Typography>
+
+          <Typography 
+            sx={{ 
+              color: 'white',
+              opacity: 0.8,
+              maxWidth: '600px',
+              margin: '0 auto',
+              lineHeight: 1.8,
+            }}
+          >
+            Mohon maaf atas ketidaknyamanannya. Tim kami sedang melakukan pembaruan
+            dan peningkatan sistem untuk memberikan layanan yang lebih baik.
+            <br />
+            Silakan kembali beberapa saat lagi.
+          </Typography>
+
+          <Box sx={{ mt: 6, color: 'white', opacity: 0.7 }}>
+            <Typography variant="body2">
+              PT. SPKN - Sistem Manajemen Percetakan
+            </Typography>
+          </Box>
+        </Paper>
+      </Container>
+    </Box>
   );
 }

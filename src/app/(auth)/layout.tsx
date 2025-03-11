@@ -1,36 +1,18 @@
 'use client';
 
-import { ReactNode } from 'react';
-import { SessionProvider } from 'next-auth/react';
-import { Box, ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import { Box } from '@mui/material';
+import { ThemeProvider } from '@/app/contexts/ThemeContext';
 
-// Buat tema default
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1976d2',
-      dark: '#115293',
-    },
-  },
-});
-
-export default function AuthLayout({ children }: { children: ReactNode }) {
+export default function AuthLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <SessionProvider>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Box
-          component="main"
-          sx={{
-            minHeight: '100vh',
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          {children}
-        </Box>
-      </ThemeProvider>
-    </SessionProvider>
+    <ThemeProvider>
+      <Box>
+        {children}
+      </Box>
+    </ThemeProvider>
   );
 } 

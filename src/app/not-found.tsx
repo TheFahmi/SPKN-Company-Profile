@@ -1,5 +1,14 @@
-import NotFoundPage from './(error-pages)/not-found/page';
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function RootNotFound() {
-  return <NotFoundPage />;
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push('/404');
+  }, [router]);
+
+  return null;
 } 

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   TextField,
   FormControl,
@@ -13,7 +13,18 @@ import {
   Button,
   Grid,
   InputAdornment,
+  Paper,
 } from '@mui/material';
+import dynamic from 'next/dynamic';
+
+// Import React Quill secara dinamis untuk menghindari error SSR
+const ReactQuill = dynamic(() => import('react-quill'), {
+  ssr: false,
+  loading: () => <Box sx={{ height: 300, bgcolor: 'rgba(0,0,0,0.04)', borderRadius: 1 }} />
+});
+
+// Import CSS untuk React Quill
+import 'react-quill/dist/quill.snow.css';
 
 // TextField standar dengan handling error
 export const TextInput = ({
@@ -375,6 +386,120 @@ export const ImageGallery = ({
           </Box>
         ))}
       </Box>
+    </Box>
+  );
+};
+
+// Editor WYSIWYG dengan React Quill
+export const WysiwygEditor = ({
+  name,
+  label,
+  value,
+  onChange,
+  error,
+  helperText,
+  required = false,
+  placeholder = 'Tulis deskripsi produk di sini...',
+  disabled = false,
+  height = 300,
+  ...props
+}: {
+  name: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  error?: boolean;
+  helperText?: string;
+  required?: boolean;
+  placeholder?: string;
+  disabled?: boolean;
+  height?: number;
+  [key: string]: any;
+}) => {
+  // Konfigurasi toolbar untuk editor
+  const modules = {
+    toolbar: [
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'color': [] }, { 'background': [] }],
+      [{ 'align': [] }],
+      ['link', 'image'],
+      ['clean']
+    ],
+  };
+
+  const formats = [
+    'header',
+    'bold', 'italic', 'underline', 'strike',
+    'list', 'bullet',
+    'color', 'background',
+    'align',
+    'link', 'image'
+  ];
+
+  // State untuk menangani nilai editor
+  const [editorValue, setEditorValue] = useState(value);
+
+  // Update nilai editor ketika value prop berubah
+  useEffect(() => {
+    setEditorValue(value);
+  }, [value]);
+
+  // Handler untuk perubahan nilai editor
+  const handleChange = (content: string) => {
+    setEditorValue(content);
+    onChange(content);
+  };
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Typography 
+        variant="body1" 
+        component="label" 
+        sx={{ 
+          display: 'block', 
+          mb: 1, 
+          color: error ? 'error.main' : 'text.primary',
+          '&::after': required ? {
+            content: '" *"',
+            color: 'error.main'
+          } : {}
+        }}
+      >
+        {label}
+      </Typography>
+      <Paper 
+        variant="outlined" 
+        sx={{ 
+          borderColor: error ? 'error.main' : 'divider',
+          '& .ql-container': {
+            height: `${height - 42}px`,
+            fontSize: '1rem',
+            fontFamily: (theme) => theme.typography.fontFamily,
+          },
+          '& .ql-editor': {
+            fontSize: '1rem',
+            fontFamily: (theme) => theme.typography.fontFamily,
+          }
+        }}
+      >
+        <ReactQuill
+          value={editorValue}
+          onChange={handleChange}
+          modules={modules}
+          formats={formats}
+          placeholder={placeholder}
+          readOnly={disabled}
+          theme="snow"
+          {...props}
+        />
+      </Paper>
+      {helperText && (
+        <FormHelperText error={error} sx={{ mt: 1 }}>
+          {helperText}
+        </FormHelperText>
+      )}
     </Box>
   );
 }; 

@@ -1,9 +1,14 @@
 'use client';
 
 import { Box } from '@mui/material';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { usePathname } from 'next/navigation';
+import usePageLoading from '../hooks/usePageLoading';
+import LoadingScreen from '../components/LoadingScreen';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import getTheme from './theme';
 
 export default function ClientLayout({
   children,
@@ -11,48 +16,64 @@ export default function ClientLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isAdminPath = pathname?.startsWith('/admin');
+  const { isPageLoading } = usePageLoading();
+  const theme = getTheme('light'); // Selalu gunakan light mode untuk halaman publik
 
-  if (isAdminPath) {
+  // Cek apakah path saat ini adalah admin, maintenance, atau auth pages
+  const isAdminPath = pathname?.startsWith('/admin');
+  const isMaintenancePath = pathname === '/maintenance';
+  const isAuthPath = ['/login', '/register'].includes(pathname || '');
+  const shouldHideLayout = isAdminPath || isMaintenancePath || isAuthPath;
+
+  const hideHeaderFooter = [
+    '/maintenance',
+    '/admin',
+    '/login',
+    '/register',
+    '/404',
+    '/error'
+  ].some(path => pathname?.startsWith(path));
+
+  // Jika loading, tampilkan loading screen
+  if (isPageLoading) {
+    return <LoadingScreen />;
+  }
+
+  // Jika path adalah admin, maintenance, atau auth, tampilkan children tanpa header dan footer
+  if (shouldHideLayout) {
     return children;
   }
 
-  return (
-    <Box 
-      sx={{ 
-        display: 'flex', 
-        flexDirection: 'column',
+  // Bungkus konten dengan ThemeProvider untuk light mode
+  const content = (
+    <Box
+      sx={{
         minHeight: '100vh',
-        position: 'relative',
-        fontFamily: 'var(--font-inter)',
-        '&::before': {
-          content: '""',
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: 'url(https://spkn.co.id/wp-content/uploads/2023/11/banner5.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          opacity: 0.15,
-          zIndex: -1,
-        }
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundImage: 'url(/images/bg-pattern.png)',
+        backgroundRepeat: 'repeat',
+        backgroundSize: '400px',
+        bgcolor: 'background.default',
       }}
     >
-      <Header />
-      <Box 
-        component="main" 
-        sx={{ 
-          flexGrow: 1,
-          position: 'relative',
-          zIndex: 1
-        }}
-      >
+      {!hideHeaderFooter && <Header />}
+      <Box component="main" sx={{ flex: 1 }}>
         {children}
       </Box>
-      <Footer />
+      {!hideHeaderFooter && <Footer />}
     </Box>
   );
+
+  // Jika bukan halaman admin, gunakan light mode
+  if (!isAdminPath) {
+    return (
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {content}
+      </ThemeProvider>
+    );
+  }
+
+  return content;
 } 

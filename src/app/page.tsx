@@ -262,16 +262,38 @@ export default function Home() {
       </Container>
 
       {/* Produk Unggulan Section */}
-      <Box id="produk" sx={{ bgcolor: 'background.paper', py: 8 }}>
+      <Box id="produk" sx={{ 
+        background: 'linear-gradient(135deg, #f6f9fc 0%, #eef2f7 100%)',
+        py: 8,
+        position: 'relative',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '100%',
+          backgroundImage: 'url(/images/bg-pattern.png)',
+          backgroundRepeat: 'repeat',
+          backgroundSize: '400px',
+          opacity: 0.1,
+          zIndex: 0,
+        }
+      }}>
         <Fade in={isVisible.produk} timeout={1000}>
-          <Container maxWidth="lg">
+          <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
             <Typography
               variant="h3"
               component="h2"
               align="center"
               gutterBottom
               fontWeight="bold"
-              sx={{ mb: 6 }}
+              sx={{ 
+                mb: 6,
+                background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
             >
               Produk & Layanan
             </Typography>
@@ -299,7 +321,20 @@ export default function Home() {
                     in={isVisible.produk}
                     timeout={1000 + (index * 200)}
                   >
-                    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: 3, overflow: 'hidden' }}>
+                    <Card 
+                      sx={{ 
+                        height: '100%', 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        borderRadius: 3, 
+                        overflow: 'hidden',
+                        transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+                        '&:hover': {
+                          transform: 'translateY(-8px)',
+                          boxShadow: '0 12px 24px rgba(0,0,0,0.1)',
+                        }
+                      }}
+                    >
                       <Box sx={{ height: 200 }}>
                         <ProductCard index={index} />
                       </Box>
@@ -317,6 +352,12 @@ export default function Home() {
                           color="primary" 
                           component={Link} 
                           href="/produk"
+                          sx={{
+                            '&:hover': {
+                              bgcolor: 'primary.main',
+                              color: 'white'
+                            }
+                          }}
                         >
                           Pelajari Lebih Lanjut
                         </Button>
@@ -333,7 +374,16 @@ export default function Home() {
                 size="large"
                 component={Link}
                 href="/produk"
-                sx={{ fontWeight: 'bold', py: 1.5, px: 4 }}
+                sx={{ 
+                  fontWeight: 'bold', 
+                  py: 1.5, 
+                  px: 4,
+                  background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+                  transition: 'transform 0.3s ease',
+                  '&:hover': {
+                    transform: 'scale(1.05)',
+                  }
+                }}
               >
                 Lihat Semua Produk & Layanan
               </Button>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   AppBar,
   Box,
@@ -18,6 +18,12 @@ import {
   Divider,
   Menu,
   MenuItem,
+  Badge,
+  ListItemButton,
+  useMediaQuery,
+  Collapse,
+  alpha,
+  useTheme as useMuiTheme,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
@@ -26,32 +32,56 @@ import {
   Inventory as InventoryIcon,
   Settings as SettingsIcon,
   ChevronLeft as ChevronLeftIcon,
-  Brightness4 as Brightness4Icon,
-  Brightness7 as Brightness7Icon,
   AccountCircle as AccountCircleIcon,
   Logout as LogoutIcon,
   CloudUpload as CloudUploadIcon,
+  Notifications as NotificationsIcon,
+  ExpandLess as ExpandLessIcon,
+  ExpandMore as ExpandMoreIcon,
+  Category as CategoryIcon,
+  Home as HomeIcon,
 } from '@mui/icons-material';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { ThemeProvider, useTheme } from '@/app/contexts/ThemeContext';
+import { useTheme } from '@/app/contexts/ThemeContext';
 import { signOut, useSession } from 'next-auth/react';
 import AdminFooter from './AdminFooter';
 import Image from 'next/image';
+import NotificationPanel from './NotificationPanel';
+import ThemeToggle from './ThemeToggle';
+import { NotificationProvider } from '@/app/contexts/NotificationContext';
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 interface AdminLayoutProps {
   children: React.ReactNode;
 }
 
+interface MenuItem {
+  text: string;
+  icon: React.ReactNode;
+  href?: string;
+  subItems?: MenuItem[];
+}
+
 function AdminLayoutContent({ children }: AdminLayoutProps) {
   const [open, setOpen] = useState(true);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [notificationAnchorEl, setNotificationAnchorEl] = useState<null | HTMLElement>(null);
+  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
+  const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const { darkMode, toggleDarkMode } = useTheme();
+  const { mode } = useTheme();
+  const muiTheme = useMuiTheme();
   const { data: session } = useSession();
+  const isMobile = useMediaQuery('(max-width:900px)');
+
+  useEffect(() => {
+    if (isMobile) {
+      setOpen(false);
+    }
+  }, [isMobile]);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -59,6 +89,14 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleNotificationMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setNotificationAnchorEl(event.currentTarget);
+  };
+
+  const handleNotificationClose = () => {
+    setNotificationAnchorEl(null);
   };
 
   const handleProfile = () => {
@@ -71,196 +109,384 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
     handleClose();
   };
 
-  const menuItems = [
+  const handleDrawerToggle = () => {
+    if (isMobile) {
+      setMobileOpen(!mobileOpen);
+    } else {
+      setOpen(!open);
+    }
+  };
+
+  const handleSubMenuToggle = (text: string) => {
+    setExpandedItems((prev) => ({
+      ...prev,
+      [text]: !prev[text],
+    }));
+  };
+
+  const menuItems: MenuItem[] = [
     { text: 'Dashboard', icon: <DashboardIcon />, href: '/admin/dashboard' },
+    { text: 'Beranda', icon: <HomeIcon />, href: '/' },
+    { 
+      text: 'Produk', 
+      icon: <InventoryIcon />, 
+      subItems: [
+        { text: 'Semua Produk', icon: <CategoryIcon />, href: '/admin/products' },
+        { text: 'Import Produk', icon: <CloudUploadIcon />, href: '/admin/products/import' },
+      ]
+    },
     { text: 'Pengguna', icon: <PeopleIcon />, href: '/admin/users' },
-    { text: 'Produk', icon: <InventoryIcon />, href: '/admin/products' },
-    { text: 'Import Produk', icon: <CloudUploadIcon />, href: '/admin/products/import' },
     { text: 'Pengaturan', icon: <SettingsIcon />, href: '/admin/settings' },
   ];
 
-  const toggleDrawer = () => {
-    setOpen(!open);
+  const isPathActive = (href: string) => {
+    if (!href) return false;
+    
+    // Exact match
+    if (pathname === href) return true;
+    
+    // Special case for products
+    if (href === '/admin/products') {
+      return pathname.startsWith('/admin/products') && pathname !== '/admin/products/import';
+    }
+    
+    // Special case for product import
+    if (href === '/admin/products/import') {
+      return pathname === '/admin/products/import';
+    }
+    
+    // Other cases
+    if (href === '/admin/dashboard' || href === '/admin/users' || href === '/admin/settings') {
+      return pathname.startsWith(href);
+    }
+    
+    return false;
   };
 
+  const isMenuWithSubItemsActive = (item: MenuItem) => {
+    if (!item.subItems) {
+      return isPathActive(item.href || '');
+    }
+    
+    if (item.text === 'Produk') {
+      return pathname.startsWith('/admin/products');
+    }
+    
+    return item.subItems.some(subItem => isPathActive(subItem.href || ''));
+  };
+
+  const drawer = (
+    <>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: open ? 'flex-start' : 'center',
+          p: 2,
+          borderBottom: '1px solid',
+          borderColor: (theme) =>
+            theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.12)',
+          height: 64,
+        }}
+      >
+        <Image
+          src="https://spkn.co.id/wp-content/uploads/elementor/thumbs/LOGO-SPKN-NEW-300x274-removebg-preview-1-qfqh90c9we3vc1w52kgko3f13r707nf8egy7ksj0fc.png"
+          alt="PT SPKN Logo"
+          width={open ? 150 : 40}
+          height={open ? 40 : 40}
+          style={{
+            objectFit: 'contain',
+          }}
+        />
+      </Box>
+
+      <Box sx={{ overflow: 'auto', flexGrow: 1, mt: 1 }}>
+        <List>
+          {menuItems.map((item) => (
+            <Box key={item.text}>
+              {item.subItems ? (
+                <>
+                  <ListItemButton
+                    onClick={() => handleSubMenuToggle(item.text)}
+                    sx={{
+                      minHeight: 48,
+                      px: 2.5,
+                      backgroundColor: isMenuWithSubItemsActive(item)
+                        ? alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.15 : 0.1)
+                        : 'transparent',
+                      borderRadius: '24px',
+                      mx: open ? 1 : 'auto',
+                      width: open ? 'auto' : 40,
+                      justifyContent: open ? 'initial' : 'center',
+                      '&:hover': {
+                        backgroundColor: alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.2 : 0.15),
+                      },
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                        color: isMenuWithSubItemsActive(item)
+                          ? muiTheme.palette.primary.main
+                          : muiTheme.palette.text.primary,
+                      }}
+                    >
+                      {item.icon}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={item.text}
+                      sx={{ 
+                        opacity: open ? 1 : 0,
+                        '& .MuiTypography-root': {
+                          color: isMenuWithSubItemsActive(item) 
+                            ? muiTheme.palette.primary.main 
+                            : muiTheme.palette.text.primary,
+                        }
+                      }}
+                    />
+                    {open && (
+                      <Box sx={{ color: muiTheme.palette.text.primary }}>
+                        {expandedItems[item.text] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                      </Box>
+                    )}
+                  </ListItemButton>
+                  <Collapse in={open && expandedItems[item.text]} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      {item.subItems.map((subItem) => (
+                        <Link
+                          key={subItem.text}
+                          href={subItem.href || ''}
+                          style={{ textDecoration: 'none', color: 'inherit' }}
+                        >
+                          <ListItemButton
+                            sx={{
+                              pl: 4,
+                              py: 1,
+                              minHeight: 40,
+                              backgroundColor: isPathActive(subItem.href || '')
+                                ? alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.15 : 0.1)
+                                : 'transparent',
+                              borderRadius: '24px',
+                              mx: 1,
+                              '&:hover': {
+                                backgroundColor: alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.2 : 0.15),
+                              },
+                            }}
+                          >
+                            <ListItemIcon
+                              sx={{
+                                minWidth: 0,
+                                mr: 2,
+                                color: isPathActive(subItem.href || '')
+                                  ? muiTheme.palette.primary.main
+                                  : muiTheme.palette.text.secondary,
+                              }}
+                            >
+                              {subItem.icon}
+                            </ListItemIcon>
+                            <ListItemText
+                              primary={subItem.text}
+                              primaryTypographyProps={{
+                                fontSize: 14,
+                                fontWeight: isPathActive(subItem.href || '') ? 'medium' : 'normal',
+                                color: isPathActive(subItem.href || '') 
+                                  ? muiTheme.palette.primary.main 
+                                  : muiTheme.palette.text.secondary,
+                              }}
+                            />
+                          </ListItemButton>
+                        </Link>
+                      ))}
+                    </List>
+                  </Collapse>
+                </>
+              ) : (
+                <Link
+                  href={item.href || ''}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      px: 2.5,
+                      backgroundColor: isMenuWithSubItemsActive(item)
+                        ? alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.15 : 0.1)
+                        : 'transparent',
+                      borderRadius: '24px',
+                      mx: open ? 1 : 'auto',
+                      width: open ? 'auto' : 40,
+                      justifyContent: open ? 'initial' : 'center',
+                      '&:hover': {
+                        backgroundColor: alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.2 : 0.15),
+                      },
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                        color: isMenuWithSubItemsActive(item)
+                          ? muiTheme.palette.primary.main
+                          : muiTheme.palette.text.primary,
+                      }}
+                    >
+                      {item.icon}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={item.text}
+                      sx={{ 
+                        opacity: open ? 1 : 0,
+                        '& .MuiTypography-root': {
+                          color: isMenuWithSubItemsActive(item) 
+                            ? muiTheme.palette.primary.main 
+                            : muiTheme.palette.text.primary,
+                        }
+                      }}
+                    />
+                  </ListItemButton>
+                </Link>
+              )}
+            </Box>
+          ))}
+        </List>
+      </Box>
+
+      <Box
+        sx={{
+          p: 2,
+          borderTop: '1px solid',
+          borderColor: (theme) =>
+            theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.12)',
+          display: open ? 'block' : 'none',
+        }}
+      >
+        <Typography variant="caption" sx={{ color: muiTheme.palette.text.secondary, display: 'block', mb: 0.5 }}>
+          &copy; {new Date().getFullYear()} PT. SPKN
+        </Typography>
+        <Typography variant="caption" sx={{ color: muiTheme.palette.text.secondary, display: 'block' }}>
+          v1.0.0
+        </Typography>
+      </Box>
+    </>
+  );
+
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default' }}>
       <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
-          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backgroundColor: muiTheme.palette.background.paper,
+          color: muiTheme.palette.text.primary,
+          borderBottom: 1,
+          borderColor: muiTheme.palette.divider,
+          boxShadow: 'none',
+          width: { md: `calc(100% - ${open ? drawerWidth : 73}px)` },
+          ml: { md: `${open ? drawerWidth : 73}px` },
           transition: (theme) =>
             theme.transitions.create(['width', 'margin'], {
               easing: theme.transitions.easing.sharp,
               duration: theme.transitions.duration.leavingScreen,
             }),
-          ...(open && {
-            marginLeft: drawerWidth,
-            width: `calc(100% - ${drawerWidth}px)`,
-            transition: (theme) =>
-              theme.transitions.create(['width', 'margin'], {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.enteringScreen,
-              }),
-          }),
         }}
       >
         <Toolbar>
           <IconButton
             color="inherit"
-            aria-label="open drawer"
-            onClick={toggleDrawer}
+            aria-label="toggle drawer"
             edge="start"
-            sx={{
-              marginRight: 5,
+            onClick={handleDrawerToggle}
+            sx={{ 
+              mr: 2,
+              display: { xs: 'block', md: 'none' }
             }}
           >
-            {open ? <ChevronLeftIcon /> : <MenuIcon />}
+            <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            Admin Dashboard
+          <Typography 
+            variant="h6" 
+            noWrap 
+            sx={{ 
+              color: muiTheme.palette.text.primary,
+              flexGrow: 1,
+            }}
+          >
+            Selamat Datang, {session?.user?.name || 'Admin'}!
           </Typography>
-          <IconButton sx={{ ml: 1 }} onClick={toggleDarkMode} color="inherit">
-            {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
-          </IconButton>
-          <Tooltip title="Menu Admin">
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <Avatar sx={{ 
-                width: 32, 
-                height: 32,
-                bgcolor: theme => 
-                  theme.palette.mode === 'dark' 
-                    ? '#1976d2'
-                    : '#2196f3',
-                color: '#ffffff',
-                boxShadow: theme =>
-                  theme.palette.mode === 'dark'
-                    ? '0 0 8px rgba(144, 202, 249, 0.5)'
-                    : '0 0 8px rgba(33, 150, 243, 0.5)',
-                '&:hover': {
-                  bgcolor: theme =>
-                    theme.palette.mode === 'dark'
-                      ? '#1565c0'
-                      : '#1976d2',
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <NotificationPanel />
+            <ThemeToggle />
+            <Tooltip title="Akun">
+              <IconButton
+                size="large"
+                aria-label="account"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <Avatar
+                  sx={{
+                    width: 32,
+                    height: 32,
+                    bgcolor: muiTheme.palette.primary.main,
+                    color: muiTheme.palette.primary.contrastText,
+                  }}
+                >
+                  {session?.user?.name?.[0]?.toUpperCase() || 'A'}
+                </Avatar>
+              </IconButton>
+            </Tooltip>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+              PaperProps={{
+                sx: {
+                  backgroundColor: muiTheme.palette.background.paper,
+                  color: muiTheme.palette.text.primary,
                 }
-              }}>
-                {session?.user?.email?.[0]?.toUpperCase() || 'A'}
-              </Avatar>
-            </IconButton>
-          </Tooltip>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-            sx={{
-              mt: 1,
-              '& .MuiPaper-root': {
-                backgroundColor: theme => 
-                  theme.palette.mode === 'dark' ? '#1e1e1e' : '#ffffff',
-                boxShadow: theme =>
-                  theme.palette.mode === 'dark'
-                    ? '0 4px 6px rgba(0, 0, 0, 0.4)'
-                    : '0 4px 6px rgba(0, 0, 0, 0.1)',
-                border: theme =>
-                  `1px solid ${
-                    theme.palette.mode === 'dark'
-                      ? 'rgba(255, 255, 255, 0.12)'
-                      : 'rgba(0, 0, 0, 0.12)'
-                  }`,
-                minWidth: 200,
-              },
-              '& .MuiMenuItem-root': {
-                padding: '8px 16px',
-                '&:hover': {
-                  backgroundColor: theme =>
-                    theme.palette.mode === 'dark'
-                      ? 'rgba(255, 255, 255, 0.08)'
-                      : 'rgba(0, 0, 0, 0.04)',
-                },
-              },
-              '& .MuiListItemIcon-root': {
-                minWidth: 36,
-                color: theme =>
-                  theme.palette.mode === 'dark' ? '#90caf9' : '#ffffff',
-              },
-              '& .MuiListItemText-primary': {
-                color: theme =>
-                  theme.palette.mode === 'dark' ? '#ffffff' : '#000000',
-                fontSize: '0.875rem',
-                fontWeight: 500,
-              },
-              '& .MuiDivider-root': {
-                margin: '8px 0',
-                borderColor: theme =>
-                  theme.palette.mode === 'dark'
-                    ? 'rgba(255, 255, 255, 0.12)'
-                    : 'rgba(0, 0, 0, 0.12)',
-              },
-            }}
-          >
-            <MenuItem onClick={handleProfile}>
-              <ListItemIcon>
-                <AccountCircleIcon 
-                  fontSize="small"
-                  sx={{ color: theme => theme.palette.mode === 'dark' ? '#90caf9' : '#ffffff' }}
-                />
-              </ListItemIcon>
-              <ListItemText 
-                primary="Profile"
-                sx={{
-                  '& .MuiTypography-root': {
-                    fontSize: '0.875rem',
-                    fontWeight: 500,
-                  },
-                }}
-              />
-            </MenuItem>
-            <Divider />
-            <MenuItem onClick={handleLogout}>
-              <ListItemIcon>
-                <LogoutIcon 
-                  fontSize="small"
-                  sx={{ color: theme => theme.palette.mode === 'dark' ? '#90caf9' : '#ffffff' }}
-                />
-              </ListItemIcon>
-              <ListItemText 
-                primary="Logout"
-                sx={{
-                  '& .MuiTypography-root': {
-                    fontSize: '0.875rem',
-                    fontWeight: 500,
-                  },
-                }}
-              />
-            </MenuItem>
-          </Menu>
+              }}
+            >
+              <MenuItem onClick={handleProfile}>
+                <ListItemIcon>
+                  <AccountCircleIcon fontSize="small" sx={{ color: muiTheme.palette.text.primary }} />
+                </ListItemIcon>
+                <Typography color="text.primary">Profil</Typography>
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>
+                <ListItemIcon>
+                  <LogoutIcon fontSize="small" sx={{ color: muiTheme.palette.text.primary }} />
+                </ListItemIcon>
+                <Typography color="text.primary">Keluar</Typography>
+              </MenuItem>
+            </Menu>
+          </Box>
         </Toolbar>
       </AppBar>
+      
+      {/* Desktop drawer */}
       <Drawer
         variant="permanent"
         sx={{
-          width: open ? drawerWidth : 65,
+          display: { xs: 'none', md: 'block' },
+          width: open ? drawerWidth : 72,
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: {
-            width: open ? drawerWidth : 65,
+            width: open ? drawerWidth : 72,
             transition: (theme) =>
               theme.transitions.create('width', {
                 easing: theme.transitions.easing.sharp,
@@ -271,20 +497,24 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
+            borderRight: '1px solid',
+            borderColor: (theme) =>
+              theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.12)',
           },
         }}
         open={open}
       >
-        <Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
           <Box
             sx={{
               display: 'flex',
               alignItems: 'center',
-              justifyContent: open ? 'flex-start' : 'center',
+              justifyContent: open ? 'space-between' : 'center',
               p: 2,
               borderBottom: '1px solid',
               borderColor: (theme) =>
                 theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.12)',
+              height: 64,
             }}
           >
             <Image
@@ -296,71 +526,235 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
                 objectFit: 'contain',
               }}
             />
+            <IconButton 
+              onClick={handleDrawerToggle}
+              sx={{
+                display: open ? 'inline-flex' : 'none'
+              }}
+            >
+              <ChevronLeftIcon sx={{ color: muiTheme.palette.text.primary }} />
+            </IconButton>
           </Box>
 
-          <List sx={{ mt: 2 }}>
-            {menuItems.map((item) => (
-              <Link
-                key={item.text}
-                href={item.href}
-                style={{ textDecoration: 'none', color: 'inherit' }}
+          <Box sx={{ overflow: 'auto', flexGrow: 1, mt: 1 }}>
+            {!open && (
+              <IconButton
+                onClick={handleDrawerToggle}
+                sx={{
+                  display: 'flex',
+                  width: '100%',
+                  justifyContent: 'center',
+                  mb: 1,
+                }}
               >
-                <ListItem
-                  button
-                  sx={{
-                    minHeight: 48,
-                    px: 2.5,
-                    backgroundColor:
-                      pathname === item.href
-                        ? (theme) =>
-                            darkMode
-                              ? 'rgba(255, 255, 255, 0.08)'
-                              : 'rgba(0, 0, 0, 0.04)'
-                        : 'transparent',
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    {item.icon}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={item.text}
-                    sx={{ opacity: open ? 1 : 0 }}
-                  />
-                </ListItem>
-              </Link>
-            ))}
-          </List>
-        </Box>
+                <MenuIcon sx={{ color: muiTheme.palette.text.primary }} />
+              </IconButton>
+            )}
+            <List>
+              {menuItems.map((item) => (
+                <Box key={item.text}>
+                  {item.subItems ? (
+                    <>
+                      <ListItemButton
+                        onClick={() => handleSubMenuToggle(item.text)}
+                        sx={{
+                          minHeight: 48,
+                          px: 2.5,
+                          backgroundColor: isMenuWithSubItemsActive(item)
+                            ? alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.15 : 0.1)
+                            : 'transparent',
+                          borderRadius: '24px',
+                          mx: open ? 1 : 'auto',
+                          width: open ? 'auto' : 40,
+                          justifyContent: open ? 'initial' : 'center',
+                          '&:hover': {
+                            backgroundColor: alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.2 : 0.15),
+                          },
+                        }}
+                      >
+                        <ListItemIcon
+                          sx={{
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                            color: isMenuWithSubItemsActive(item)
+                              ? muiTheme.palette.primary.main
+                              : muiTheme.palette.text.primary,
+                          }}
+                        >
+                          {item.icon}
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={item.text}
+                          sx={{ 
+                            opacity: open ? 1 : 0,
+                            '& .MuiTypography-root': {
+                              color: isMenuWithSubItemsActive(item) 
+                                ? muiTheme.palette.primary.main 
+                                : muiTheme.palette.text.primary,
+                            }
+                          }}
+                        />
+                        {open && (
+                          <Box sx={{ color: muiTheme.palette.text.primary }}>
+                            {expandedItems[item.text] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                          </Box>
+                        )}
+                      </ListItemButton>
+                      <Collapse in={open && expandedItems[item.text]} timeout="auto" unmountOnExit>
+                        <List component="div" disablePadding>
+                          {item.subItems.map((subItem) => (
+                            <Link
+                              key={subItem.text}
+                              href={subItem.href || ''}
+                              style={{ textDecoration: 'none', color: 'inherit' }}
+                            >
+                              <ListItemButton
+                                sx={{
+                                  pl: 4,
+                                  py: 1,
+                                  minHeight: 40,
+                                  backgroundColor: isPathActive(subItem.href || '')
+                                    ? alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.15 : 0.1)
+                                    : 'transparent',
+                                  borderRadius: '24px',
+                                  mx: 1,
+                                  '&:hover': {
+                                    backgroundColor: alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.2 : 0.15),
+                                  },
+                                }}
+                              >
+                                <ListItemIcon
+                                  sx={{
+                                    minWidth: 0,
+                                    mr: 2,
+                                    color: isPathActive(subItem.href || '')
+                                      ? muiTheme.palette.primary.main
+                                      : muiTheme.palette.text.secondary,
+                                  }}
+                                >
+                                  {subItem.icon}
+                                </ListItemIcon>
+                                <ListItemText
+                                  primary={subItem.text}
+                                  primaryTypographyProps={{
+                                    fontSize: 14,
+                                    fontWeight: isPathActive(subItem.href || '') ? 'medium' : 'normal',
+                                    color: isPathActive(subItem.href || '') 
+                                      ? muiTheme.palette.primary.main 
+                                      : muiTheme.palette.text.secondary,
+                                  }}
+                                />
+                              </ListItemButton>
+                            </Link>
+                          ))}
+                        </List>
+                      </Collapse>
+                    </>
+                  ) : (
+                    <Link
+                      href={item.href || ''}
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
+                      <ListItemButton
+                        sx={{
+                          minHeight: 48,
+                          px: 2.5,
+                          backgroundColor: isMenuWithSubItemsActive(item)
+                            ? alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.15 : 0.1)
+                            : 'transparent',
+                          borderRadius: '24px',
+                          mx: open ? 1 : 'auto',
+                          width: open ? 'auto' : 40,
+                          justifyContent: open ? 'initial' : 'center',
+                          '&:hover': {
+                            backgroundColor: alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.2 : 0.15),
+                          },
+                        }}
+                      >
+                        <ListItemIcon
+                          sx={{
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                            color: isMenuWithSubItemsActive(item)
+                              ? muiTheme.palette.primary.main
+                              : muiTheme.palette.text.primary,
+                          }}
+                        >
+                          {item.icon}
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={item.text}
+                          sx={{ 
+                            opacity: open ? 1 : 0,
+                            '& .MuiTypography-root': {
+                              color: isMenuWithSubItemsActive(item) 
+                                ? muiTheme.palette.primary.main 
+                                : muiTheme.palette.text.primary,
+                            }
+                          }}
+                        />
+                      </ListItemButton>
+                    </Link>
+                  )}
+                </Box>
+              ))}
+            </List>
+          </Box>
 
-        <Box
-          sx={{
-            p: 2,
-            borderTop: '1px solid',
-            borderColor: (theme) =>
-              theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.12)',
-            display: open ? 'block' : 'none',
-          }}
-        >
-          <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
-            &copy; {new Date().getFullYear()} PT. SPKN
-          </Typography>
-          <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
-            v1.0.0
-          </Typography>
+          <Box
+            sx={{
+              p: 2,
+              borderTop: '1px solid',
+              borderColor: (theme) =>
+                theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.12)',
+              display: open ? 'block' : 'none',
+            }}
+          >
+            <Typography variant="caption" sx={{ color: muiTheme.palette.text.secondary, display: 'block', mb: 0.5 }}>
+              &copy; {new Date().getFullYear()} PT. SPKN
+            </Typography>
+            <Typography variant="caption" sx={{ color: muiTheme.palette.text.secondary, display: 'block' }}>
+              v1.0.0
+            </Typography>
+          </Box>
         </Box>
       </Drawer>
+      
+      {/* Mobile drawer */}
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true,
+        }}
+        sx={{
+          display: { xs: 'block', md: 'none' },
+          '& .MuiDrawer-paper': { 
+            boxSizing: 'border-box', 
+            width: drawerWidth,
+            borderRight: '1px solid',
+            borderColor: (theme) =>
+              theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.12)',
+          },
+        }}
+      >
+        {drawer}
+      </Drawer>
+      
       <Box
         component="main"
         sx={{
           flexGrow: 1,
           p: 3,
-          pt: (theme) => theme.spacing(10),
+          pt: { xs: 8, sm: 9 },
+          transition: (theme) =>
+            theme.transitions.create('margin', {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.leavingScreen,
+            }),
         }}
       >
         {children}
@@ -371,8 +765,8 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
   return (
-    <ThemeProvider>
+    <NotificationProvider>
       <AdminLayoutContent>{children}</AdminLayoutContent>
-    </ThemeProvider>
+    </NotificationProvider>
   );
 } 

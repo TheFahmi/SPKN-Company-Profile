@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
-import { useAuth } from '../../hooks/useAuth';
 import {
   Box,
   Button,
@@ -12,7 +11,6 @@ import {
   Typography,
   Alert,
   CircularProgress,
-  Paper,
   InputAdornment,
   IconButton,
   Card,
@@ -21,11 +19,11 @@ import {
   Link as MuiLink,
 } from '@mui/material';
 import {
+  Person as PersonIcon,
   Email as EmailIcon,
   Lock as LockIcon,
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon,
-  Person as PersonIcon,
 } from '@mui/icons-material';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -39,12 +37,12 @@ interface FormData {
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { register: registerUser, isLoading } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const { control, handleSubmit, watch, formState: { errors } } = useForm<FormData>({
     defaultValues: {
       name: '',
       email: '',
@@ -53,33 +51,34 @@ export default function RegisterPage() {
     }
   });
 
+  const password = watch('password');
+
   const onSubmit = async (data: FormData) => {
     try {
+      setIsLoading(true);
       setError(null);
 
-      // Validasi password
-      if (data.password !== data.confirmPassword) {
-        setError('Password tidak cocok');
-        return;
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Terjadi kesalahan saat registrasi');
       }
 
-      // Registrasi pengguna
-      await registerUser(data.email, data.password, data.name);
-      
-      // Redirect ke halaman login setelah berhasil
       router.push('/login');
     } catch (err: any) {
       console.error('Register error:', err);
       setError(err.message || 'Terjadi kesalahan saat registrasi');
+    } finally {
+      setIsLoading(false);
     }
-  };
-
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleClickShowConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
   };
 
   return (
@@ -105,30 +104,29 @@ export default function RegisterPage() {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
+                alignItems: 'center',
                 width: { xs: '100%', md: '40%' }
               }}
             >
-              <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom>
-                Percetakan
-              </Typography>
-              <Typography variant="body1" sx={{ opacity: 0.8, mb: 2 }}>
-                Sistem Manajemen Percetakan
-              </Typography>
-              <Box sx={{ mt: 'auto' }}>
+              <Box sx={{ mb: 3 }}>
                 <Image
-                  src="/logo.png"
-                  alt="Logo"
-                  width={150}
-                  height={150}
+                  src="https://spkn.co.id/wp-content/uploads/elementor/thumbs/LOGO-SPKN-NEW-300x274-removebg-preview-1-qfqh90c9we3vc1w52kgko3f13r707nf8egy7ksj0fc.png"
+                  alt="Logo SPKN"
+                  width={180}
+                  height={180}
                   style={{ 
                     objectFit: 'contain',
-                    opacity: 0.9
+                    filter: 'brightness(0) invert(1)',
                   }}
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
+                  priority
                 />
               </Box>
+              <Typography variant="h5" component="h1" fontWeight="bold" align="center" gutterBottom>
+                PT. SPKN
+              </Typography>
+              <Typography variant="body1" sx={{ opacity: 0.8, mb: 2, textAlign: 'center' }}>
+                Sistem Manajemen Percetakan
+              </Typography>
             </Box>
 
             {/* Form Section */}
@@ -162,9 +160,7 @@ export default function RegisterPage() {
                 <Controller
                   name="name"
                   control={control}
-                  rules={{
-                    required: 'Nama diperlukan',
-                  }}
+                  rules={{ required: 'Nama diperlukan' }}
                   render={({ field }) => (
                     <TextField
                       {...field}
@@ -238,7 +234,6 @@ export default function RegisterPage() {
                       fullWidth
                       label="Password"
                       type={showPassword ? "text" : "password"}
-                      autoComplete="new-password"
                       error={!!errors.password}
                       helperText={errors.password?.message}
                       InputProps={{
@@ -251,7 +246,7 @@ export default function RegisterPage() {
                           <InputAdornment position="end">
                             <IconButton
                               aria-label="toggle password visibility"
-                              onClick={handleClickShowPassword}
+                              onClick={() => setShowPassword(!showPassword)}
                               edge="end"
                             >
                               {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
@@ -268,8 +263,7 @@ export default function RegisterPage() {
                   control={control}
                   rules={{
                     required: 'Konfirmasi password diperlukan',
-                    validate: (value, formValues) => 
-                      value === formValues.password || 'Password tidak cocok'
+                    validate: value => value === password || 'Password tidak cocok'
                   }}
                   render={({ field }) => (
                     <TextField
@@ -279,7 +273,6 @@ export default function RegisterPage() {
                       fullWidth
                       label="Konfirmasi Password"
                       type={showConfirmPassword ? "text" : "password"}
-                      autoComplete="new-password"
                       error={!!errors.confirmPassword}
                       helperText={errors.confirmPassword?.message}
                       InputProps={{
@@ -292,7 +285,7 @@ export default function RegisterPage() {
                           <InputAdornment position="end">
                             <IconButton
                               aria-label="toggle confirm password visibility"
-                              onClick={handleClickShowConfirmPassword}
+                              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                               edge="end"
                             >
                               {showConfirmPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
@@ -320,7 +313,7 @@ export default function RegisterPage() {
                 >
                   {isLoading ? <CircularProgress size={24} /> : 'DAFTAR'}
                 </Button>
-                
+
                 <Divider sx={{ my: 2 }}>
                   <Typography variant="body2" color="text.secondary">
                     atau
@@ -334,7 +327,7 @@ export default function RegisterPage() {
                     variant="body2"
                     underline="hover"
                   >
-                    Sudah punya akun? Login sekarang
+                    Sudah punya akun? Masuk sekarang
                   </MuiLink>
                 </Box>
               </Box>

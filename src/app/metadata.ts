@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'SPKN - Sarana Panca Karya Nusa',
+  title: 'PT SPKN - Sarana Pancakarya Nusa',
   description: 'Percetakan dan Digital Printing',
   viewport: 'width=device-width, initial-scale=1',
   icons: {

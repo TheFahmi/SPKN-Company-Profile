@@ -14,12 +14,12 @@ import {
 import { ArrowBack as ArrowBackIcon } from '@mui/icons-material';
 import AdminPageWrapper from '@/app/components/admin/AdminPageWrapper';
 
-export interface FormSection {
+interface FormSection {
   title: string;
   content: ReactNode;
 }
 
-export interface AdminFormTemplateProps {
+interface AdminFormTemplateProps {
   title: string;
   isEdit?: boolean;
   loading: boolean;
@@ -29,7 +29,7 @@ export interface AdminFormTemplateProps {
   successMessage?: string;
   onSubmit: (e: React.FormEvent) => void;
   onCancel: () => void;
-  sections: FormSection[];
+  sections?: FormSection[];
   additionalActions?: ReactNode;
 }
 
@@ -43,7 +43,7 @@ const AdminFormTemplate = ({
   successMessage = 'Data berhasil disimpan.',
   onSubmit,
   onCancel,
-  sections,
+  sections = [],
   additionalActions,
 }: AdminFormTemplateProps) => {
   
@@ -80,7 +80,7 @@ const AdminFormTemplate = ({
 
           <Box component="form" onSubmit={onSubmit}>
             <Grid container spacing={3}>
-              {sections.map((section, index) => (
+              {sections?.map((section, index) => (
                 <Grid item xs={12} key={index}>
                   {/* Section Title */}
                   <Typography variant="h6" gutterBottom sx={{ mt: index > 0 ? 2 : 0 }}>
@@ -128,4 +128,5 @@ const AdminFormTemplate = ({
   );
 };
 
+export type { FormSection };
 export default AdminFormTemplate; 

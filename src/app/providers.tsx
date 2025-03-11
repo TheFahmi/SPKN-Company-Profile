@@ -1,21 +1,37 @@
 'use client';
 
+import { ThemeProvider } from '@/app/contexts/ThemeContext';
 import { SessionProvider } from 'next-auth/react';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { theme } from './theme';
+import { LoadingProvider } from './contexts/LoadingContext';
+import { NotificationProvider } from './contexts/NotificationContext';
+import { usePathname } from 'next/navigation';
 
 export function Providers({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isAdminPath = pathname?.startsWith('/admin');
+
+  // Bungkus dengan ThemeProvider hanya jika di halaman admin
+  const content = (
+    <NotificationProvider>
+      <LoadingProvider>
+        {children}
+      </LoadingProvider>
+    </NotificationProvider>
+  );
+
   return (
     <SessionProvider>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {children}
-      </ThemeProvider>
+      {isAdminPath ? (
+        <ThemeProvider>
+          {content}
+        </ThemeProvider>
+      ) : (
+        content
+      )}
     </SessionProvider>
   );
 } 

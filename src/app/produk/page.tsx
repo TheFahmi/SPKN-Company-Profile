@@ -37,29 +37,18 @@ import { ObjectId } from "mongodb";
 // Data produk dummy
 const dummyProducts: Product[] = [
   {
-    id: "1",
-    name: "BELAJAR AKTIF MATEMATIKA KELAS VI",
-    description:
-      "Buku pelajaran matematika untuk siswa kelas 6 SD/MI dengan pendekatan pembelajaran aktif.",
-    price: 120000,
-    imageUrl: "/products/matematika-6.jpg",
-    category: "buku-pelajaran",
-    features: [
-      "Kurikulum Terbaru",
-      "Dilengkapi Latihan",
-      "Full Color",
-      "Pendekatan Aktif",
-    ],
-    specifications: {
-      ukuran: "B5",
-      kertas_isi: "HVS 70gsm",
-      kertas_cover: "Art Carton 230gsm",
-      finishing: "Laminasi Glossy",
-      jilid: "Perfect Binding",
-    },
-    inStock: true,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    _id: "1",
+    name: "Buku 1",
+    description: "Deskripsi buku 1",
+    price: 100000,
+    category: "Buku",
+    imageUrl: "/book1.jpg",
+    author: "Penulis 1",
+    publisher: "Penerbit 1",
+    pages: 200,
+    year: "2021",
+    size: "A5",
+    isbn: "123-456-789"
   },
   {
     id: "2",
@@ -319,18 +308,27 @@ export default function ProductPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [itemsPerPage, setItemsPerPage] = useState(8);
   const [pagination, setPagination] = useState<PaginationData>({
     total: 0,
     page: 1,
-    limit: 10,
+    limit: 8,
     totalPages: 0,
   });
 
   const fetchProducts = async (page = 1, limit = itemsPerPage) => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/products?page=${page}&limit=${limit}`);
+      const searchParams = new URLSearchParams({
+        page: page.toString(),
+        limit: limit.toString(),
+        ...(searchTerm && { search: searchTerm }),
+        ...(selectedCategory !== 'all' && { category: selectedCategory })
+      });
+
+      const response = await fetch(`/api/products?${searchParams.toString()}`);
       if (!response.ok) {
         throw new Error("Gagal mengambil data produk");
       }
@@ -345,8 +343,23 @@ export default function ProductPage() {
   };
 
   useEffect(() => {
-    fetchProducts(currentPage, itemsPerPage);
-  }, [currentPage, itemsPerPage]);
+    // Reset halaman ke 1 ketika pencarian atau kategori berubah
+    setCurrentPage(1);
+    fetchProducts(1, itemsPerPage);
+  }, [currentPage, itemsPerPage, searchTerm, selectedCategory]);
+
+  // Tambahkan debounce untuk pencarian
+  useEffect(() => {
+    const debounceTimer = setTimeout(() => {
+      if (currentPage === 1) {
+        fetchProducts(1, itemsPerPage);
+      } else {
+        setCurrentPage(1); // Ini akan memicu useEffect di atas
+      }
+    }, 500); // Tunggu 500ms setelah user selesai mengetik
+
+    return () => clearTimeout(debounceTimer);
+  }, [searchTerm]);
 
   const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page);
@@ -363,15 +376,10 @@ export default function ProductPage() {
   };
 
   return (
-    <Box
-      sx={{
-        bgcolor: "background.default",
-        minHeight: "100vh",
-        py: 4,
-      }}
-    >
-      {/* Add the header section here */}
-      <Fade in={true} timeout={1000}>
+    <>
+    
+     {/* Add the header section here */}
+     <Fade in={true} timeout={1000}>
         <Box
           sx={{
             bgcolor: "primary.main",
@@ -452,44 +460,87 @@ export default function ProductPage() {
           </Container>
         </Box>
       </Fade>
+
+    
       <Container>
         {/* Filter dan Pengaturan */}
-        {!loading && !error && products.length > 0 && (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-              mb: 3,
-            }}
-          >
-            <FormControl sx={{ minWidth: 120 }} size="small">
-              <InputLabel id="items-per-page-label">Tampilkan</InputLabel>
-              <Select
-                labelId="items-per-page-label"
-                id="items-per-page"
-                value={itemsPerPage}
-                label="Tampilkan"
-                onChange={handleItemsPerPageChange}
-              >
-                <MenuItem value={10}>10</MenuItem>
-                <MenuItem value={20}>20</MenuItem>
-                <MenuItem value={50}>50</MenuItem>
-                <MenuItem value={100}>100</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-        )}
+        <Box sx={{ mb: 4 }}>
+          <Grid container spacing={2} alignItems="center">
+            {/* Search Bar */}
+            <Grid item xs={12} md={6}>
+              <TextField
+                fullWidth
+                variant="outlined"
+                placeholder="Cari produk..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon color="action" />
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{
+                  bgcolor: 'background.paper',
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 2,
+                  },
+                }}
+              />
+            </Grid>
+            
+            {/* Category Filter */}
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth size="medium">
+                <InputLabel id="category-select-label">Kategori</InputLabel>
+                <Select
+                  labelId="category-select-label"
+                  id="category-select"
+                  value={selectedCategory}
+                  label="Kategori"
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                  {categories.map((category) => (
+                    <MenuItem key={category.id} value={category.id}>
+                      {category.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            {/* Items per page */}
+            <Grid item xs={12} md={2}>
+              <FormControl fullWidth size="medium">
+                <InputLabel id="items-per-page-label">Tampilkan</InputLabel>
+                <Select
+                  labelId="items-per-page-label"
+                  id="items-per-page"
+                  value={itemsPerPage}
+                  label="Tampilkan"
+                  onChange={handleItemsPerPageChange}
+                >
+                  <MenuItem value={8}>8</MenuItem>
+                  <MenuItem value={16}>16</MenuItem>
+                  <MenuItem value={24}>24</MenuItem>
+                  <MenuItem value={32}>32</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+        </Box>
 
         <Grid container spacing={3}>
           {loading ? (
-            // Tampilkan skeleton saat loading
+            // Tambahkan key yang lebih unik untuk skeleton
             Array.from(new Array(itemsPerPage)).map((_, index) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+              <Grid item xs={12} sm={6} md={4} lg={3} key={`skeleton-${index}`}>
                 <ProductSkeleton />
               </Grid>
             ))
           ) : error ? (
-            <Grid item xs={12}>
+            <Grid item xs={12} key="error-message">
               <Box
                 sx={{
                   display: "flex",
@@ -501,8 +552,7 @@ export default function ProductPage() {
                 <Typography color="error">{error}</Typography>
               </Box>
             </Grid>
-          ) : // Tampilkan produk ketika data sudah dimuat
-          products.length > 0 ? (
+          ) : products.length > 0 ? (
             products.map((product) => (
               <Grid
                 item
@@ -510,7 +560,7 @@ export default function ProductPage() {
                 sm={6}
                 md={4}
                 lg={3}
-                key={product._id.toString()}
+                key={product._id?.toString() || `product-${product.name}`}
               >
                 <Card
                   sx={{
@@ -669,7 +719,7 @@ export default function ProductPage() {
               </Grid>
             ))
           ) : (
-            <Grid item xs={12}>
+            <Grid item xs={12} key="no-products">
               <Box
                 sx={{
                   display: "flex",
@@ -708,6 +758,6 @@ export default function ProductPage() {
           </Stack>
         )}
       </Container>
-    </Box>
+    </>     
   );
 }

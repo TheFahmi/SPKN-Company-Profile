@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Grid } from '@mui/material';
 import AdminFormTemplate, { FormSection } from '@/app/components/admin/AdminFormTemplate';
-import { TextInput, NumberInput, SelectInput, ImageSelector } from '@/app/components/admin/FormFields';
+import { TextInput, NumberInput, SelectInput, ImageSelector, WysiwygEditor } from '@/app/components/admin/FormFields';
 
 interface FormData {
   name: string;
@@ -106,61 +106,47 @@ export default function AddProductPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     if (!validateForm()) {
       return;
     }
-
+    
+    setLoading(true);
+    setError(null);
+    
     try {
-      setLoading(true);
-      setError(null);
-
-      const productData = {
-        name: formData.name,
-        description: formData.description,
-        price: Number(formData.price),
-        category: formData.category,
-        author: formData.author,
-        publisher: formData.publisher,
-        pages: formData.pages ? Number(formData.pages) : undefined,
-        year: formData.year,
-        size: formData.size,
-        isbn: formData.isbn,
-        imageUrl: useImageUrl ? formData.imageUrl : '',
-      };
-
-      // Jika menggunakan file upload
-      if (!useImageUrl && selectedImage) {
-        const formDataToSend = new FormData();
-        formDataToSend.append('image', selectedImage);
-        formDataToSend.append('product', JSON.stringify(productData));
-
-        const response = await fetch('/api/admin/products', {
-          method: 'POST',
-          body: formDataToSend,
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'Gagal menambahkan produk');
-        }
-      } else {
-        // Jika menggunakan URL gambar
-        const response = await fetch('/api/admin/products', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(productData),
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'Gagal menambahkan produk');
-        }
+      // Prepare form data
+      const productData = new FormData();
+      productData.append('name', formData.name);
+      productData.append('description', formData.description);
+      productData.append('price', formData.price);
+      productData.append('category', formData.category);
+      productData.append('author', formData.author);
+      productData.append('publisher', formData.publisher);
+      productData.append('pages', formData.pages);
+      productData.append('year', formData.year);
+      productData.append('size', formData.size);
+      productData.append('isbn', formData.isbn);
+      
+      if (useImageUrl) {
+        productData.append('imageUrl', formData.imageUrl);
+      } else if (selectedImage) {
+        productData.append('image', selectedImage);
       }
-
+      
+      const response = await fetch('/api/admin/products', {
+        method: 'POST',
+        body: productData,
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Gagal menambahkan produk');
+      }
+      
       setSuccess(true);
+      
+      // Redirect ke halaman daftar produk setelah berhasil
       setTimeout(() => {
         router.push('/admin/products');
       }, 2000);
@@ -174,20 +160,17 @@ export default function AddProductPage() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user types
-    if (formErrors[name as keyof FormErrors]) {
-      setFormErrors((prev) => ({ ...prev, [name]: undefined }));
-    }
+  };
+
+  // Handler khusus untuk editor WYSIWYG
+  const handleWysiwygChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, description: value }));
   };
 
   const handleSelectChange = (e: React.ChangeEvent<{ name?: string; value: unknown }>) => {
     const name = e.target.name as string;
     const value = e.target.value as string;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user selects
-    if (formErrors[name as keyof FormErrors]) {
-      setFormErrors((prev) => ({ ...prev, [name]: undefined }));
-    }
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -218,16 +201,15 @@ export default function AddProductPage() {
             />
           </Grid>
           <Grid item xs={12}>
-            <TextInput
+            <WysiwygEditor
               name="description"
-              label="Deskripsi"
+              label="Deskripsi Produk"
               value={formData.description}
-              onChange={handleInputChange}
-              multiline
-              rows={4}
+              onChange={handleWysiwygChange}
               error={!!formErrors.description}
               helperText={formErrors.description}
               required
+              height={400}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -236,10 +218,10 @@ export default function AddProductPage() {
               label="Harga"
               value={formData.price}
               onChange={handleInputChange}
-              startAdornment="Rp"
               error={!!formErrors.price}
               helperText={formErrors.price}
               required
+              startAdornment="Rp"
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -342,7 +324,7 @@ export default function AddProductPage() {
       isSubmitting={loading}
       error={error}
       success={success}
-      successMessage="Produk berhasil ditambahkan. Mengalihkan ke halaman daftar produk..."
+      successMessage="Produk berhasil ditambahkan!"
       onSubmit={handleSubmit}
       onCancel={handleGoBack}
       sections={formSections}

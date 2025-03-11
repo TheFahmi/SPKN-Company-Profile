@@ -85,30 +85,29 @@ export default function LoginPage() {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
+                alignItems: 'center',
                 width: { xs: '100%', md: '40%' }
               }}
             >
-              <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom>
-                Percetakan
-              </Typography>
-              <Typography variant="body1" sx={{ opacity: 0.8, mb: 2 }}>
-                Sistem Manajemen Percetakan
-              </Typography>
-              <Box sx={{ mt: 'auto' }}>
+              <Box sx={{ mb: 3 }}>
                 <Image
-                  src="/logo.png"
-                  alt="Logo"
-                  width={150}
-                  height={150}
+                  src="https://spkn.co.id/wp-content/uploads/elementor/thumbs/LOGO-SPKN-NEW-300x274-removebg-preview-1-qfqh90c9we3vc1w52kgko3f13r707nf8egy7ksj0fc.png"
+                  alt="Logo SPKN"
+                  width={180}
+                  height={180}
                   style={{ 
                     objectFit: 'contain',
-                    opacity: 0.9
+                    filter: 'brightness(0) invert(1)',
                   }}
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
+                  priority
                 />
               </Box>
+              <Typography variant="h5" component="h1" fontWeight="bold" align="center" gutterBottom>
+                PT. SPKN
+              </Typography>
+              <Typography variant="body1" sx={{ opacity: 0.8, mb: 2, textAlign: 'center' }}>
+                Sistem Manajemen Percetakan
+              </Typography>
             </Box>
 
             {/* Form Section */}

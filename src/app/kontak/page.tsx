@@ -26,8 +26,10 @@ import SendIcon from '@mui/icons-material/Send';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { ContactForm } from '../types';
+import { ContactForm as ContactFormType } from '../types';
 import { ContactIllustration } from '../components/illustrations';
+import ContactForm from '../components/ContactForm';
+import PlaceIcon from '@mui/icons-material/Place';
 
 // Skema validasi form kontak
 const contactSchema = z.object({
@@ -38,7 +40,7 @@ const contactSchema = z.object({
 });
 
 export default function ContactPage() {
-  const { control, handleSubmit, formState: { errors }, reset } = useForm<ContactForm>({
+  const { control, handleSubmit, formState: { errors }, reset } = useForm<ContactFormType>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
       name: '',
@@ -62,7 +64,7 @@ export default function ContactPage() {
     });
   }, []);
 
-  const onSubmit = (data: ContactForm) => {
+  const onSubmit = (data: ContactFormType) => {
     console.log(data);
     // Di sini Anda akan mengirim data ke backend
     // Untuk contoh ini, kita hanya menampilkan alert dan mereset form

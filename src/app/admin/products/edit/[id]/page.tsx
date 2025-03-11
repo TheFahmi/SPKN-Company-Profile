@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Grid } from '@mui/material';
+import { Grid, Box, Typography } from '@mui/material';
 import AdminFormTemplate, { FormSection } from '@/app/components/admin/AdminFormTemplate';
-import { TextInput, NumberInput, SelectInput, ImageSelector, ImageGallery } from '@/app/components/admin/FormFields';
+import { TextInput, NumberInput, SelectInput, ImageSelector, ImageGallery, WysiwygEditor } from '@/app/components/admin/FormFields';
 
 interface FormData {
   name: string;
@@ -219,6 +219,11 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
     }
   };
 
+  // Handler khusus untuk editor WYSIWYG
+  const handleWysiwygChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, description: value }));
+  };
+
   const handleSelectChange = (e: React.ChangeEvent<{ name?: string; value: unknown }>) => {
     const name = e.target.name as string;
     const value = e.target.value as string;
@@ -265,16 +270,15 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
             />
           </Grid>
           <Grid item xs={12}>
-            <TextInput
+            <WysiwygEditor
               name="description"
-              label="Deskripsi"
+              label="Deskripsi Produk"
               value={formData.description}
-              onChange={handleInputChange}
-              multiline
-              rows={4}
+              onChange={handleWysiwygChange}
               error={!!formErrors.description}
               helperText={formErrors.description}
               required
+              height={400}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -283,10 +287,10 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
               label="Harga"
               value={formData.price}
               onChange={handleInputChange}
-              startAdornment="Rp"
               error={!!formErrors.price}
               helperText={formErrors.price}
               required
+              startAdornment="Rp"
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -366,30 +370,31 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
     {
       title: 'Gambar Produk',
       content: (
-        <Grid container spacing={3}>
-          {formData.images && formData.images.length > 0 && (
-            <Grid item xs={12}>
+        <>
+          <ImageSelector
+            useImageUrl={useImageUrl}
+            setUseImageUrl={setUseImageUrl}
+            imageUrl={formData.imageUrl}
+            onImageUrlChange={handleInputChange}
+            selectedImage={selectedImage}
+            onFileChange={handleImageChange}
+            error={!!formErrors.imageUrl}
+            imageUrlHelperText={formErrors.imageUrl}
+            fileHelperText={formErrors.imageUrl}
+          />
+          {formData.images.length > 0 && (
+            <Box sx={{ mt: 3 }}>
+              <Typography variant="h6" gutterBottom>
+                Galeri Gambar
+              </Typography>
               <ImageGallery
                 images={formData.images}
                 currentIndex={currentImageIndex}
                 onSelectImage={handleSelectExistingImage}
               />
-            </Grid>
+            </Box>
           )}
-          <Grid item xs={12}>
-            <ImageSelector
-              useImageUrl={useImageUrl}
-              setUseImageUrl={setUseImageUrl}
-              imageUrl={formData.imageUrl}
-              onImageUrlChange={handleInputChange}
-              selectedImage={selectedImage}
-              onFileChange={handleImageChange}
-              error={!!formErrors.imageUrl}
-              imageUrlHelperText={formErrors.imageUrl}
-              fileHelperText={formErrors.imageUrl}
-            />
-          </Grid>
-        </Grid>
+        </>
       ),
     },
   ];
@@ -402,7 +407,7 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
       isSubmitting={loading}
       error={error || fetchError}
       success={success}
-      successMessage="Produk berhasil diperbarui. Mengalihkan ke halaman daftar produk..."
+      successMessage="Produk berhasil diperbarui!"
       onSubmit={handleSubmit}
       onCancel={handleGoBack}
       sections={formSections}
