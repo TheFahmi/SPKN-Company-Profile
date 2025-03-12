@@ -276,7 +276,8 @@ export default function Header() {
                     width={30}
                     height={30}
                     style={{ objectFit: 'contain' }}
-                    priority
+                    loading="eager"
+                    fetchPriority="high"
                   />
                 </Avatar>
                 <Box>

@@ -39,6 +39,9 @@ export default function ClientLayout({
     return <LoadingScreen />;
   }
 
+  // Add structured data for organization
+  const isHomePage = pathname === '/';
+
   // Jika path adalah admin, maintenance, atau auth, tampilkan children tanpa header dan footer
   if (shouldHideLayout) {
     return children;
@@ -57,11 +60,14 @@ export default function ClientLayout({
         bgcolor: 'background.default',
       }}
     >
-      {!hideHeaderFooter && <Header />}
+      {/* Add Preload component */}
+      <Preload />
+      {!hideHeaderFooter && <DynamicHeader />}
       <Box component="main" sx={{ flex: 1 }}>
         {children}
       </Box>
-      {!hideHeaderFooter && <Footer />}
+      {!hideHeaderFooter && <DynamicFooter />}
+      {isHomePage && <StructuredData type="organization" />}
     </Box>
   );
 
