@@ -186,26 +186,123 @@ export default function Footer() {
             <Typography variant="body2" sx={{ mb: 3, opacity: 0.8, lineHeight: 1.8 }}>
               Perusahaan percetakan dan penerbitan yang berpengalaman sejak tahun 1966, menyediakan solusi cetak berkualitas untuk berbagai kebutuhan.
             </Typography>
-            <Stack spacing={2.5}>
-              <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
-                <LocationOnIcon fontSize="small" sx={{ mt: 0.3, color: theme.palette.primary.main }} />
-                <Typography variant="body2" sx={{ opacity: 0.8, lineHeight: 1.6 }}>
-                  Jl. Percetakan No. 123, Jakarta Selatan, 12345
-                </Typography>
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                <PhoneIcon fontSize="small" sx={{ color: theme.palette.primary.main }} />
-                <Typography variant="body2" sx={{ opacity: 0.8 }}>
-                  +62 812-3456-7890
-                </Typography>
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                <EmailIcon fontSize="small" sx={{ color: theme.palette.primary.main }} />
-                <Typography variant="body2" sx={{ opacity: 0.8 }}>
-                  info@spkn.co.id
-                </Typography>
-              </Box>
-            </Stack>
+            
+            <Typography 
+              variant="subtitle1" 
+              fontWeight="bold" 
+              gutterBottom 
+              sx={{ 
+                mb: 3,
+                background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                display: 'inline-block'
+              }}
+            >
+              Informasi Kontak
+            </Typography>
+            
+            <Paper
+              elevation={isDark ? 3 : 0}
+              sx={{
+                p: 3,
+                borderRadius: 3,
+                bgcolor: isDark ? alpha(theme.palette.primary.main, 0.05) : alpha('#ffffff', 0.03),
+                backdropFilter: 'blur(10px)',
+                border: `1px solid ${isDark ? alpha(theme.palette.primary.main, 0.1) : alpha('#ffffff', 0.1)}`,
+                boxShadow: isDark 
+                  ? `0 8px 32px ${alpha(theme.palette.common.black, 0.2)}` 
+                  : `0 8px 32px ${alpha(theme.palette.common.black, 0.1)}`,
+                mb: 3,
+                transition: 'all 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: isDark 
+                    ? `0 12px 40px ${alpha(theme.palette.common.black, 0.25)}` 
+                    : `0 12px 40px ${alpha(theme.palette.common.black, 0.15)}`,
+                }
+              }}
+            >
+              <Stack spacing={2.5}>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
+                  <Box 
+                    sx={{ 
+                      width: 36,
+                      height: 36,
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      bgcolor: alpha(theme.palette.primary.main, 0.1),
+                      color: theme.palette.primary.main,
+                      flexShrink: 0
+                    }}
+                  >
+                    <LocationOnIcon fontSize="small" />
+                  </Box>
+                  <Box>
+                    <Typography variant="subtitle2" fontWeight="bold" sx={{ mb: 0.5 }}>
+                      Alamat
+                    </Typography>
+                    <Typography variant="body2" sx={{ opacity: 0.8, lineHeight: 1.6 }}>
+                      Jl. Percetakan No. 123, Jakarta Selatan, 12345
+                    </Typography>
+                  </Box>
+                </Box>
+                
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
+                  <Box 
+                    sx={{ 
+                      width: 36,
+                      height: 36,
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      bgcolor: alpha(theme.palette.primary.main, 0.1),
+                      color: theme.palette.primary.main,
+                      flexShrink: 0
+                    }}
+                  >
+                    <PhoneIcon fontSize="small" />
+                  </Box>
+                  <Box>
+                    <Typography variant="subtitle2" fontWeight="bold" sx={{ mb: 0.5 }}>
+                      Telepon
+                    </Typography>
+                    <Typography variant="body2" sx={{ opacity: 0.8 }}>
+                      +62 812-3456-7890
+                    </Typography>
+                  </Box>
+                </Box>
+                
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
+                  <Box 
+                    sx={{ 
+                      width: 36,
+                      height: 36,
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      bgcolor: alpha(theme.palette.primary.main, 0.1),
+                      color: theme.palette.primary.main,
+                      flexShrink: 0
+                    }}
+                  >
+                    <EmailIcon fontSize="small" />
+                  </Box>
+                  <Box>
+                    <Typography variant="subtitle2" fontWeight="bold" sx={{ mb: 0.5 }}>
+                      Email
+                    </Typography>
+                    <Typography variant="body2" sx={{ opacity: 0.8 }}>
+                      info@spkn.co.id
+                    </Typography>
+                  </Box>
+                </Box>
+              </Stack>
+            </Paper>
           </Grid>
 
           {/* Navigation Links */}
@@ -258,78 +355,158 @@ export default function Footer() {
 
           {/* Social Media */}
           <Grid item xs={12} sm={6} md={4}>
-            <Typography variant="subtitle1" fontWeight="bold" gutterBottom sx={{ mb: 3 }}>
+            <Typography 
+              variant="subtitle1" 
+              fontWeight="bold" 
+              gutterBottom 
+              sx={{ 
+                mb: 3,
+                background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                display: 'inline-block'
+              }}
+            >
               Ikuti Kami
             </Typography>
-            <Stack direction="row" spacing={1.5} sx={{ mb: 4 }}>
-              <IconButton 
-                href="https://facebook.com" 
+            
+            <Paper
+              elevation={isDark ? 3 : 0}
+              sx={{
+                p: 3,
+                borderRadius: 3,
+                bgcolor: isDark ? alpha(theme.palette.primary.main, 0.05) : alpha('#ffffff', 0.03),
+                backdropFilter: 'blur(10px)',
+                border: `1px solid ${isDark ? alpha(theme.palette.primary.main, 0.1) : alpha('#ffffff', 0.1)}`,
+                boxShadow: isDark 
+                  ? `0 8px 32px ${alpha(theme.palette.common.black, 0.2)}` 
+                  : `0 8px 32px ${alpha(theme.palette.common.black, 0.1)}`,
+                mb: 4,
+                transition: 'all 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: isDark 
+                    ? `0 12px 40px ${alpha(theme.palette.common.black, 0.25)}` 
+                    : `0 12px 40px ${alpha(theme.palette.common.black, 0.15)}`,
+                }
+              }}
+            >
+              <Typography variant="body2" sx={{ mb: 2, opacity: 0.8 }}>
+                Temukan kami di media sosial untuk mendapatkan update terbaru dan informasi menarik lainnya.
+              </Typography>
+              
+              <Stack direction="row" spacing={2} sx={{ mb: 0 }}>
+                <Button
+                  variant="contained"
+                  startIcon={<FacebookIcon />}
+                  href="https://facebook.com"
+                  target="_blank"
+                  sx={{ 
+                    flex: 1,
+                    bgcolor: '#1877F2',
+                    '&:hover': {
+                      bgcolor: '#0E63D8',
+                      transform: 'translateY(-3px)',
+                    },
+                    transition: 'all 0.2s ease',
+                    boxShadow: '0 4px 10px rgba(24, 119, 242, 0.3)',
+                  }}
+                >
+                  Facebook
+                </Button>
+                
+                <Button
+                  variant="contained"
+                  startIcon={<InstagramIcon />}
+                  href="https://instagram.com"
+                  target="_blank"
+                  sx={{ 
+                    flex: 1,
+                    background: 'linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)',
+                    '&:hover': {
+                      background: 'linear-gradient(45deg, #e6683c, #dc2743, #cc2366, #bc1888, #f09433)',
+                      transform: 'translateY(-3px)',
+                    },
+                    transition: 'all 0.2s ease',
+                    boxShadow: '0 4px 10px rgba(220, 39, 67, 0.3)',
+                  }}
+                >
+                  Instagram
+                </Button>
+              </Stack>
+              
+              <Button
+                variant="contained"
+                startIcon={<TwitterIcon />}
+                href="https://twitter.com"
                 target="_blank"
+                fullWidth
                 sx={{ 
-                  color: isDark ? 'text.primary' : 'white',
-                  bgcolor: isDark ? alpha(theme.palette.primary.main, 0.1) : alpha('#ffffff', 0.1),
-                  transition: 'all 0.2s ease',
+                  mt: 2,
+                  bgcolor: '#1DA1F2',
                   '&:hover': {
-                    bgcolor: theme.palette.primary.main,
-                    color: 'white',
+                    bgcolor: '#0C85D0',
                     transform: 'translateY(-3px)',
-                  }
+                  },
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 4px 10px rgba(29, 161, 242, 0.3)',
                 }}
               >
-                <FacebookIcon />
-              </IconButton>
-              <IconButton 
-                href="https://instagram.com" 
-                target="_blank"
-                sx={{ 
-                  color: isDark ? 'text.primary' : 'white',
-                  bgcolor: isDark ? alpha(theme.palette.primary.main, 0.1) : alpha('#ffffff', 0.1),
-                  transition: 'all 0.2s ease',
-                  '&:hover': {
-                    bgcolor: theme.palette.primary.main,
-                    color: 'white',
-                    transform: 'translateY(-3px)',
-                  }
-                }}
-              >
-                <InstagramIcon />
-              </IconButton>
-              <IconButton 
-                href="https://twitter.com" 
-                target="_blank"
-                sx={{ 
-                  color: isDark ? 'text.primary' : 'white',
-                  bgcolor: isDark ? alpha(theme.palette.primary.main, 0.1) : alpha('#ffffff', 0.1),
-                  transition: 'all 0.2s ease',
-                  '&:hover': {
-                    bgcolor: theme.palette.primary.main,
-                    color: 'white',
-                    transform: 'translateY(-3px)',
-                  }
-                }}
-              >
-                <TwitterIcon />
-              </IconButton>
-            </Stack>
+                Twitter
+              </Button>
+            </Paper>
 
-            <Typography variant="subtitle1" fontWeight="bold" gutterBottom sx={{ mb: 2 }}>
+            <Typography 
+              variant="subtitle1" 
+              fontWeight="bold" 
+              gutterBottom 
+              sx={{ 
+                mb: 2,
+                background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                display: 'inline-block'
+              }}
+            >
               Jam Operasional
             </Typography>
-            <Box sx={{ mb: 0.5 }}>
-              <Typography variant="body2" sx={{ opacity: 0.8, display: 'flex', justifyContent: 'space-between' }}>
-                <span>Senin - Jumat:</span> <span>08:00 - 17:00</span>
-              </Typography>
-            </Box>
-            <Box sx={{ mb: 0.5 }}>
-              <Typography variant="body2" sx={{ opacity: 0.8, display: 'flex', justifyContent: 'space-between' }}>
-                <span>Sabtu:</span> <span>09:00 - 14:00</span>
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant="body2" sx={{ opacity: 0.8, display: 'flex', justifyContent: 'space-between' }}>
-                <span>Minggu & Hari Libur:</span> <span>Tutup</span>
-              </Typography>
-            </Box>
+            
+            <Paper
+              elevation={isDark ? 3 : 0}
+              sx={{
+                p: 3,
+                borderRadius: 3,
+                bgcolor: isDark ? alpha(theme.palette.primary.main, 0.05) : alpha('#ffffff', 0.03),
+                backdropFilter: 'blur(10px)',
+                border: `1px solid ${isDark ? alpha(theme.palette.primary.main, 0.1) : alpha('#ffffff', 0.1)}`,
+                boxShadow: isDark 
+                  ? `0 8px 32px ${alpha(theme.palette.common.black, 0.2)}` 
+                  : `0 8px 32px ${alpha(theme.palette.common.black, 0.1)}`,
+                transition: 'all 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: isDark 
+                    ? `0 12px 40px ${alpha(theme.palette.common.black, 0.25)}` 
+                    : `0 12px 40px ${alpha(theme.palette.common.black, 0.15)}`,
+                }
+              }}
+            >
+              <Box sx={{ mb: 1 }}>
+                <Typography variant="body2" sx={{ opacity: 0.8, display: 'flex', justifyContent: 'space-between', py: 0.5 }}>
+                  <span>Senin - Jumat:</span> <span>08:00 - 17:00</span>
+                </Typography>
+              </Box>
+              <Box sx={{ mb: 1 }}>
+                <Typography variant="body2" sx={{ opacity: 0.8, display: 'flex', justifyContent: 'space-between', py: 0.5 }}>
+                  <span>Sabtu:</span> <span>09:00 - 14:00</span>
+                </Typography>
+              </Box>
+              <Box>
+                <Typography variant="body2" sx={{ opacity: 0.8, display: 'flex', justifyContent: 'space-between', py: 0.5 }}>
+                  <span>Minggu & Hari Libur:</span> <span>Tutup</span>
+                </Typography>
+              </Box>
+            </Paper>
           </Grid>
         </Grid>
       </Container>
