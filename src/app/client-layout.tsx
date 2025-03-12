@@ -1,14 +1,19 @@
 'use client';
 
 import { Box } from '@mui/material';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import { usePathname } from 'next/navigation';
 import usePageLoading from '../hooks/usePageLoading';
 import LoadingScreen from '../components/LoadingScreen';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import getTheme from './theme';
+import Preload from './components/Preload';
+import StructuredData from './components/StructuredData';
+import dynamic from 'next/dynamic';
+
+// Dynamically import Header and Footer to improve initial load time
+const DynamicHeader = dynamic(() => import('../components/Header'), { ssr: false });
+const DynamicFooter = dynamic(() => import('../components/Footer'), { ssr: false });
 
 export default function ClientLayout({
   children,
