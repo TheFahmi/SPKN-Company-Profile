@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { memo } from 'react';
 import { Box } from '@mui/material';
 
-export default function HeroIllustration() {
+const HeroIllustration = memo(function HeroIllustration() {
   return (
     <Box
       component="svg"
@@ -14,6 +14,8 @@ export default function HeroIllustration() {
         height: '100%',
         filter: 'drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.1))',
       }}
+      aria-label="Illustration of printing equipment and books"
+      role="img"
     >
       {/* Background */}
       <rect x="0" y="0" width="500" height="400" fill="#f5f5f5" rx="10" />
@@ -36,10 +38,11 @@ export default function HeroIllustration() {
       <line x1="170" y1="300" x2="330" y2="300" stroke="#cccccc" strokeWidth="2" />
       <line x1="170" y1="310" x2="330" y2="310" stroke="#cccccc" strokeWidth="2" />
       
-      {/* Decorative elements */}
+      {/* Decorative elements - simplified */}
       <circle cx="50" cy="50" r="20" fill="#1976d2" opacity="0.5" />
       <circle cx="450" cy="350" r="25" fill="#f50057" opacity="0.5" />
-      <circle cx="400" cy="80" r="15" fill="#4caf50" opacity="0.5" />
     </Box>
   );
-} 
+});
+
+export default HeroIllustration;

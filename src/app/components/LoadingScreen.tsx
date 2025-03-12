@@ -12,11 +12,31 @@ export default function LoadingScreen({ minDisplayTime = 1500 }: LoadingScreenPr
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    // Use requestAnimationFrame for smoother animation timing
+    let startTime: number;
+    let animationFrameId: number;
+    
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      
+      if (elapsed >= minDisplayTime) {
+        setIsVisible(false);
+      } else {
+        animationFrameId = requestAnimationFrame(animate);
+      }
+    };
+    
+    // Start the animation
+    animationFrameId = requestAnimationFrame(animate);
+    
+    // Cleanup function
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
       setIsVisible(false);
-    }, minDisplayTime);
-
-    return () => clearTimeout(timer);
+    };
   }, [minDisplayTime]);
 
   if (!isVisible) return null;
@@ -37,6 +57,7 @@ export default function LoadingScreen({ minDisplayTime = 1500 }: LoadingScreenPr
           backgroundColor: (theme) => 
             theme.palette.mode === 'dark' ? 'rgba(18, 18, 18, 0.95)' : 'rgba(255, 255, 255, 0.95)',
           zIndex: 9999,
+          backdropFilter: 'blur(8px)',
         }}
       >
         <Box

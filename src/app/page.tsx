@@ -23,7 +23,6 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import HeroIllustration from './components/illustrations/HeroIllustration';
-import ProductCard from './components/illustrations/ProductCard';
 // Add these imports after the existing imports
 import Rating from '@mui/material/Rating';
 import Avatar from '@mui/material/Avatar';
