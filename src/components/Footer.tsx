@@ -437,22 +437,22 @@ export default function Footer() {
               
               <Button
                 variant="contained"
-                startIcon={<TwitterIcon />}
-                href="https://twitter.com"
+                startIcon={<XIcon />}
+                href="https://x.com"
                 target="_blank"
                 fullWidth
                 sx={{ 
                   mt: 2,
-                  bgcolor: '#1DA1F2',
+                  bgcolor: '#000000', // Updated color for X (formerly Twitter)
                   '&:hover': {
-                    bgcolor: '#0C85D0',
+                    bgcolor: '#333333',
                     transform: 'translateY(-3px)',
                   },
                   transition: 'all 0.2s ease',
-                  boxShadow: '0 4px 10px rgba(29, 161, 242, 0.3)',
+                  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
                 }}
               >
-                Twitter
+                X
               </Button>
             </Paper>
 

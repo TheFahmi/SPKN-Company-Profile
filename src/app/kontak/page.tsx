@@ -583,25 +583,25 @@ export default function ContactPage() {
                     </Button>
                     <Button 
                       variant="contained" 
-                      startIcon={<TwitterIcon />}
+                      startIcon={<XIcon />}
                       href="#" 
                       target="_blank"
                       sx={{ 
                         borderRadius: 2,
                         px: 3,
                         py: 1.5,
-                        bgcolor: '#1DA1F2',
+                        bgcolor: '#000000', // Updated color for X (formerly Twitter)
                         fontWeight: 'medium',
-                        boxShadow: '0 4px 14px rgba(29, 161, 242, 0.4)',
+                        boxShadow: '0 4px 14px rgba(0, 0, 0, 0.4)',
                         transition: 'all 0.3s ease',
                         '&:hover': {
-                          bgcolor: '#0C8BD9',
+                          bgcolor: '#333333',
                           transform: 'translateY(-3px)',
-                          boxShadow: '0 6px 20px rgba(12, 139, 217, 0.5)',
+                          boxShadow: '0 6px 20px rgba(0, 0, 0, 0.5)',
                         }
                       }}
                     >
-                      Twitter
+                      X
                     </Button>
                   </Box>
                   

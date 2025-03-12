@@ -295,7 +295,7 @@ export default function Footer() {
                 <InstagramIcon />
               </IconButton>
               <IconButton 
-                href="https://twitter.com" 
+                href="https://x.com" 
                 target="_blank"
                 sx={{ 
                   color: isDark ? 'text.primary' : 'white',
@@ -308,7 +308,7 @@ export default function Footer() {
                   }
                 }}
               >
-                <TwitterIcon />
+                <XIcon />
               </IconButton>
             </Stack>
 
