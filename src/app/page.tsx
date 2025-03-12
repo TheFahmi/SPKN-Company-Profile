@@ -140,7 +140,7 @@ export default function Home() {
               <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' } }}>
                 <Slide direction="left" in={isVisible.hero} timeout={1200}>
                   <Box sx={{ position: 'relative', height: 400, width: '100%' }}>
-                    <HeroIllustration />
+                    <DynamicHeroIllustration />
                   </Box>
                 </Slide>
               </Grid>
