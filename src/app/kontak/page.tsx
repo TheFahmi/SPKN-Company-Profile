@@ -138,18 +138,43 @@ export default function ContactPage() {
         <Grid container spacing={6}>
           {/* Contact Form */}
           <Grid item xs={12} md={7}>
-            <Box
-              sx={{
-                opacity: isVisible.form ? 1 : 0,
-                transform: isVisible.form ? 'translateY(0)' : 'translateY(20px)',
-                transition: 'all 0.5s ease-out'
-              }}
-            >
-              <Paper elevation={0} sx={{ p: 4 }}>
-                <Typography variant="h4" component="h2" fontWeight="bold" gutterBottom>
+            <Fade in={isVisible.form} timeout={1000}>
+              <Paper elevation={3} sx={{ 
+                p: { xs: 3, md: 5 }, 
+                borderRadius: 4, 
+                boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+                position: 'relative',
+                overflow: 'hidden',
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '6px',
+                  background: 'linear-gradient(90deg, #1976d2, #42a5f5)',
+                }
+              }}>
+                <Typography 
+                  variant="h4" 
+                  component="h2" 
+                  fontWeight="bold" 
+                  gutterBottom
+                  sx={{
+                    background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    mb: 1
+                  }}
+                >
                   Kirim Pesan
                 </Typography>
-                <Typography variant="body1" paragraph color="text.secondary" sx={{ mb: 4 }}>
+                <Typography 
+                  variant="body1" 
+                  paragraph 
+                  color="text.secondary" 
+                  sx={{ mb: 4 }}
+                >
                   Isi formulir di bawah ini untuk mengirim pesan kepada kami. Kami akan merespons secepat mungkin.
                 </Typography>
                 
@@ -167,6 +192,9 @@ export default function ContactPage() {
                             fullWidth
                             error={!!errors.name}
                             helperText={errors.name?.message}
+                            InputProps={{
+                              sx: { borderRadius: 2 }
+                            }}
                           />
                         )}
                       />
@@ -183,6 +211,9 @@ export default function ContactPage() {
                             fullWidth
                             error={!!errors.email}
                             helperText={errors.email?.message}
+                            InputProps={{
+                              sx: { borderRadius: 2 }
+                            }}
                           />
                         )}
                       />
@@ -199,6 +230,9 @@ export default function ContactPage() {
                             fullWidth
                             error={!!errors.phone}
                             helperText={errors.phone?.message}
+                            InputProps={{
+                              sx: { borderRadius: 2 }
+                            }}
                           />
                         )}
                       />
@@ -217,6 +251,9 @@ export default function ContactPage() {
                             rows={4}
                             error={!!errors.message}
                             helperText={errors.message?.message}
+                            InputProps={{
+                              sx: { borderRadius: 2 }
+                            }}
                           />
                         )}
                       />
@@ -228,7 +265,18 @@ export default function ContactPage() {
                         color="primary"
                         size="large"
                         endIcon={<SendIcon />}
-                        sx={{ py: 1.5, px: 4 }}
+                        sx={{ 
+                          py: 1.5, 
+                          px: 4, 
+                          borderRadius: 2,
+                          background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+                          boxShadow: '0 4px 14px rgba(25, 118, 210, 0.4)',
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            transform: 'translateY(-3px)',
+                            boxShadow: '0 6px 20px rgba(25, 118, 210, 0.6)',
+                          }
+                        }}
                       >
                         Kirim Pesan
                       </Button>
@@ -236,106 +284,324 @@ export default function ContactPage() {
                   </Grid>
                 </form>
               </Paper>
-            </Box>
+            </Fade>
           </Grid>
 
           {/* Contact Info */}
           <Grid item xs={12} md={5}>
-            <Box
-              sx={{
-                opacity: isVisible.info ? 1 : 0,
-                transform: isVisible.info ? 'translateX(0)' : 'translateX(-20px)',
-                transition: 'all 0.5s ease-out'
-              }}
-            >
-              <Paper elevation={0} sx={{ p: 4, borderRadius: 4, boxShadow: '0 4px 20px rgba(0,0,0,0.05)', mb: 4 }}>
-                <Typography variant="h5" fontWeight="bold" gutterBottom>
-                  Informasi Kontak
-                </Typography>
-                <Typography variant="body1" paragraph color="text.secondary" sx={{ mb: 4 }}>
-                  Anda juga dapat menghubungi kami melalui informasi di bawah ini:
-                </Typography>
-                
-                <List disablePadding>
-                  <ListItem disableGutters sx={{ pb: 2 }}>
-                    <ListItemIcon sx={{ minWidth: 40 }}>
-                      <LocationOnIcon color="primary" fontSize="large" />
-                    </ListItemIcon>
-                    <ListItemText 
-                      primary="Alamat" 
-                      secondary="Jl. Percetakan No. 123, Jakarta Selatan, 12345"
-                      primaryTypographyProps={{ fontWeight: 'bold' }}
-                    />
-                  </ListItem>
-                  <ListItem disableGutters sx={{ pb: 2 }}>
-                    <ListItemIcon sx={{ minWidth: 40 }}>
-                      <EmailIcon color="primary" fontSize="large" />
-                    </ListItemIcon>
-                    <ListItemText 
-                      primary="Email" 
-                      secondary="info@cetakbuku.com"
-                      primaryTypographyProps={{ fontWeight: 'bold' }}
-                    />
-                  </ListItem>
-                  <ListItem disableGutters sx={{ pb: 2 }}>
-                    <ListItemIcon sx={{ minWidth: 40 }}>
-                      <PhoneIcon color="primary" fontSize="large" />
-                    </ListItemIcon>
-                    <ListItemText 
-                      primary="Telepon" 
-                      secondary="+62 812-3456-7890"
-                      primaryTypographyProps={{ fontWeight: 'bold' }}
-                    />
-                  </ListItem>
-                  <ListItem disableGutters>
-                    <ListItemIcon sx={{ minWidth: 40 }}>
-                      <AccessTimeIcon color="primary" fontSize="large" />
-                    </ListItemIcon>
-                    <ListItemText 
-                      primary="Jam Operasional" 
-                      secondary="Senin - Jumat: 08.00 - 17.00 WIB"
-                      primaryTypographyProps={{ fontWeight: 'bold' }}
-                    />
-                  </ListItem>
-                </List>
-              </Paper>
+            <Fade in={isVisible.info} timeout={1000} style={{ transitionDelay: '300ms' }}>
+              <Box>
+                <Paper elevation={3} sx={{ 
+                  p: 4, 
+                  borderRadius: 4, 
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.08)', 
+                  mb: 4,
+                  position: 'relative',
+                  overflow: 'hidden',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    width: '150px',
+                    height: '150px',
+                    background: 'radial-gradient(circle, rgba(25, 118, 210, 0.1) 0%, rgba(255,255,255,0) 70%)',
+                    borderRadius: '0 0 0 100%',
+                    zIndex: 0
+                  }
+                }}>
+                  <Typography 
+                    variant="h5" 
+                    fontWeight="bold" 
+                    gutterBottom
+                    sx={{
+                      background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      mb: 1,
+                      position: 'relative',
+                      zIndex: 1
+                    }}
+                  >
+                    Informasi Kontak
+                  </Typography>
+                  <Typography 
+                    variant="body1" 
+                    paragraph 
+                    color="text.secondary" 
+                    sx={{ mb: 4, position: 'relative', zIndex: 1 }}
+                  >
+                    Anda juga dapat menghubungi kami melalui informasi di bawah ini:
+                  </Typography>
+                  
+                  <List disablePadding sx={{ position: 'relative', zIndex: 1 }}>
+                    <ListItem 
+                      disableGutters 
+                      sx={{ 
+                        pb: 3,
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
+                          transform: 'translateX(5px)'
+                        }
+                      }}
+                    >
+                      <ListItemIcon sx={{ minWidth: 50 }}>
+                        <Box sx={{ 
+                          width: 40, 
+                          height: 40, 
+                          borderRadius: '50%', 
+                          bgcolor: 'rgba(25, 118, 210, 0.1)', 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'center' 
+                        }}>
+                          <LocationOnIcon color="primary" />
+                        </Box>
+                      </ListItemIcon>
+                      <ListItemText 
+                        primary={
+                          <Typography variant="subtitle1" fontWeight="bold" color="text.primary">
+                            Alamat
+                          </Typography>
+                        }
+                        secondary={
+                          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+                            Jl. Percetakan No. 123, Jakarta Selatan, 12345
+                          </Typography>
+                        }
+                      />
+                    </ListItem>
+                    <ListItem 
+                      disableGutters 
+                      sx={{ 
+                        pb: 3,
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
+                          transform: 'translateX(5px)'
+                        }
+                      }}
+                    >
+                      <ListItemIcon sx={{ minWidth: 50 }}>
+                        <Box sx={{ 
+                          width: 40, 
+                          height: 40, 
+                          borderRadius: '50%', 
+                          bgcolor: 'rgba(25, 118, 210, 0.1)', 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'center' 
+                        }}>
+                          <EmailIcon color="primary" />
+                        </Box>
+                      </ListItemIcon>
+                      <ListItemText 
+                        primary={
+                          <Typography variant="subtitle1" fontWeight="bold" color="text.primary">
+                            Email
+                          </Typography>
+                        }
+                        secondary={
+                          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+                            info@cetakbuku.com
+                          </Typography>
+                        }
+                      />
+                    </ListItem>
+                    <ListItem 
+                      disableGutters 
+                      sx={{ 
+                        pb: 3,
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
+                          transform: 'translateX(5px)'
+                        }
+                      }}
+                    >
+                      <ListItemIcon sx={{ minWidth: 50 }}>
+                        <Box sx={{ 
+                          width: 40, 
+                          height: 40, 
+                          borderRadius: '50%', 
+                          bgcolor: 'rgba(25, 118, 210, 0.1)', 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'center' 
+                        }}>
+                          <PhoneIcon color="primary" />
+                        </Box>
+                      </ListItemIcon>
+                      <ListItemText 
+                        primary={
+                          <Typography variant="subtitle1" fontWeight="bold" color="text.primary">
+                            Telepon
+                          </Typography>
+                        }
+                        secondary={
+                          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+                            +62 812-3456-7890
+                          </Typography>
+                        }
+                      />
+                    </ListItem>
+                    <ListItem 
+                      disableGutters 
+                      sx={{ 
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
+                          transform: 'translateX(5px)'
+                        }
+                      }}
+                    >
+                      <ListItemIcon sx={{ minWidth: 50 }}>
+                        <Box sx={{ 
+                          width: 40, 
+                          height: 40, 
+                          borderRadius: '50%', 
+                          bgcolor: 'rgba(25, 118, 210, 0.1)', 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'center' 
+                        }}>
+                          <AccessTimeIcon color="primary" />
+                        </Box>
+                      </ListItemIcon>
+                      <ListItemText 
+                        primary={
+                          <Typography variant="subtitle1" fontWeight="bold" color="text.primary">
+                            Jam Operasional
+                          </Typography>
+                        }
+                        secondary={
+                          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+                            Senin - Jumat: 08.00 - 17.00 WIB
+                          </Typography>
+                        }
+                      />
+                    </ListItem>
+                  </List>
+                </Paper>
 
-              {/* Social Media */}
-              <Paper elevation={0} sx={{ p: 4, borderRadius: 4, boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-                <Typography variant="h5" component="h3" fontWeight="bold" gutterBottom>
-                  Ikuti Kami
-                </Typography>
-                <Typography variant="body1" paragraph color="text.secondary">
-                  Dapatkan informasi terbaru dan promo menarik melalui media sosial kami:
-                </Typography>
-                <Box sx={{ display: 'flex', gap: 2 }}>
-                  <Button variant="outlined" color="primary" href="#" target="_blank">
-                    Facebook
-                  </Button>
-                  <Button variant="outlined" color="primary" href="#" target="_blank">
-                    Instagram
-                  </Button>
-                  <Button variant="outlined" color="primary" href="#" target="_blank">
-                    Twitter
-                  </Button>
-                </Box>
-              </Paper>
-            </Box>
+                {/* Social Media */}
+                <Paper elevation={3} sx={{ 
+                  p: 4, 
+                  borderRadius: 4, 
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+                  background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+                }}>
+                  <Typography 
+                    variant="h5" 
+                    component="h3" 
+                    fontWeight="bold" 
+                    gutterBottom
+                    sx={{
+                      color: 'text.primary',
+                      mb: 1
+                    }}
+                  >
+                    Ikuti Kami
+                  </Typography>
+                  <Typography variant="body1" paragraph color="text.secondary" sx={{ mb: 3 }}>
+                    Dapatkan informasi terbaru dan promo menarik melalui media sosial kami:
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+                    <Button 
+                      variant="contained" 
+                      color="primary" 
+                      href="#" 
+                      target="_blank"
+                      sx={{ 
+                        borderRadius: 2,
+                        px: 3,
+                        py: 1,
+                        bgcolor: '#1877F2',
+                        '&:hover': {
+                          bgcolor: '#0E63D1',
+                          transform: 'translateY(-3px)',
+                          boxShadow: '0 6px 20px rgba(14, 99, 209, 0.4)',
+                        }
+                      }}
+                    >
+                      Facebook
+                    </Button>
+                    <Button 
+                      variant="contained" 
+                      color="primary" 
+                      href="#" 
+                      target="_blank"
+                      sx={{ 
+                        borderRadius: 2,
+                        px: 3,
+                        py: 1,
+                        bgcolor: '#E4405F',
+                        '&:hover': {
+                          bgcolor: '#D32E50',
+                          transform: 'translateY(-3px)',
+                          boxShadow: '0 6px 20px rgba(211, 46, 80, 0.4)',
+                        }
+                      }}
+                    >
+                      Instagram
+                    </Button>
+                    <Button 
+                      variant="contained" 
+                      color="primary" 
+                      href="#" 
+                      target="_blank"
+                      sx={{ 
+                        borderRadius: 2,
+                        px: 3,
+                        py: 1,
+                        bgcolor: '#1DA1F2',
+                        '&:hover': {
+                          bgcolor: '#0C8BD9',
+                          transform: 'translateY(-3px)',
+                          boxShadow: '0 6px 20px rgba(12, 139, 217, 0.4)',
+                        }
+                      }}
+                    >
+                      Twitter
+                    </Button>
+                  </Box>
+                </Paper>
+              </Box>
+            </Fade>
           </Grid>
         </Grid>
       </Container>
 
       {/* Map Section */}
-      <Box sx={{ height: 400, width: '100%', mt: 4 }}>
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126920.29279605123!2d106.7588548!3d-6.2297465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta%20Selatan%2C%20Kota%20Jakarta%20Selatan%2C%20Daerah%20Khusus%20Ibukota%20Jakarta!5e0!3m2!1sid!2sid!4v1647834456970!5m2!1sid!2sid" 
-          width="100%" 
-          height="100%" 
-          style={{ border: 0 }} 
-          allowFullScreen 
-          loading="lazy"
-          title="Lokasi Cetak Buku"
-        />
+      <Box sx={{ 
+        mt: 8, 
+        mb: 8,
+        position: 'relative',
+        overflow: 'hidden',
+        borderRadius: { xs: 2, md: 4 },
+        boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+      }}>
+        <Box sx={{ 
+          p: 4, 
+          bgcolor: 'primary.main', 
+          color: 'white',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 2
+        }}>
+          <PlaceIcon fontSize="large" />
+          <Typography variant="h5" fontWeight="bold">
+            Lokasi Kami
+          </Typography>
+        </Box>
+        <Box sx={{ height: 450, width: '100%' }}>
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126920.29279605123!2d106.7588548!3d-6.2297465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta%20Selatan%2C%20Kota%20Jakarta%20Selatan%2C%20Daerah%20Khusus%20Ibukota%20Jakarta!5e0!3m2!1sid!2sid!4v1647834456970!5m2!1sid!2sid" 
+            width="100%" 
+            height="100%" 
+            style={{ border: 0 }} 
+            allowFullScreen 
+            loading="lazy"
+            title="Lokasi Cetak Buku"
+          />
+        </Box>
       </Box>
     </>
   );
