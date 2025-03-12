@@ -437,7 +437,7 @@ export default function Footer() {
               
               <Button
                 variant="contained"
-                startIcon={<XIcon />}
+                startIcon={<TwitterIcon />}
                 href="https://x.com"
                 target="_blank"
                 fullWidth
