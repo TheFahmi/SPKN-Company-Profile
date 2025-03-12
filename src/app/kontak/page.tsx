@@ -23,6 +23,9 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SendIcon from '@mui/icons-material/Send';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import TwitterIcon from '@mui/icons-material/Twitter';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -487,6 +490,19 @@ export default function ContactPage() {
                   borderRadius: 4, 
                   boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
                   background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    width: '200px',
+                    height: '200px',
+                    background: 'radial-gradient(circle, rgba(25, 118, 210, 0.05) 0%, rgba(255,255,255,0) 70%)',
+                    borderRadius: '0 0 0 100%',
+                    zIndex: 0
+                  }
                 }}>
                   <Typography 
                     variant="h5" 
@@ -494,30 +510,50 @@ export default function ContactPage() {
                     fontWeight="bold" 
                     gutterBottom
                     sx={{
-                      color: 'text.primary',
-                      mb: 1
+                      background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      mb: 1,
+                      position: 'relative',
+                      zIndex: 1
                     }}
                   >
                     Ikuti Kami
                   </Typography>
-                  <Typography variant="body1" paragraph color="text.secondary" sx={{ mb: 3 }}>
+                  <Typography 
+                    variant="body1" 
+                    paragraph 
+                    color="text.secondary" 
+                    sx={{ mb: 3, position: 'relative', zIndex: 1 }}
+                  >
                     Dapatkan informasi terbaru dan promo menarik melalui media sosial kami:
                   </Typography>
-                  <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+                  
+                  <Box sx={{ 
+                    display: 'flex', 
+                    flexDirection: { xs: 'column', sm: 'row' }, 
+                    gap: 2, 
+                    flexWrap: 'wrap',
+                    position: 'relative',
+                    zIndex: 1
+                  }}>
                     <Button 
                       variant="contained" 
-                      color="primary" 
+                      startIcon={<FacebookIcon />}
                       href="#" 
                       target="_blank"
                       sx={{ 
                         borderRadius: 2,
                         px: 3,
-                        py: 1,
+                        py: 1.5,
                         bgcolor: '#1877F2',
+                        fontWeight: 'medium',
+                        boxShadow: '0 4px 14px rgba(24, 119, 242, 0.4)',
+                        transition: 'all 0.3s ease',
                         '&:hover': {
                           bgcolor: '#0E63D1',
                           transform: 'translateY(-3px)',
-                          boxShadow: '0 6px 20px rgba(14, 99, 209, 0.4)',
+                          boxShadow: '0 6px 20px rgba(14, 99, 209, 0.5)',
                         }
                       }}
                     >
@@ -525,18 +561,21 @@ export default function ContactPage() {
                     </Button>
                     <Button 
                       variant="contained" 
-                      color="primary" 
+                      startIcon={<InstagramIcon />}
                       href="#" 
                       target="_blank"
                       sx={{ 
                         borderRadius: 2,
                         px: 3,
-                        py: 1,
-                        bgcolor: '#E4405F',
+                        py: 1.5,
+                        fontWeight: 'medium',
+                        background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
+                        boxShadow: '0 4px 14px rgba(220, 39, 67, 0.4)',
+                        transition: 'all 0.3s ease',
                         '&:hover': {
-                          bgcolor: '#D32E50',
+                          background: 'linear-gradient(45deg, #e6683c 0%, #dc2743 25%, #cc2366 50%, #bc1888 75%, #f09433 100%)',
                           transform: 'translateY(-3px)',
-                          boxShadow: '0 6px 20px rgba(211, 46, 80, 0.4)',
+                          boxShadow: '0 6px 20px rgba(220, 39, 67, 0.5)',
                         }
                       }}
                     >
@@ -544,22 +583,56 @@ export default function ContactPage() {
                     </Button>
                     <Button 
                       variant="contained" 
-                      color="primary" 
+                      startIcon={<TwitterIcon />}
                       href="#" 
                       target="_blank"
                       sx={{ 
                         borderRadius: 2,
                         px: 3,
-                        py: 1,
+                        py: 1.5,
                         bgcolor: '#1DA1F2',
+                        fontWeight: 'medium',
+                        boxShadow: '0 4px 14px rgba(29, 161, 242, 0.4)',
+                        transition: 'all 0.3s ease',
                         '&:hover': {
                           bgcolor: '#0C8BD9',
                           transform: 'translateY(-3px)',
-                          boxShadow: '0 6px 20px rgba(12, 139, 217, 0.4)',
+                          boxShadow: '0 6px 20px rgba(12, 139, 217, 0.5)',
                         }
                       }}
                     >
                       Twitter
+                    </Button>
+                  </Box>
+                  
+                  <Box sx={{ 
+                    mt: 4, 
+                    pt: 3, 
+                    borderTop: '1px solid', 
+                    borderColor: 'divider',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    gap: 2
+                  }}>
+                    <Typography variant="subtitle2" color="text.secondary">
+                      Jam layanan media sosial: 09.00 - 16.00 WIB
+                    </Typography>
+                    <Button 
+                      variant="outlined" 
+                      color="primary"
+                      size="small"
+                      sx={{ 
+                        borderRadius: 2,
+                        transition: 'all 0.2s ease',
+                        '&:hover': {
+                          bgcolor: 'primary.main',
+                          color: 'white',
+                        }
+                      }}
+                    >
+                      Hubungi Admin
                     </Button>
                   </Box>
                 </Paper>
