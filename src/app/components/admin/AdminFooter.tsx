@@ -1,8 +1,13 @@
 'use client';
 
-import { Box, Typography, Divider, useTheme, alpha, Chip } from '@mui/material';
+import { Box, Typography, Divider, useTheme, alpha, Chip, Link, Stack } from '@mui/material';
 import { useState, useEffect } from 'react';
-import { AccessTime as AccessTimeIcon, Copyright as CopyrightIcon } from '@mui/icons-material';
+import { 
+  AccessTime as AccessTimeIcon, 
+  Copyright as CopyrightIcon,
+  Code as CodeIcon,
+  Favorite as FavoriteIcon
+} from '@mui/icons-material';
 
 export default function AdminFooter() {
   const [pageLoadTime, setPageLoadTime] = useState<string>('');
@@ -43,6 +48,10 @@ export default function AdminFooter() {
         borderColor: (theme) =>
           theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.06)' : 'rgba(255, 255, 255, 0.06)',
         borderRadius: '16px 16px 0 0',
+        boxShadow: (theme) =>
+          theme.palette.mode === 'light' 
+            ? '0 -4px 20px rgba(0, 0, 0, 0.03)' 
+            : '0 -4px 20px rgba(0, 0, 0, 0.2)',
       }}
     >
       <Box 
@@ -54,40 +63,86 @@ export default function AdminFooter() {
           gap: 2
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <CopyrightIcon 
-            sx={{ 
-              fontSize: 16, 
-              mr: 1, 
-              color: theme.palette.text.secondary 
-            }} 
-          />
-          <Typography 
-            variant="body2" 
-            sx={{ 
+        <Stack direction="column" spacing={1}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <CopyrightIcon 
+              sx={{ 
+                fontSize: 16, 
+                mr: 1, 
+                color: theme.palette.primary.main,
+                opacity: 0.8,
+              }} 
+            />
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: theme.palette.text.primary,
+                fontWeight: 500
+              }}
+            >
+              {currentYear} PT. Sarana Pancakarya Nusa
+            </Typography>
+          </Box>
+          
+          <Typography
+            variant="caption"
+            sx={{
               color: theme.palette.text.secondary,
-              fontWeight: 500
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.5,
             }}
           >
-            {currentYear} PT. Sarana Pancakarya Nusa
+            <CodeIcon sx={{ fontSize: 14 }} />
+            Dibuat dengan
+            <FavoriteIcon sx={{ fontSize: 12, color: theme.palette.error.main }} />
+            oleh Tim Pengembang SPKN
           </Typography>
-        </Box>
+        </Stack>
         
-        <Chip
-          icon={<AccessTimeIcon sx={{ fontSize: 16 }} />}
-          label={`Loaded: ${pageLoadTime}`}
-          size="small"
-          sx={{
-            backgroundColor: alpha(theme.palette.primary.main, 0.1),
-            color: theme.palette.text.secondary,
-            fontWeight: 500,
-            fontSize: '0.75rem',
-            height: 28,
-            '& .MuiChip-icon': {
-              color: theme.palette.primary.main,
-            },
-          }}
-        />
+        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+          <Chip
+            icon={<AccessTimeIcon sx={{ fontSize: 16 }} />}
+            label={`Loaded: ${pageLoadTime}`}
+            size="small"
+            sx={{
+              backgroundColor: alpha(theme.palette.primary.main, 0.1),
+              color: theme.palette.text.secondary,
+              fontWeight: 500,
+              fontSize: '0.75rem',
+              height: 28,
+              borderRadius: '14px',
+              border: '1px solid',
+              borderColor: alpha(theme.palette.primary.main, 0.2),
+              '& .MuiChip-icon': {
+                color: theme.palette.primary.main,
+              },
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                backgroundColor: alpha(theme.palette.primary.main, 0.15),
+              }
+            }}
+          />
+          
+          <Chip
+            label={`v1.0.0`}
+            size="small"
+            sx={{
+              backgroundColor: alpha(theme.palette.success.main, 0.1),
+              color: theme.palette.success.main,
+              fontWeight: 600,
+              fontSize: '0.75rem',
+              height: 28,
+              borderRadius: '14px',
+              border: '1px solid',
+              borderColor: alpha(theme.palette.success.main, 0.2),
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                backgroundColor: alpha(theme.palette.success.main, 0.15),
+              }
+            }}
+          />
+        </Box>
       </Box>
     </Box>
   );
