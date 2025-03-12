@@ -421,9 +421,7 @@ export default function Home() {
                       }}
                     >
                       <Box sx={{ height: 200 }}>
-                        <Suspense fallback={<Box sx={{ height: 200, bgcolor: 'background.paper' }} />}>
-                          <LazyProductCard index={index} />
-                        </Suspense>
+                        <ProductCard index={index} />
                       </Box>
                       <CardContent sx={{ flexGrow: 1 }}>
                         <Typography gutterBottom variant="h6" component="h3" fontWeight="bold">
