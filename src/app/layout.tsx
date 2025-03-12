@@ -47,6 +47,16 @@ export default function RootLayout({
             min-height: 400px;
             display: block;
           }
+          
+          /* Optimize animations */
+          .MuiGrow-root, .MuiFade-root {
+            will-change: opacity, transform;
+          }
+          
+          /* Optimize images */
+          img, svg {
+            content-visibility: auto;
+          }
         `}} />
       </head>
       <body>

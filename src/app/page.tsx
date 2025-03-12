@@ -57,42 +57,55 @@ export default function Home() {
     
     // Use requestAnimationFrame for better performance
     let rafId;
+    let lastScrollY = window.scrollY;
+    let ticking = false;
     
     const handleScroll = () => {
-      // Cancel any pending animation frame
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-      }
+      const currentScrollY = window.scrollY;
       
-      // Schedule a new animation frame
-      rafId = requestAnimationFrame(() => {
-        const sections = ['keunggulan', 'produk', 'testimonial', 'pengalaman', 'cta'];
-        
-        sections.forEach(section => {
-          const element = document.getElementById(section);
-          if (element) {
-            const inView = isInViewport(element);
-            setIsVisible(prev => {
-              // Only update state if visibility changed
-              if (prev[section] !== inView) {
-                return { ...prev, [section]: inView };
-              }
-              return prev;
-            });
-          }
+      if (!ticking && Math.abs(currentScrollY - lastScrollY) > 20) {
+        // Only update if scrolled more than 20px to reduce calculations
+        rafId = window.requestAnimationFrame(() => {
+          const sections = ['keunggulan', 'produk', 'testimonial', 'pengalaman', 'cta'];
+          
+          sections.forEach(section => {
+            const element = document.getElementById(section);
+            if (element) {
+              const inView = isInViewport(element);
+              setIsVisible(prev => {
+                // Only update state if visibility changed
+                if (prev[section] !== inView) {
+                  return { ...prev, [section]: inView };
+                }
+                return prev;
+              });
+            }
+          });
+          
+          ticking = false;
+          lastScrollY = currentScrollY;
         });
-      });
+        ticking = true;
+      }
     };
 
     // Call once to check initial visibility
-    handleScroll();
+    setTimeout(() => {
+      const sections = ['keunggulan', 'produk', 'testimonial', 'pengalaman', 'cta'];
+      sections.forEach(section => {
+        const element = document.getElementById(section);
+        if (element && isInViewport(element)) {
+          setIsVisible(prev => ({ ...prev, [section]: true }));
+        }
+      });
+    }, 100);
     
     // Add passive event listener for better performance
     window.addEventListener('scroll', handleScroll, { passive: true });
     
     return () => {
       if (rafId) {
-        cancelAnimationFrame(rafId);
+        window.cancelAnimationFrame(rafId);
       }
       window.removeEventListener('scroll', handleScroll);
     };
@@ -110,6 +123,10 @@ export default function Home() {
           pb: { xs: 10, md: 16 },
           position: 'relative',
           overflow: 'hidden',
+          // Add content-visibility for better performance
+          contentVisibility: 'auto',
+          // Reserve space to prevent layout shifts
+          containIntrinsicSize: '0 500px',
         }}
       >
         <Container maxWidth="lg">
@@ -123,11 +140,22 @@ export default function Home() {
                   gutterBottom
                   sx={{ 
                     fontSize: { xs: '2.5rem', md: '3.5rem' },
+                    // Add GPU acceleration for text rendering
+                    transform: 'translateZ(0)',
                   }}
                 >
                   PT Sarana Pancakarya Nusa
                 </Typography>
-                <Typography variant="h5" paragraph sx={{ mb: 4, opacity: 0.9 }}>
+                <Typography 
+                  variant="h5" 
+                  paragraph 
+                  sx={{ 
+                    mb: 4, 
+                    opacity: 0.9,
+                    // Add GPU acceleration for text rendering
+                    transform: 'translateZ(0)',
+                  }}
+                >
                   Perusahaan percetakan dan penerbitan yang berpengalaman sejak tahun 1966, menyediakan solusi cetak berkualitas untuk berbagai kebutuhan.
                 </Typography>
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
@@ -164,7 +192,15 @@ export default function Home() {
               </Box>
             </Grid>
             <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' } }}>
-              <Box sx={{ position: 'relative', height: 400, width: '100%' }}>
+              <Box 
+                sx={{ 
+                  position: 'relative', 
+                  height: 400, 
+                  width: '100%',
+                  // Add will-change to hint browser about animation
+                  willChange: 'transform',
+                }}
+              >
                 <HeroIllustration />
               </Box>
             </Grid>
@@ -728,9 +764,7 @@ export default function Home() {
                   rating: 5,
                   bgColor: '#ffecb3',
                   avatar: 'B',
-                },
-              ].map((testimonial, index) => (
-                <Grid item key={index} xs={12} md={4}>
+                },                <Grid item key={index} xs={12} md={4}>
                   <Grow
                     in={isVisible.testimonial}
                     timeout={1000 + (index * 200)}
@@ -1329,7 +1363,14 @@ export default function Home() {
 
       {/* CTA Section */}
       <Box id="cta" sx={{ bgcolor: 'primary.main', color: 'white', py: 8 }}>
-        <Fade in={isVisible.cta} timeout={1000}>
+        <Fade 
+          in={isVisible.cta} 
+          timeout={800}
+          style={{ 
+            transitionDelay: isVisible.cta ? '120ms' : '0ms',
+            willChange: 'opacity, transform' 
+          }}
+        >
           <Container maxWidth="lg">
             <Box 
               sx={{ 
