@@ -856,258 +856,458 @@ export default function AboutPage() {
   </Container>
 </Box>
 
-      {/* Perjalanan Kami - Baru */}
-      <Box sx={{ py: 10 }}>
-        <Container maxWidth="lg">
-          {/* Header */}
-          <Box sx={{ textAlign: "center", mb: 6 }}>
-            <TimelineIcon color="primary" sx={{ fontSize: 48, mb: 2 }} />
-            <Typography
-              variant="h4"
-              component="h2"
-              fontWeight="bold"
-              gutterBottom
-            >
-              Perjalanan Kami
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{ maxWidth: 700, mx: "auto" }}
-            >
-              Sejak tahun 1966, PT Sarana Pancakarya Nusa telah berkembang
-              menjadi salah satu percetakan terkemuka di Indonesia. Dipelopori
-              oleh Wimpy S. Ibrahim, seorang ahli di bidang percetakan dan
-              penerbitan, perusahaan ini terus berkembang dan memberikan yang
-              terbaik untuk dunia pendidikan di Indonesia. Berikut adalah
-              tonggak penting dalam perjalanan kami.
-            </Typography>
-          </Box>
+{/* Perjalanan Kami */}
+<Box 
+  sx={{ 
+    py: { xs: 10, md: 12 },
+    position: 'relative',
+    background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+    overflow: 'hidden',
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundImage: 'url(/images/bg-pattern.png)',
+      backgroundRepeat: 'repeat',
+      backgroundSize: '400px',
+      opacity: 0.05,
+      zIndex: 0,
+    }
+  }}
+>
+  <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+    {/* Header */}
+    <Box sx={{ textAlign: "center", mb: 8 }}>
+      <Typography
+        variant="overline"
+        component="p"
+        sx={{ 
+          color: 'primary.main',
+          fontWeight: 600,
+          letterSpacing: 1.5,
+          mb: 1
+        }}
+      >
+        SEJARAH PERUSAHAAN
+      </Typography>
+      <Typography
+        variant="h3"
+        component="h2"
+        fontWeight="bold"
+        sx={{ 
+          mb: 2,
+          background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+        }}
+      >
+        Perjalanan Kami
+      </Typography>
+      <Typography
+        variant="body1"
+        color="text.secondary"
+        sx={{ 
+          maxWidth: 700, 
+          mx: "auto",
+          mb: 2
+        }}
+      >
+        Sejak tahun 1966, PT Sarana Pancakarya Nusa telah berkembang
+        menjadi salah satu percetakan terkemuka di Indonesia. Berikut adalah
+        tonggak penting dalam perjalanan kami.
+      </Typography>
+      <Box 
+        sx={{ 
+          width: 60, 
+          height: 4, 
+          bgcolor: 'primary.main', 
+          borderRadius: 2,
+          mx: 'auto',
+          mb: 6
+        }}
+      />
+    </Box>
 
-          {/* Timeline Illustration - Desktop Only */}
-          <Box sx={{ display: { xs: "none", md: "block" }, mb: 6 }}>
-            <TimelineIllustration />
-          </Box>
+    {/* Timeline Illustration - Desktop Only */}
+    <Box 
+      sx={{ 
+        display: { xs: "none", md: "block" }, 
+        mb: 6,
+        position: 'relative',
+        '&::after': {
+          content: '""',
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '80%',
+          height: 3,
+          bgcolor: 'rgba(25, 118, 210, 0.1)',
+          borderRadius: 1.5,
+          zIndex: 0
+        }
+      }}
+    >
+      <TimelineIllustration />
+    </Box>
 
-          {/* Timeline Tabs */}
-          <Tabs
-            value={activeTimelineTab}
-            onChange={handleTimelineTabChange}
-            variant="scrollable"
-            scrollButtons="auto"
-            allowScrollButtonsMobile
+    {/* Timeline Tabs */}
+    <Box sx={{ mb: 6 }}>
+      <Tabs
+        value={activeTimelineTab}
+        onChange={handleTimelineTabChange}
+        variant="scrollable"
+        scrollButtons="auto"
+        allowScrollButtonsMobile
+        sx={{
+          mb: 4,
+          "& .MuiTab-root": {
+            minWidth: 100,
+            fontWeight: "bold",
+            borderRadius: 2,
+            mx: 0.5,
+            transition: 'all 0.3s ease',
+          },
+          "& .Mui-selected": {
+            color: (theme) => theme.palette.primary.main,
+            bgcolor: 'rgba(25, 118, 210, 0.05)',
+          },
+          "& .MuiTabs-indicator": {
+            height: 3,
+            borderRadius: 1.5,
+          },
+        }}
+      >
+        {timelineData.map((item, index) => (
+          <Tab
+            key={index}
+            label={item.year}
+            icon={
+              <Box
+                sx={{
+                  bgcolor:
+                    activeTimelineTab === index
+                      ? item.color
+                      : 'rgba(0,0,0,0.04)',
+                  color: activeTimelineTab === index ? "white" : item.color,
+                  width: 48,
+                  height: 48,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  transition: "all 0.3s ease",
+                  mb: 1,
+                  boxShadow: activeTimelineTab === index ? `0 4px 10px ${item.color}80` : 'none',
+                }}
+              >
+                {React.cloneElement(item.icon, { fontSize: "small" })}
+              </Box>
+            }
             sx={{
-              mb: 4,
-              "& .MuiTab-root": {
-                minWidth: 100,
-                fontWeight: "bold",
-              },
-              "& .Mui-selected": {
-                color: (theme) => theme.palette.primary.main,
-              },
-              "& .MuiTabs-indicator": {
-                height: 3,
-                borderRadius: 1.5,
+              borderRadius: 2,
+              transition: "all 0.3s ease",
+              "&.Mui-selected": {
+                bgcolor: "rgba(25, 118, 210, 0.05)",
+                transform: 'translateY(-5px)',
               },
             }}
-          >
-            {timelineData.map((item, index) => (
-              <Tab
-                key={index}
-                label={item.year}
-                icon={
+          />
+        ))}
+      </Tabs>
+    </Box>
+
+    {/* Timeline Content */}
+    <Box sx={{ position: "relative", minHeight: 400 }}>
+      {timelineData.map((item, index) => (
+        <Fade
+          key={index}
+          in={activeTimelineTab === index}
+          timeout={500}
+          style={{
+            display: activeTimelineTab === index ? "block" : "none",
+            position: "absolute",
+            width: "100%",
+          }}
+        >
+          <Box>
+            <Grid container spacing={4}>
+              <Grid item xs={12} md={6}>
+                <Zoom in={activeTimelineTab === index} timeout={700}>
+                  <Paper
+                    elevation={0}
+                    sx={{
+                      p: 0,
+                      height: "100%",
+                      borderRadius: 4,
+                      overflow: 'hidden',
+                      boxShadow: "0 10px 40px rgba(0,0,0,0.08)",
+                    }}
+                  >
+                    <Box 
+                      sx={{ 
+                        bgcolor: item.color, 
+                        p: 4, 
+                        position: 'relative',
+                        overflow: 'hidden',
+                        '&::before': {
+                          content: '""',
+                          position: 'absolute',
+                          top: -20,
+                          right: -20,
+                          width: 120,
+                          height: 120,
+                          borderRadius: '50%',
+                          bgcolor: 'rgba(255,255,255,0.1)',
+                        },
+                        '&::after': {
+                          content: '""',
+                          position: 'absolute',
+                          bottom: -30,
+                          left: -30,
+                          width: 160,
+                          height: 160,
+                          borderRadius: '50%',
+                          bgcolor: 'rgba(255,255,255,0.05)',
+                        }
+                      }}
+                    >
+                      <Box sx={{ position: 'relative', zIndex: 1 }}>
+                        <Box
+                          sx={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: 60,
+                            height: 60,
+                            borderRadius: '50%',
+                            bgcolor: 'rgba(255,255,255,0.15)',
+                            mb: 2
+                          }}
+                        >
+                          {item.icon}
+                        </Box>
+                        <Box>
+                          <Typography 
+                            variant="h6" 
+                            color="rgba(255,255,255,0.9)"
+                            sx={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              px: 2,
+                              py: 0.5,
+                              borderRadius: 5,
+                              bgcolor: 'rgba(0,0,0,0.1)',
+                              mb: 1
+                            }}
+                          >
+                            {item.year}
+                          </Typography>
+                          <Typography 
+                            variant="h4" 
+                            fontWeight="bold"
+                            color="white"
+                          >
+                            {item.title}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                    
+                    <Box sx={{ p: 4 }}>
+                      <Typography 
+                        variant="body1" 
+                        paragraph
+                        sx={{
+                          color: 'text.primary',
+                          lineHeight: 1.7
+                        }}
+                      >
+                        {item.description}
+                      </Typography>
+                      
+                      <Typography 
+                        variant="subtitle2" 
+                        fontWeight="bold"
+                        sx={{ 
+                          mb: 2,
+                          color: item.color,
+                          textTransform: 'uppercase',
+                          fontSize: '0.75rem',
+                          letterSpacing: 0.5
+                        }}
+                      >
+                        Pencapaian Utama:
+                      </Typography>
+                      
+                      <List>
+                        {item.achievements.map((achievement, i) => (
+                          <ListItem 
+                            key={i} 
+                            disableGutters 
+                            sx={{ 
+                              py: 1,
+                              borderBottom: i < item.achievements.length - 1 ? '1px dashed' : 'none',
+                              borderColor: 'divider'
+                            }}
+                          >
+                            <ListItemIcon 
+                              sx={{ 
+                                minWidth: 36,
+                                '& .MuiSvgIcon-root': {
+                                  fontSize: 18,
+                                  p: 0.5,
+                                  borderRadius: '50%',
+                                  bgcolor: `${item.color}15`,
+                                  color: item.color
+                                }
+                              }}
+                            >
+                              <CheckCircleIcon />
+                            </ListItemIcon>
+                            <ListItemText 
+                              primary={achievement} 
+                              primaryTypographyProps={{
+                                variant: 'body2',
+                                fontWeight: 'medium',
+                                color: 'text.primary'
+                              }}
+                            />
+                          </ListItem>
+                        ))}
+                      </List>
+                    </Box>
+                  </Paper>
+                </Zoom>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                md={6}
+                sx={{ display: { xs: "none", md: "block" } }}
+              >
+                <Grow in={activeTimelineTab === index} timeout={1000}>
                   <Box
                     sx={{
-                      bgcolor:
-                        activeTimelineTab === index
-                          ? item.color
-                          : "transparent",
-                      color: activeTimelineTab === index ? "white" : item.color,
-                      width: 40,
-                      height: 40,
-                      borderRadius: "50%",
+                      height: "100%",
+                      minHeight: 300,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      transition: "all 0.3s ease",
-                      mb: 1,
                     }}
                   >
-                    {React.cloneElement(item.icon, { fontSize: "small" })}
-                  </Box>
-                }
-                sx={{
-                  borderRadius: 2,
-                  transition: "all 0.3s ease",
-                  "&.Mui-selected": {
-                    bgcolor: "rgba(25, 118, 210, 0.05)",
-                  },
-                }}
-              />
-            ))}
-          </Tabs>
-
-          {/* Timeline Content */}
-          <Box sx={{ position: "relative", minHeight: 300 }}>
-            {timelineData.map((item, index) => (
-              <Fade
-                key={index}
-                in={activeTimelineTab === index}
-                timeout={500}
-                style={{
-                  display: activeTimelineTab === index ? "block" : "none",
-                  position: "absolute",
-                  width: "100%",
-                }}
-              >
-                <Box>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12} md={6}>
-                      <Zoom in={activeTimelineTab === index} timeout={700}>
-                        <Paper
-                          elevation={0}
-                          sx={{
-                            p: 4,
-                            height: "100%",
-                            borderRadius: 4,
-                            boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
-                            borderLeft: `5px solid ${item.color}`,
-                          }}
-                        >
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              mb: 3,
-                            }}
-                          >
-                            <Box
-                              sx={{
-                                bgcolor: item.color,
-                                color: "white",
-                                width: 50,
-                                height: 50,
-                                borderRadius: "50%",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                mr: 2,
-                              }}
-                            >
-                              {item.icon}
-                            </Box>
-                            <Box>
-                              <Typography variant="h6" color="text.secondary">
-                                {item.year}
-                              </Typography>
-                              <Typography variant="h4" fontWeight="bold">
-                                {item.title}
-                              </Typography>
-                            </Box>
-                          </Box>
-                          <Typography variant="body1" paragraph>
-                            {item.description}
-                          </Typography>
-                          <List>
-                            {item.achievements.map((achievement, i) => (
-                              <ListItem key={i} disableGutters sx={{ py: 0.5 }}>
-                                <ListItemIcon sx={{ minWidth: 36 }}>
-                                  <CheckCircleIcon sx={{ color: item.color }} />
-                                </ListItemIcon>
-                                <ListItemText primary={achievement} />
-                              </ListItem>
-                            ))}
-                          </List>
-                        </Paper>
-                      </Zoom>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      md={6}
-                      sx={{ display: { xs: "none", md: "block" } }}
+                    <Box
+                      sx={{
+                        position: "relative",
+                        width: 280,
+                        height: 280,
+                        borderRadius: "50%",
+                        bgcolor: `${item.color}10`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        boxShadow: `0 0 60px ${item.color}30`,
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
+                          transform: 'scale(1.05)',
+                          boxShadow: `0 0 80px ${item.color}40`,
+                        },
+                        "&::before": {
+                          content: '""',
+                          position: "absolute",
+                          width: 220,
+                          height: 220,
+                          borderRadius: "50%",
+                          bgcolor: `${item.color}20`,
+                        },
+                        "&::after": {
+                          content: '""',
+                          position: "absolute",
+                          width: 160,
+                          height: 160,
+                          borderRadius: "50%",
+                          bgcolor: `${item.color}30`,
+                        },
+                      }}
                     >
-                      <Grow in={activeTimelineTab === index} timeout={1000}>
-                        <Box
-                          sx={{
-                            height: "100%",
-                            minHeight: 300,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <Box
-                            sx={{
-                              position: "relative",
-                              width: 200,
-                              height: 200,
-                              borderRadius: "50%",
-                              bgcolor: `${item.color}20`,
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              "&::before": {
-                                content: '""',
-                                position: "absolute",
-                                width: 160,
-                                height: 160,
-                                borderRadius: "50%",
-                                bgcolor: `${item.color}40`,
-                              },
-                              "&::after": {
-                                content: '""',
-                                position: "absolute",
-                                width: 120,
-                                height: 120,
-                                borderRadius: "50%",
-                                bgcolor: `${item.color}60`,
-                              },
-                            }}
-                          >
-                            <Typography
-                              variant="h2"
-                              component="div"
-                              sx={{
-                                fontWeight: "bold",
-                                color: item.color,
-                                zIndex: 1,
-                              }}
-                            >
-                              {item.year}
-                            </Typography>
-                          </Box>
-                        </Box>
-                      </Grow>
-                    </Grid>
-                  </Grid>
-                </Box>
-              </Fade>
-            ))}
+                      <Typography
+                        variant="h1"
+                        component="div"
+                        sx={{
+                          fontWeight: "bold",
+                          color: item.color,
+                          zIndex: 1,
+                          fontSize: { md: '4rem', lg: '5rem' }
+                        }}
+                      >
+                        {item.year}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grow>
+              </Grid>
+            </Grid>
           </Box>
+        </Fade>
+      ))}
+    </Box>
 
-          {/* Navigation Buttons */}
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-            <Button
-              variant="outlined"
-              color="primary"
-              disabled={activeTimelineTab === 0}
-              onClick={() => setActiveTimelineTab((prev) => prev - 1)}
-              sx={{ mr: 2 }}
-            >
-              Sebelumnya
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              disabled={activeTimelineTab === timelineData.length - 1}
-              onClick={() => setActiveTimelineTab((prev) => prev + 1)}
-            >
-              Selanjutnya
-            </Button>
-          </Box>
-        </Container>
-      </Box>
+    {/* Navigation Buttons */}
+    <Box 
+      sx={{ 
+        display: "flex", 
+        justifyContent: "center", 
+        mt: 6,
+        gap: 2
+      }}
+    >
+      <Button
+        variant="outlined"
+        color="primary"
+        disabled={activeTimelineTab === 0}
+        onClick={() => setActiveTimelineTab((prev) => prev - 1)}
+        sx={{ 
+          fontWeight: 'bold',
+          borderRadius: 2,
+          px: 3,
+          py: 1,
+          borderWidth: 2,
+          '&:not(:disabled)': {
+            borderColor: 'primary.main',
+            '&:hover': {
+              borderWidth: 2,
+              bgcolor: 'rgba(25, 118, 210, 0.04)'
+            }
+          }
+        }}
+      >
+        Sebelumnya
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        disabled={activeTimelineTab === timelineData.length - 1}
+        onClick={() => setActiveTimelineTab((prev) => prev + 1)}
+        sx={{ 
+          fontWeight: 'bold',
+          borderRadius: 2,
+          px: 3,
+          py: 1,
+          boxShadow: '0 4px 14px rgba(25, 118, 210, 0.3)',
+          background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+          '&:hover': {
+            boxShadow: '0 6px 20px rgba(25, 118, 210, 0.4)',
+          }
+        }}
+      >
+        Selanjutnya
+      </Button>
+    </Box>
+  </Container>
+</Box>
 
       {/* Tim Kami Section */}
       <Box 
