@@ -308,7 +308,7 @@ export default function Footer() {
                   }
                 }}
               >
-                <XIcon />
+                <TwitterIcon />
               </IconButton>
             </Stack>
 

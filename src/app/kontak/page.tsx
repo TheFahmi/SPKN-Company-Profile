@@ -583,7 +583,7 @@ export default function ContactPage() {
                     </Button>
                     <Button 
                       variant="contained" 
-                      startIcon={<XIcon />}
+                      startIcon={<TwitterIcon />}
                       href="#" 
                       target="_blank"
                       sx={{ 
