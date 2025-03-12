@@ -383,18 +383,22 @@ export default function Home() {
                 {
                   title: 'Percetakan Umum',
                   description: 'Layanan cetak berkualitas tinggi untuk berbagai kebutuhan bisnis dan personal.',
+                  icon: 'LocalPrintshopIcon'
                 },
                 {
                   title: 'Security Printing',
                   description: 'Solusi cetak dokumen berharga dengan fitur keamanan khusus.',
+                  icon: 'GppGoodIcon'
                 },
                 {
                   title: 'Penerbitan',
                   description: 'Layanan penerbitan profesional untuk buku, majalah, dan publikasi lainnya.',
+                  icon: 'AutoStoriesIcon'
                 },
                 {
                   title: 'Solusi Digital',
                   description: 'Layanan digital printing dan manajemen konten untuk era modern.',
+                  icon: 'DevicesIcon'
                 }
               ].map((item, index) => (
                 <Grid item key={index} xs={12} sm={6} md={3}>
