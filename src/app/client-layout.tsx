@@ -10,8 +10,6 @@ import getTheme from './theme';
 import StructuredData from './components/StructuredData';
 import dynamic from 'next/dynamic';
 import Preload from './components/Preload';
-import { Suspense } from 'react';
-
 // Dynamically import components to improve initial load time
 const DynamicHeader = dynamic(() => import('../components/Header'), { ssr: false });
 const DynamicFooter = dynamic(() => import('../components/Footer'), { ssr: false });
@@ -68,38 +66,32 @@ export default function ClientLayout({
         backgroundRepeat: 'repeat',
         backgroundSize: '400px',
         bgcolor: 'background.default',
+        // Add content-visibility for better performance
+        '& > main': {
+          contentVisibility: 'auto'
+        }
       }}
     >
       {/* Add Preload component */}
       <Preload />
       
-      {!hideHeaderFooter && (
-        <Suspense fallback={<Box sx={{ height: 64, bgcolor: 'background.paper' }} />}>
-          <DynamicHeader />
-        </Suspense>
-      )}
-      
+      {!hideHeaderFooter && <DynamicHeader />}
+  
       <Box component="main" sx={{ flex: 1 }}>
         {children}
       </Box>
-      
-      {!hideHeaderFooter && (
-        <Suspense fallback={<Box sx={{ height: 100, bgcolor: 'background.paper' }} />}>
-          <DynamicFooter />
-        </Suspense>
-      )}
-      
+  
+      {!hideHeaderFooter && <DynamicFooter />}
+
       {/* Add appropriate structured data based on page type */}
       {isHomePage && <StructuredData type="organization" />}
       {isHomePage && <StructuredData type="website" />}
       {isProductPage && <StructuredData type="product" />}
       {isAboutPage && <StructuredData type="organization" />}
       {isContactPage && <StructuredData type="localbusiness" />}
-      
+  
       {/* Lazy load analytics */}
-      <Suspense fallback={null}>
-        <Analytics />
-      </Suspense>
+      <Analytics />
     </Box>
   );
 

@@ -16,6 +16,8 @@ export default function Preload({ resources = [] }: PreloadProps) {
   const criticalResources = [
     // Logo - critical for branding
     '/images/logo.png',
+    // Hero illustration - critical for LCP
+    '/images/hero-illustration.svg',
     // Hero image - likely the LCP element
     '/images/hero-image.webp',
     // Critical fonts
@@ -52,7 +54,7 @@ export default function Preload({ resources = [] }: PreloadProps) {
     } else if (resource.endsWith('.avif')) {
       return { as: 'image', type: 'image/avif' };
     } else if (resource.endsWith('.svg')) {
-      return { as: 'image', type: 'image/svg+xml' };
+      return { as: 'image', type: 'image/svg+xml', fetchPriority: 'high' };
     } else if (resource.endsWith('.css') || resource.includes('css?')) {
       return { as: 'style' };
     } else if (resource.endsWith('.js')) {
