@@ -10,10 +10,12 @@ import getTheme from './theme';
 import StructuredData from './components/StructuredData';
 import dynamic from 'next/dynamic';
 import Preload from './components/Preload';
+import { Suspense } from 'react';
 
 // Dynamically import components to improve initial load time
 const DynamicHeader = dynamic(() => import('../components/Header'), { ssr: false });
 const DynamicFooter = dynamic(() => import('../components/Footer'), { ssr: false });
+const Analytics = dynamic(() => import('./components/Analytics'), { ssr: false });
 
 export default function ClientLayout({
   children,
@@ -46,6 +48,9 @@ export default function ClientLayout({
 
   // Add structured data for organization
   const isHomePage = pathname === '/';
+  const isProductPage = pathname?.startsWith('/produk');
+  const isAboutPage = pathname?.startsWith('/tentang-kami');
+  const isContactPage = pathname?.startsWith('/kontak');
 
   // Jika path adalah admin, maintenance, atau auth, tampilkan children tanpa header dan footer
   if (shouldHideLayout) {
