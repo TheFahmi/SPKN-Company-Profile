@@ -744,7 +744,7 @@ export default function Home() {
                         }
                       }}>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                          <FormatQuoteIcon sx={{ fontSize: 40, color: 'primary.main', opacity: 0.5 }} />
+                          <Box component={FormatQuoteIcon} sx={{ fontSize: 40, color: 'primary.main', opacity: 0.5 }} />
                           <Rating 
                             value={testimonial.rating} 
                             readOnly 
