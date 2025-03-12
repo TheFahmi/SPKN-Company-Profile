@@ -9,11 +9,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import getTheme from './theme';
 import StructuredData from './components/StructuredData';
 import dynamic from 'next/dynamic';
-import Preload from './components/Preload';
 
-// Dynamically import Header and Footer to improve initial load time
+// Dynamically import components to improve initial load time
 const DynamicHeader = dynamic(() => import('../components/Header'), { ssr: false });
 const DynamicFooter = dynamic(() => import('../components/Footer'), { ssr: false });
+const DynamicPreload = dynamic(() => import('./components/Preload'), { ssr: false });
 
 export default function ClientLayout({
   children,
@@ -66,7 +66,7 @@ export default function ClientLayout({
       }}
     >
       {/* Add Preload component */}
-      <Preload />
+      <DynamicPreload />
       {!hideHeaderFooter && <DynamicHeader />}
       <Box component="main" sx={{ flex: 1 }}>
         {children}
@@ -87,4 +87,4 @@ export default function ClientLayout({
   }
 
   return content;
-} 
+}
