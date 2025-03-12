@@ -37,30 +37,42 @@ const navigation = [
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
+      const currentScrollPos = window.scrollY;
+      const isScrolled = currentScrollPos > 20;
+      
+      // Set scrolled state for styling purposes
       if (isScrolled !== scrolled) {
         setScrolled(isScrolled);
       }
+      
+      // Determine scroll direction and visibility
+      // Show header when scrolling up, hide when scrolling down
+      const isVisible = prevScrollPos > currentScrollPos || currentScrollPos < 10;
+      
+      setVisible(isVisible);
+      setPrevScrollPos(currentScrollPos);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [scrolled]);
+  }, [scrolled, prevScrollPos]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   return (
-    <Slide appear={false} direction="down" in={!scrolled}>
+    <Slide appear={false} direction="down" in={visible}>
       <AppBar 
         position="sticky" 
         color="default" 
