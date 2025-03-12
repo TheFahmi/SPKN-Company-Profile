@@ -1021,7 +1021,7 @@ export default function AboutPage() {
     </Box>
 
     {/* Timeline Content */}
-    <Box sx={{ position: "relative", minHeight: 400 }}>
+    <Box sx={{ position: "relative", minHeight: 400, mb: 4 }}>
       {timelineData.map((item, index) => (
         <Fade
           key={index}
@@ -1261,7 +1261,10 @@ export default function AboutPage() {
         display: "flex", 
         justifyContent: "center", 
         mt: 6,
-        gap: 2
+        gap: 2,
+        position: "relative",
+        zIndex: 2,
+        pb: 4
       }}
     >
       <Button
