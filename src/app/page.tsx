@@ -23,6 +23,19 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import HeroIllustration from './components/illustrations/HeroIllustration';
+// Add these imports after the existing imports
+import Rating from '@mui/material/Rating';
+import Avatar from '@mui/material/Avatar';
+import Chip from '@mui/material/Chip';
+import StarIcon from '@mui/icons-material/Star';
+import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
+import BusinessIcon from '@mui/icons-material/Business';
+import TimelineIcon from '@mui/icons-material/Timeline';
+import EventIcon from '@mui/icons-material/Event';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import BuildIcon from '@mui/icons-material/Build';
+import SpeedIcon from '@mui/icons-material/Speed';
+import SecurityIcon from '@mui/icons-material/Security';
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState({
@@ -136,130 +149,197 @@ export default function Home() {
         </Fade>
       </Box>
 
-      {/* Keunggulan Section */}
-      <Container id="keunggulan" maxWidth="lg" sx={{ py: 8 }}>
+      {/* Keunggulan Kami Section */}
+      <Box id="keunggulan" sx={{ 
+        py: { xs: 8, md: 12 },
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '100%',
+          backgroundImage: 'url(/images/bg-pattern.png)',
+          backgroundRepeat: 'repeat',
+          backgroundSize: '400px',
+          opacity: 0.03,
+          zIndex: 0,
+        }
+      }}>
         <Fade in={isVisible.keunggulan} timeout={1000}>
-          <Box>
-            <Typography
-              variant="h3"
-              component="h2"
-              align="center"
-              gutterBottom
-              fontWeight="bold"
-              sx={{ 
-                mb: 6,
-                transform: isVisible.keunggulan ? 'translateY(0)' : 'translateY(20px)',
-                opacity: isVisible.keunggulan ? 1 : 0,
-                transition: 'all 0.6s ease-out'
-              }}
-            >
-              Keunggulan Kami
-            </Typography>
+          <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+            <Box sx={{ mb: 8, textAlign: 'center' }}>
+              <Typography
+                variant="overline"
+                component="p"
+                sx={{ 
+                  color: 'primary.main',
+                  fontWeight: 600,
+                  letterSpacing: 1.5,
+                  mb: 1
+                }}
+              >
+                MENGAPA MEMILIH KAMI
+              </Typography>
+              <Typography
+                variant="h3"
+                component="h2"
+                fontWeight="bold"
+                sx={{ 
+                  mb: 2,
+                  background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                Keunggulan Kami
+              </Typography>
+              <Typography
+                variant="body1"
+                color="text.secondary"
+                sx={{ 
+                  maxWidth: 650,
+                  mx: 'auto',
+                  mb: 6
+                }}
+              >
+                Dengan pengalaman lebih dari 55 tahun, kami menawarkan solusi percetakan terbaik
+                dengan standar kualitas tinggi dan layanan profesional.
+              </Typography>
+            </Box>
+
             <Grid container spacing={4}>
-              <Grid item xs={12} sm={6} md={3}>
-                <Grow
-                  in={isVisible.keunggulan}
-                  timeout={1000}
-                >
-                  <Paper elevation={0} sx={{ 
-                    p: 3, 
-                    height: '100%', 
-                    textAlign: 'center', 
-                    borderRadius: 4, 
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-                    transform: isVisible.keunggulan ? 'translateY(0)' : 'translateY(40px)',
-                    opacity: isVisible.keunggulan ? 1 : 0,
-                    transition: 'all 0.6s ease-out'
-                  }}>
-                    <LocalPrintshopIcon color="primary" sx={{ fontSize: 60, mb: 2 }} />
-                    <Typography variant="h6" fontWeight="bold" gutterBottom>
-                      Pengalaman Sejak 1966
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Lebih dari 55 tahun pengalaman dalam industri percetakan dan penerbitan.
-                    </Typography>
-                  </Paper>
-                </Grow>
-              </Grid>
-              <Grid item xs={12} sm={6} md={3}>
-                <Grow
-                  in={isVisible.keunggulan}
-                  timeout={1200}
-                >
-                  <Paper elevation={0} sx={{ 
-                    p: 3, 
-                    height: '100%', 
-                    textAlign: 'center', 
-                    borderRadius: 4, 
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-                    transform: isVisible.keunggulan ? 'translateY(0)' : 'translateY(40px)',
-                    opacity: isVisible.keunggulan ? 1 : 0,
-                    transition: 'all 0.6s ease-out'
-                  }}>
-                    <AutoStoriesIcon color="primary" sx={{ fontSize: 60, mb: 2 }} />
-                    <Typography variant="h6" fontWeight="bold" gutterBottom>
-                      Solusi Lengkap
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Menyediakan layanan percetakan, penerbitan, dan solusi digital yang komprehensif.
-                    </Typography>
-                  </Paper>
-                </Grow>
-              </Grid>
-              <Grid item xs={12} sm={6} md={3}>
-                <Grow
-                  in={isVisible.keunggulan}
-                  timeout={1400}
-                >
-                  <Paper elevation={0} sx={{ 
-                    p: 3, 
-                    height: '100%', 
-                    textAlign: 'center', 
-                    borderRadius: 4, 
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-                    transform: isVisible.keunggulan ? 'translateY(0)' : 'translateY(40px)',
-                    opacity: isVisible.keunggulan ? 1 : 0,
-                    transition: 'all 0.6s ease-out'
-                  }}>
-                    <VerifiedIcon color="primary" sx={{ fontSize: 60, mb: 2 }} />
-                    <Typography variant="h6" fontWeight="bold" gutterBottom>
-                      Kualitas Terjamin
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Menggunakan teknologi modern dan standar kualitas tinggi dalam setiap produksi.
-                    </Typography>
-                  </Paper>
-                </Grow>
-              </Grid>
-              <Grid item xs={12} sm={6} md={3}>
-                <Grow
-                  in={isVisible.keunggulan}
-                  timeout={1600}
-                >
-                  <Paper elevation={0} sx={{ 
-                    p: 3, 
-                    height: '100%', 
-                    textAlign: 'center', 
-                    borderRadius: 4, 
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-                    transform: isVisible.keunggulan ? 'translateY(0)' : 'translateY(40px)',
-                    opacity: isVisible.keunggulan ? 1 : 0,
-                    transition: 'all 0.6s ease-out'
-                  }}>
-                    <SupportAgentIcon color="primary" sx={{ fontSize: 60, mb: 2 }} />
-                    <Typography variant="h6" fontWeight="bold" gutterBottom>
-                      Pelayanan Prima
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Memberikan pelayanan profesional dan solusi terbaik untuk setiap kebutuhan klien.
-                    </Typography>
-                  </Paper>
-                </Grow>
-              </Grid>
+              {[
+                {
+                  title: 'Pengalaman Sejak 1966',
+                  description: 'Lebih dari 55 tahun pengalaman dalam industri percetakan dan penerbitan dengan rekam jejak yang terbukti.',
+                  icon: 'TimelineIcon',
+                  color: '#4caf50',
+                  features: ['Terpercaya', 'Berpengalaman', 'Profesional']
+                },
+                {
+                  title: 'Solusi Lengkap',
+                  description: 'Menyediakan layanan percetakan, penerbitan, dan solusi digital yang komprehensif untuk semua kebutuhan.',
+                  icon: 'BuildIcon',
+                  color: '#ff9800',
+                  features: ['All-in-One', 'Terintegrasi', 'Fleksibel']
+                },
+                {
+                  title: 'Kualitas Terjamin',
+                  description: 'Menggunakan teknologi modern dan standar kualitas tinggi dalam setiap produksi untuk hasil terbaik.',
+                  icon: 'CheckCircleIcon',
+                  color: '#2196f3',
+                  features: ['Presisi', 'Konsisten', 'Tahan Lama']
+                },
+                {
+                  title: 'Keamanan Tinggi',
+                  description: 'Menerapkan fitur keamanan canggih untuk dokumen berharga dan material sensitif lainnya.',
+                  icon: 'SecurityIcon',
+                  color: '#f44336',
+                  features: ['Anti-Pemalsuan', 'Terenkripsi', 'Terlindungi']
+                },
+              ].map((item, index) => (
+                <Grid item key={index} xs={12} sm={6} md={3}>
+                  <Grow
+                    in={isVisible.keunggulan}
+                    timeout={1000 + (index * 200)}
+                  >
+                    <Card 
+                      sx={{ 
+                        height: '100%', 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        borderRadius: 4, 
+                        overflow: 'hidden',
+                        boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+                        transition: 'all 0.3s ease-in-out',
+                        '&:hover': {
+                          transform: 'translateY(-12px)',
+                          boxShadow: '0 15px 35px rgba(25, 118, 210, 0.15)',
+                          '& .MuiBox-root.feature-icon': {
+                            transform: 'scale(1.1) rotate(10deg)',
+                            bgcolor: item.color,
+                            color: 'white'
+                          }
+                        }
+                      }}
+                    >
+                      <Box 
+                        sx={{ 
+                          p: 3,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          borderBottom: '1px solid',
+                          borderColor: 'divider'
+                        }}
+                      >
+                        <Typography 
+                          variant="h6" 
+                          component="h3" 
+                          fontWeight="bold"
+                          sx={{ color: 'text.primary' }}
+                        >
+                          {item.title}
+                        </Typography>
+                        <Box 
+                          className="feature-icon"
+                          sx={{ 
+                            width: 50,
+                            height: 50,
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            bgcolor: `${item.color}20`,
+                            color: item.color,
+                            transition: 'all 0.3s ease-in-out'
+                          }}
+                        >
+                          {item.icon === 'TimelineIcon' && <TimelineIcon fontSize="medium" />}
+                          {item.icon === 'BuildIcon' && <BuildIcon fontSize="medium" />}
+                          {item.icon === 'CheckCircleIcon' && <CheckCircleIcon fontSize="medium" />}
+                          {item.icon === 'SecurityIcon' && <SecurityIcon fontSize="medium" />}
+                        </Box>
+                      </Box>
+                      
+                      <Box sx={{ p: 3, flexGrow: 1 }}>
+                        <Typography 
+                          variant="body2" 
+                          color="text.secondary"
+                          sx={{ mb: 3 }}
+                        >
+                          {item.description}
+                        </Typography>
+                        
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                          {item.features.map((feature, idx) => (
+                            <Chip
+                              key={idx}
+                              label={feature}
+                              size="small"
+                              sx={{ 
+                                bgcolor: `${item.color}10`,
+                                color: item.color,
+                                fontWeight: 500,
+                                '&:hover': {
+                                  bgcolor: `${item.color}20`,
+                                }
+                              }}
+                            />
+                          ))}
+                        </Box>
+                      </Box>
+                    </Card>
+                  </Grow>
+                </Grid>
+              ))}
             </Grid>
-          </Box>
+          </Container>
         </Fade>
-      </Container>
+      </Box>
 
       {/* Produk & Layanan Section */}
       <Box id="produk" sx={{ 
@@ -539,35 +619,92 @@ export default function Home() {
       </Box>
 
       {/* Testimonial Section */}
-      <Container id="testimonial" maxWidth="lg" sx={{ py: 8 }}>
+      <Box id="testimonial" sx={{ 
+        py: { xs: 8, md: 12 },
+        background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '100%',
+          backgroundImage: 'url(/images/bg-pattern.png)',
+          backgroundRepeat: 'repeat',
+          backgroundSize: '400px',
+          opacity: 0.03,
+          zIndex: 0,
+        }
+      }}>
         <Fade in={isVisible.testimonial} timeout={1000}>
-          <Box>
-            <Typography
-              variant="h3"
-              component="h2"
-              align="center"
-              gutterBottom
-              fontWeight="bold"
-              sx={{ mb: 6 }}
-            >
-              Klien Kami
-            </Typography>
+          <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+            <Box sx={{ mb: 8, textAlign: 'center' }}>
+              <Typography
+                variant="overline"
+                component="p"
+                sx={{ 
+                  color: 'primary.main',
+                  fontWeight: 600,
+                  letterSpacing: 1.5,
+                  mb: 1
+                }}
+              >
+                DIPERCAYA OLEH
+              </Typography>
+              <Typography
+                variant="h3"
+                component="h2"
+                fontWeight="bold"
+                sx={{ 
+                  mb: 2,
+                  background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                Klien Kami
+              </Typography>
+              <Typography
+                variant="body1"
+                color="text.secondary"
+                sx={{ 
+                  maxWidth: 650,
+                  mx: 'auto',
+                  mb: 6
+                }}
+              >
+                Kami telah dipercaya oleh berbagai institusi terkemuka di Indonesia untuk
+                memberikan solusi percetakan dan penerbitan berkualitas tinggi.
+              </Typography>
+            </Box>
+
             <Grid container spacing={4}>
               {[
                 {
                   name: 'Bank Indonesia',
                   role: 'Institusi Keuangan',
-                  text: 'Mitra terpercaya dalam mencetak dokumen-dokumen penting dengan standar keamanan tinggi.',
+                  text: 'Mitra terpercaya dalam mencetak dokumen-dokumen penting dengan standar keamanan tinggi. Kualitas hasil dan profesionalisme tim sangat memuaskan.',
+                  rating: 5,
+                  bgColor: '#bbdefb',
+                  avatar: 'B',
                 },
                 {
                   name: 'Kementerian Keuangan',
                   role: 'Institusi Pemerintah',
-                  text: 'Layanan percetakan berkualitas tinggi untuk berbagai dokumen resmi dan publikasi pemerintah.',
+                  text: 'Layanan percetakan berkualitas tinggi untuk berbagai dokumen resmi dan publikasi pemerintah. Selalu tepat waktu dan sesuai spesifikasi yang diminta.',
+                  rating: 5,
+                  bgColor: '#c8e6c9',
+                  avatar: 'K',
                 },
                 {
                   name: 'BNI',
                   role: 'Perbankan',
-                  text: 'Solusi security printing yang handal dan profesional untuk kebutuhan perbankan.',
+                  text: 'Solusi security printing yang handal dan profesional untuk kebutuhan perbankan. Fitur keamanan yang diterapkan sangat membantu dalam mencegah pemalsuan dokumen.',
+                  rating: 5,
+                  bgColor: '#ffecb3',
+                  avatar: 'B',
                 },
               ].map((testimonial, index) => (
                 <Grid item key={index} xs={12} md={4}>
@@ -575,178 +712,593 @@ export default function Home() {
                     in={isVisible.testimonial}
                     timeout={1000 + (index * 200)}
                   >
-                    <Paper
-                      elevation={0}
+                    <Card
                       sx={{
-                        p: 4,
                         height: '100%',
                         borderRadius: 4,
-                        boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+                        boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
                         display: 'flex',
                         flexDirection: 'column',
+                        overflow: 'hidden',
+                        transition: 'all 0.3s ease-in-out',
+                        '&:hover': {
+                          transform: 'translateY(-12px)',
+                          boxShadow: '0 15px 35px rgba(25, 118, 210, 0.15)',
+                        }
                       }}
                     >
-                      <Typography variant="h6" gutterBottom fontWeight="bold">
-                        {testimonial.name}
-                      </Typography>
-                      <Typography variant="subtitle2" color="primary" gutterBottom>
-                        {testimonial.role}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-                        {testimonial.text}
-                      </Typography>
-                    </Paper>
+                      <Box sx={{ 
+                        p: 3, 
+                        bgcolor: testimonial.bgColor,
+                        position: 'relative',
+                        '&::before': {
+                          content: '""',
+                          position: 'absolute',
+                          bottom: -15,
+                          left: 30,
+                          width: 0,
+                          height: 0,
+                          borderLeft: '15px solid transparent',
+                          borderRight: '15px solid transparent',
+                          borderTop: `15px solid ${testimonial.bgColor}`,
+                        }
+                      }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+                          <Box component={FormatQuoteIcon} sx={{ fontSize: 40, color: 'primary.main', opacity: 0.5 }} />
+                          <Rating 
+                            value={testimonial.rating} 
+                            readOnly 
+                            precision={0.5}
+                            icon={<StarIcon fontSize="small" />}
+                            emptyIcon={<StarIcon fontSize="small" style={{ opacity: 0.3 }} />}
+                          />
+                        </Box>
+                        <Typography 
+                          variant="body2" 
+                          sx={{ 
+                            fontStyle: 'italic',
+                            color: 'text.primary',
+                            fontWeight: 500
+                          }}
+                        >
+                          "{testimonial.text}"
+                        </Typography>
+                      </Box>
+                      
+                      <Box sx={{ p: 3, display: 'flex', alignItems: 'center' }}>
+                        <Avatar 
+                          sx={{ 
+                            bgcolor: 'primary.main',
+                            width: 50,
+                            height: 50,
+                            mr: 2,
+                            fontWeight: 'bold'
+                          }}
+                        >
+                          {testimonial.avatar}
+                        </Avatar>
+                        <Box>
+                          <Typography variant="h6" fontWeight="bold">
+                            {testimonial.name}
+                          </Typography>
+                          <Typography variant="body2" color="primary.main" fontWeight={500}>
+                            {testimonial.role}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Card>
                   </Grow>
                 </Grid>
               ))}
             </Grid>
-          </Box>
+            
+            <Box 
+              sx={{ 
+                mt: 8, 
+                textAlign: 'center',
+                p: 4,
+                borderRadius: 4,
+                bgcolor: 'rgba(25, 118, 210, 0.04)',
+                border: '1px dashed',
+                borderColor: 'primary.light'
+              }}
+            >
+              <Typography 
+                variant="h5" 
+                component="p" 
+                fontWeight="medium"
+                sx={{ mb: 3, color: 'text.primary' }}
+              >
+                Bergabunglah dengan ratusan klien puas kami
+              </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                component={Link}
+                href="/kontak"
+                startIcon={<BusinessIcon />}
+                sx={{ 
+                  fontWeight: 'bold', 
+                  py: 1.5, 
+                  px: 4,
+                  borderRadius: 3,
+                  background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+                  boxShadow: '0 4px 14px rgba(25, 118, 210, 0.4)',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'scale(1.05)',
+                    boxShadow: '0 6px 20px rgba(25, 118, 210, 0.6)',
+                  }
+                }}
+              >
+                Jadilah Klien Kami
+              </Button>
+            </Box>
+          </Container>
         </Fade>
-      </Container>
+      </Box>
 
       {/* Pengalaman Kami Section */}
       <Box 
         id="pengalaman"
         sx={{ 
-          py: 8,
-          bgcolor: '#f8fafc'
+          py: { xs: 8, md: 12 },
+          position: 'relative',
+          overflow: 'hidden',
+          bgcolor: '#f8fafc',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '100%',
+            backgroundImage: 'url(/images/bg-pattern.png)',
+            backgroundRepeat: 'repeat',
+            backgroundSize: '400px',
+            opacity: 0.03,
+            zIndex: 0,
+          }
         }}
       >
         <Fade in={isVisible.pengalaman} timeout={1000}>
-          <Container maxWidth="lg">
-            <Box sx={{ maxWidth: 800, mx: 'auto' }}>
+          <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+            <Box sx={{ mb: 8, textAlign: 'center' }}>
+              <Typography
+                variant="overline"
+                component="p"
+                sx={{ 
+                  color: 'primary.main',
+                  fontWeight: 600,
+                  letterSpacing: 1.5,
+                  mb: 1
+                }}
+              >
+                REKAM JEJAK KAMI
+              </Typography>
               <Typography
                 variant="h3"
                 component="h2"
-                align="center"
-                gutterBottom
-                sx={{
-                  fontWeight: 'bold',
-                  mb: 1,
-                  fontSize: { xs: '2rem', md: '2.5rem' }
+                fontWeight="bold"
+                sx={{ 
+                  mb: 2,
+                  background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
                 }}
               >
                 Pengalaman Kami
               </Typography>
               <Typography
-                variant="subtitle1"
-                align="center"
+                variant="body1"
+                color="text.secondary"
                 sx={{ 
-                  mb: 6, 
-                  maxWidth: 600, 
+                  maxWidth: 650,
                   mx: 'auto',
-                  color: 'text.secondary'
+                  mb: 6
                 }}
               >
                 Berbagai proyek yang telah kami kerjakan dengan dedikasi dan profesionalisme
+                selama lebih dari lima dekade melayani klien-klien terkemuka.
               </Typography>
+            </Box>
 
-              <Stack spacing={3}>
-                {/* 2023 */}
-                <Slide direction="right" in={isVisible.pengalaman} timeout={1200}>
-                  <Box
-                    sx={{
-                      p: 3,
-                      borderLeft: '3px solid',
-                      borderColor: 'primary.main',
-                      bgcolor: 'white',
-                      boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-                      borderRadius: '0 4px 4px 0',
-                      transition: 'all 0.3s ease',
-                      transform: isVisible.pengalaman ? 'translateX(0)' : 'translateX(-20px)',
-                      opacity: isVisible.pengalaman ? 1 : 0,
-                      '&:hover': {
-                        transform: 'translateX(4px)',
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
-                      }
-                    }}
-                  >
-                    <Typography 
-                      variant="overline" 
-                      color="primary"
-                      sx={{ 
-                        fontWeight: 500,
-                        fontSize: '0.75rem',
-                        letterSpacing: 0.5,
-                        display: 'block',
-                        mb: 0.5
-                      }}
-                    >
-                      Tahun Anggaran 2023
-                    </Typography>
-                    <Typography 
-                      variant="body1"
-                      sx={{ 
-                        color: 'text.primary',
-                        lineHeight: 1.6,
-                        fontSize: '0.95rem'
-                      }}
-                    >
-                      Pengadaan Pembuatan Buku Panduan Pelaksanaan Kebersihan, Kesehatan, Keselamatan, dan Kelestarian Lingkungan bagi Pelaku Usaha Pariwisata.
-                    </Typography>
-                  </Box>
-                </Slide>
+            <Box sx={{ position: 'relative', maxWidth: 900, mx: 'auto' }}>
+              {/* Timeline center line */}
+              <Box 
+                sx={{ 
+                  position: 'absolute', 
+                  left: '50%', 
+                  top: 0, 
+                  bottom: 0, 
+                  width: 4, 
+                  bgcolor: 'rgba(25, 118, 210, 0.1)', 
+                  transform: 'translateX(-50%)',
+                  zIndex: 0,
+                  display: { xs: 'none', md: 'block' }
+                }} 
+              />
 
-                {/* 2020 Projects */}
+              {/* Timeline Items */}
+              <Stack spacing={6}>
+                {/* 2023 Project */}
                 <Box>
-                  <Stack spacing={3}>
-                    {[
-                      'Pengadaan materiil Mutasi Luar Daerah Korlantas Polri',
-                      'Pengadaan Cetak Buku Himpunan Peraturan Kapolri dan Peraturan Polri Tahun 2019 Divisi Hukum Polri',
-                      'Kontrak Katalog Elektronik Sektoral Penyediaan Buku Panduan Pendidik Tahun 2020 Provinsi Nusa Tenggara Timur'
-                    ].map((project, index) => (
-                      <Slide
-                        key={index}
-                        direction="right"
-                        in={isVisible.pengalaman}
-                        timeout={1200 + (index * 200)}
+                  <Grow in={isVisible.pengalaman} timeout={1000}>
+                    <Box 
+                      sx={{ 
+                        display: 'flex', 
+                        flexDirection: { xs: 'column', md: 'row' },
+                        alignItems: { xs: 'flex-start', md: 'center' },
+                        position: 'relative'
+                      }}
+                    >
+                      {/* Year chip - visible on mobile and desktop */}
+                      <Box 
+                        sx={{ 
+                          position: { xs: 'relative', md: 'absolute' },
+                          left: { md: '50%' },
+                          top: { md: -30 },
+                          transform: { md: 'translateX(-50%)' },
+                          zIndex: 2,
+                          mb: { xs: 2, md: 0 }
+                        }}
                       >
-                        <Box
+                        <Chip
+                          icon={<EventIcon />}
+                          label="2023"
+                          color="primary"
+                          sx={{ 
+                            fontWeight: 'bold',
+                            px: 1,
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                          }}
+                        />
+                      </Box>
+
+                      {/* Timeline node - only visible on desktop */}
+                      <Box 
+                        sx={{ 
+                          position: 'absolute', 
+                          left: '50%', 
+                          width: 20, 
+                          height: 20, 
+                          borderRadius: '50%', 
+                          bgcolor: 'primary.main', 
+                          transform: 'translateX(-50%)',
+                          zIndex: 1,
+                          boxShadow: '0 0 0 4px rgba(25, 118, 210, 0.2)',
+                          display: { xs: 'none', md: 'block' }
+                        }} 
+                      />
+
+                      {/* Left side (empty for first item) */}
+                      <Box sx={{ flex: 1, display: { xs: 'none', md: 'block' } }} />
+
+                      {/* Right side (content) */}
+                      <Box 
+                        sx={{ 
+                          flex: 1, 
+                          pl: { md: 4 },
+                          width: { xs: '100%', md: 'auto' }
+                        }}
+                      >
+                        <Card
                           sx={{
-                            p: 3,
-                            borderLeft: '3px solid',
-                            borderColor: 'primary.main',
-                            bgcolor: 'white',
-                            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-                            borderRadius: '0 4px 4px 0',
+                            borderRadius: 3,
+                            boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+                            overflow: 'hidden',
                             transition: 'all 0.3s ease',
-                            transform: isVisible.pengalaman ? 'translateX(0)' : 'translateX(-20px)',
-                            opacity: isVisible.pengalaman ? 1 : 0,
                             '&:hover': {
-                              transform: 'translateX(4px)',
-                              boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
+                              transform: 'translateY(-5px)',
+                              boxShadow: '0 15px 35px rgba(25, 118, 210, 0.15)',
                             }
                           }}
                         >
-                          <Typography 
-                            variant="overline" 
-                            color="primary"
+                          <Box 
                             sx={{ 
-                              fontWeight: 500,
-                              fontSize: '0.75rem',
-                              letterSpacing: 0.5,
-                              display: 'block',
-                              mb: 0.5
-                            }}
-                          >
-                            Tahun Anggaran 2020
-                          </Typography>
-                          <Typography 
-                            variant="body1"
+                              p: 0.5, 
+                              bgcolor: 'primary.main',
+                              background: 'linear-gradient(90deg, #1976d2, #42a5f5)'
+                            }} 
+                          />
+                          <Box sx={{ p: 3 }}>
+                            <Typography 
+                              variant="subtitle1" 
+                              fontWeight="bold"
+                              color="primary.main"
+                              gutterBottom
+                            >
+                              Kementerian Pariwisata
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              Pengadaan Pembuatan Buku Panduan Pelaksanaan Kebersihan, Kesehatan, Keselamatan, dan Kelestarian Lingkungan bagi Pelaku Usaha Pariwisata.
+                            </Typography>
+                          </Box>
+                        </Card>
+                      </Box>
+                    </Box>
+                  </Grow>
+                </Box>
+
+                {/* 2020 Projects */}
+                <Box>
+                  <Grow in={isVisible.pengalaman} timeout={1200}>
+                    <Box 
+                      sx={{ 
+                        display: 'flex', 
+                        flexDirection: { xs: 'column', md: 'row' },
+                        alignItems: { xs: 'flex-start', md: 'center' },
+                        position: 'relative'
+                      }}
+                    >
+                      {/* Year chip */}
+                      <Box 
+                        sx={{ 
+                          position: { xs: 'relative', md: 'absolute' },
+                          left: { md: '50%' },
+                          top: { md: -30 },
+                          transform: { md: 'translateX(-50%)' },
+                          zIndex: 2,
+                          mb: { xs: 2, md: 0 }
+                        }}
+                      >
+                        <Chip
+                          icon={<EventIcon />}
+                          label="2020"
+                          color="secondary"
+                          sx={{ 
+                            fontWeight: 'bold',
+                            px: 1,
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                          }}
+                        />
+                      </Box>
+
+                      {/* Timeline node */}
+                      <Box 
+                        sx={{ 
+                          position: 'absolute', 
+                          left: '50%', 
+                          width: 20, 
+                          height: 20, 
+                          borderRadius: '50%', 
+                          bgcolor: 'secondary.main', 
+                          transform: 'translateX(-50%)',
+                          zIndex: 1,
+                          boxShadow: '0 0 0 4px rgba(156, 39, 176, 0.2)',
+                          display: { xs: 'none', md: 'block' }
+                        }} 
+                      />
+
+                      {/* Left side (content) - opposite of first item */}
+                      <Box 
+                        sx={{ 
+                          flex: 1, 
+                          pr: { md: 4 },
+                          width: { xs: '100%', md: 'auto' }
+                        }}
+                      >
+                        <Card
+                          sx={{
+                            borderRadius: 3,
+                            boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+                            overflow: 'hidden',
+                            transition: 'all 0.3s ease',
+                            '&:hover': {
+                              transform: 'translateY(-5px)',
+                              boxShadow: '0 15px 35px rgba(156, 39, 176, 0.15)',
+                            }
+                          }}
+                        >
+                          <Box 
                             sx={{ 
-                              color: 'text.primary',
-                              lineHeight: 1.6,
-                              fontSize: '0.95rem'
-                            }}
-                          >
-                            {project}
-                          </Typography>
-                        </Box>
-                      </Slide>
-                    ))}
-                  </Stack>
+                              p: 0.5, 
+                              bgcolor: 'secondary.main',
+                              background: 'linear-gradient(90deg, #9c27b0, #ba68c8)'
+                            }} 
+                          />
+                          <Box sx={{ p: 3 }}>
+                            <Typography 
+                              variant="subtitle1" 
+                              fontWeight="bold"
+                              color="secondary.main"
+                              gutterBottom
+                            >
+                              Korlantas Polri
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              Pengadaan materiil Mutasi Luar Daerah Korlantas Polri dengan standar keamanan tinggi dan kualitas premium.
+                            </Typography>
+                          </Box>
+                        </Card>
+                      </Box>
+
+                      {/* Right side (empty for second item) */}
+                      <Box sx={{ flex: 1, display: { xs: 'none', md: 'block' } }} />
+                    </Box>
+                  </Grow>
+                </Box>
+
+                {/* 2020 Project 2 */}
+                <Box>
+                  <Grow in={isVisible.pengalaman} timeout={1400}>
+                    <Box 
+                      sx={{ 
+                        display: 'flex', 
+                        flexDirection: { xs: 'column', md: 'row' },
+                        alignItems: { xs: 'flex-start', md: 'center' },
+                        position: 'relative'
+                      }}
+                    >
+                      {/* Timeline node */}
+                      <Box 
+                        sx={{ 
+                          position: 'absolute', 
+                          left: '50%', 
+                          width: 20, 
+                          height: 20, 
+                          borderRadius: '50%', 
+                          bgcolor: 'secondary.main', 
+                          transform: 'translateX(-50%)',
+                          zIndex: 1,
+                          boxShadow: '0 0 0 4px rgba(156, 39, 176, 0.2)',
+                          display: { xs: 'none', md: 'block' }
+                        }} 
+                      />
+
+                      {/* Left side (empty) */}
+                      <Box sx={{ flex: 1, display: { xs: 'none', md: 'block' } }} />
+
+                      {/* Right side (content) */}
+                      <Box 
+                        sx={{ 
+                          flex: 1, 
+                          pl: { md: 4 },
+                          width: { xs: '100%', md: 'auto' }
+                        }}
+                      >
+                        <Card
+                          sx={{
+                            borderRadius: 3,
+                            boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+                            overflow: 'hidden',
+                            transition: 'all 0.3s ease',
+                            '&:hover': {
+                              transform: 'translateY(-5px)',
+                              boxShadow: '0 15px 35px rgba(156, 39, 176, 0.15)',
+                            }
+                          }}
+                        >
+                          <Box 
+                            sx={{ 
+                              p: 0.5, 
+                              bgcolor: 'secondary.main',
+                              background: 'linear-gradient(90deg, #9c27b0, #ba68c8)'
+                            }} 
+                          />
+                          <Box sx={{ p: 3 }}>
+                            <Typography 
+                              variant="subtitle1" 
+                              fontWeight="bold"
+                              color="secondary.main"
+                              gutterBottom
+                            >
+                              Divisi Hukum Polri
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              Pengadaan Cetak Buku Himpunan Peraturan Kapolri dan Peraturan Polri Tahun 2019 dengan standar kualitas tinggi.
+                            </Typography>
+                          </Box>
+                        </Card>
+                      </Box>
+                    </Box>
+                  </Grow>
+                </Box>
+
+                {/* 2020 Project 3 */}
+                <Box>
+                  <Grow in={isVisible.pengalaman} timeout={1600}>
+                    <Box 
+                      sx={{ 
+                        display: 'flex', 
+                        flexDirection: { xs: 'column', md: 'row' },
+                        alignItems: { xs: 'flex-start', md: 'center' },
+                        position: 'relative'
+                      }}
+                    >
+                      {/* Timeline node */}
+                      <Box 
+                        sx={{ 
+                          position: 'absolute', 
+                          left: '50%', 
+                          width: 20, 
+                          height: 20, 
+                          borderRadius: '50%', 
+                          bgcolor: 'secondary.main', 
+                          transform: 'translateX(-50%)',
+                          zIndex: 1,
+                          boxShadow: '0 0 0 4px rgba(156, 39, 176, 0.2)',
+                          display: { xs: 'none', md: 'block' }
+                        }} 
+                      />
+
+                      {/* Left side (content) */}
+                      <Box 
+                        sx={{ 
+                          flex: 1, 
+                          pr: { md: 4 },
+                          width: { xs: '100%', md: 'auto' }
+                        }}
+                      >
+                        <Card
+                          sx={{
+                            borderRadius: 3,
+                            boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+                            overflow: 'hidden',
+                            transition: 'all 0.3s ease',
+                            '&:hover': {
+                              transform: 'translateY(-5px)',
+                              boxShadow: '0 15px 35px rgba(156, 39, 176, 0.15)',
+                            }
+                          }}
+                        >
+                          <Box 
+                            sx={{ 
+                              p: 0.5, 
+                              bgcolor: 'secondary.main',
+                              background: 'linear-gradient(90deg, #9c27b0, #ba68c8)'
+                            }} 
+                          />
+                          <Box sx={{ p: 3 }}>
+                            <Typography 
+                              variant="subtitle1" 
+                              fontWeight="bold"
+                              color="secondary.main"
+                              gutterBottom
+                            >
+                              Provinsi Nusa Tenggara Timur
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              Kontrak Katalog Elektronik Sektoral Penyediaan Buku Panduan Pendidik Tahun 2020 untuk meningkatkan kualitas pendidikan di daerah.
+                            </Typography>
+                          </Box>
+                        </Card>
+                      </Box>
+
+                      {/* Right side (empty) */}
+                      <Box sx={{ flex: 1, display: { xs: 'none', md: 'block' } }} />
+                    </Box>
+                  </Grow>
                 </Box>
               </Stack>
+
+              {/* View More Projects Button */}
+              <Box sx={{ textAlign: 'center', mt: 8 }}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  size="large"
+                  component={Link}
+                  href="/tentang-kami"
+                  endIcon={<ArrowForwardIcon />}
+                  sx={{ 
+                    fontWeight: 'bold', 
+                    py: 1.5, 
+                    px: 4,
+                    borderRadius: 3,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      bgcolor: 'primary.main',
+                      color: 'white',
+                      transform: 'translateY(-5px)',
+                      boxShadow: '0 6px 20px rgba(25, 118, 210, 0.3)',
+                    }
+                  }}
+                >
+                  Lihat Lebih Banyak Proyek
+                </Button>
+              </Box>
             </Box>
           </Container>
         </Fade>
