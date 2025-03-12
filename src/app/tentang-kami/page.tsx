@@ -223,165 +223,638 @@ export default function AboutPage() {
         </Box>
       </Fade>
 
-      <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Grid container spacing={6}>
-          <Grid item xs={12} md={6}>
-            <Fade in={isVisible.content} timeout={1000}>
-              <Box
-                sx={{
-                  transform: isVisible.content
-                    ? "translateY(0)"
-                    : "translateY(20px)",
-                  opacity: isVisible.content ? 1 : 0,
-                  transition: "all 0.6s ease-out",
-                }}
-              >
-                <Typography
-                  variant="h4"
-                  component="h2"
-                  fontWeight="bold"
-                  gutterBottom
-                >
-                  PT Sarana Pancakarya Nusa
-                </Typography>
-                <Typography variant="body1" paragraph>
-                  Dunia perbukuan, yang menjadi bagian dari penerbitan dan
-                  percetakan buku telah mengilhami PT Sarana Pancakarya Nusa
-                  untuk ikut serta memberikan yang terbaik pada dunia pendidikan
-                  di tanah air tercinta ini. Tekad yang diusung PT Sarana
-                  Pancakarya Nusa adalah turut serta mencerdaskan kehidupan
-                  bangsa, dan meningkatkan kualitas sumber daya manusia
-                  Indonesia menjadi lebih baik lagi.
-                </Typography>
-                <Typography variant="body1" paragraph>
-                  PT Sarana Pancakarya Nusa didirikan pada tahun 1986
-                  berdasarkan akte notaris Koswara, No. 26 tanggal 6 Desember
-                  1986 dan telah mencetak berbagai macam cetakan antara lain:
-                  buku-buku teks pelajaran (dari tingkat PAUD/TK s.d. SMA/MA);
-                  buku-buku nonteks pelajaran (antara lain: buku pengayaan, buku
-                  referensi, buku panduan pendidik, dan buku muatan lokal);
-                  buku-buku PLS (Pendidikan Luar Sekolah); buku-buku KF
-                  (Keaksaraan Fungsional); bukubuku perguruan tinggi; dan
-                  buku-buku umum lainnya.
-                </Typography>
-                <Typography variant="body1">
-                  PT Sarana Pancakarya Nusa dengan jumlah karyawan sebanyak 200
-                  orang (karyawan tetap dan ratusan tenaga tidak tetap yang siap
-                  bekerja jika diperlukan) terus setia melengkapi kebutuhan
-                  berbagai macam cetakan besar ataupun kecil serta berbagai
-                  bahan ajar dan cetakan security secara tepat waktu, tepat
-                  jumlah dengan standar kualitas terjamin karena PT Sarana
-                  Pancakarya Nusa dipimpin dan didukung oleh para pekerja
-                  profesional di bidangnya.
-                </Typography>
-              </Box>
-            </Fade>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Slide direction="left" in={isVisible.content} timeout={1200}>
-              <Box>
-                <Box
+<Container maxWidth="lg" sx={{ py: 8 }}>
+  <Grid container spacing={6}>
+    <Grid item xs={12} md={6}>
+      <Fade in={isVisible.content} timeout={1000}>
+        <Box
+          sx={{
+            transform: isVisible.content
+              ? "translateY(0)"
+              : "translateY(20px)",
+            opacity: isVisible.content ? 1 : 0,
+            transition: "all 0.6s ease-out",
+          }}
+        >
+          <Box sx={{ mb: 4 }}>
+            <Typography
+              variant="overline"
+              component="p"
+              sx={{ 
+                color: 'primary.main',
+                fontWeight: 600,
+                letterSpacing: 1.5,
+                mb: 1
+              }}
+            >
+              TENTANG PERUSAHAAN
+            </Typography>
+            <Typography
+              variant="h4"
+              component="h2"
+              fontWeight="bold"
+              sx={{ 
+                mb: 2,
+                background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              PT Sarana Pancakarya Nusa
+            </Typography>
+            <Box 
+              sx={{ 
+                width: 80, 
+                height: 4, 
+                bgcolor: 'primary.main', 
+                borderRadius: 2,
+                mb: 3
+              }}
+            />
+          </Box>
+          
+          <Box 
+            sx={{ 
+              p: 3, 
+              mb: 4, 
+              borderRadius: 2, 
+              bgcolor: 'primary.light', 
+              color: 'primary.contrastText',
+              boxShadow: '0 4px 20px rgba(25, 118, 210, 0.15)'
+            }}
+          >
+            <Typography variant="body1" fontWeight="medium">
+              "Tekad yang diusung PT Sarana Pancakarya Nusa adalah turut serta mencerdaskan kehidupan
+              bangsa, dan meningkatkan kualitas sumber daya manusia Indonesia menjadi lebih baik lagi."
+            </Typography>
+          </Box>
+          
+          <Typography 
+            variant="body1" 
+            paragraph
+            sx={{
+              fontSize: '1.05rem',
+              lineHeight: 1.7,
+              color: 'text.primary'
+            }}
+          >
+            Dunia perbukuan, yang menjadi bagian dari penerbitan dan
+            percetakan buku telah mengilhami PT Sarana Pancakarya Nusa
+            untuk ikut serta memberikan yang terbaik pada dunia pendidikan
+            di tanah air tercinta ini.
+          </Typography>
+          
+          <Box sx={{ mb: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Paper
+                  elevation={0}
                   sx={{
-                    position: "relative",
-                    height: 400,
-                    width: "100%",
-                    borderRadius: 4,
-                    overflow: "hidden",
+                    p: 2,
+                    height: '100%',
+                    borderRadius: 2,
+                    bgcolor: 'background.paper',
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-5px)',
+                      boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+                    }
                   }}
                 >
-                  <AboutIllustration />
-                </Box>
-              </Box>
-            </Slide>
-          </Grid>
-        </Grid>
-      </Container>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                    <Box 
+                      sx={{ 
+                        width: 36, 
+                        height: 36, 
+                        borderRadius: '50%', 
+                        bgcolor: 'primary.light',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        mr: 1.5
+                      }}
+                    >
+                      <LocalPrintshopIcon sx={{ fontSize: 20, color: 'primary.main' }} />
+                    </Box>
+                    <Typography variant="h6" fontWeight="bold">1986</Typography>
+                  </Box>
+                  <Typography variant="body2">
+                    Didirikan berdasarkan akte notaris Koswara, No. 26 tanggal 6 Desember 1986
+                  </Typography>
+                </Paper>
+              </Grid>
+              <Grid item xs={6}>
+                <Paper
+                  elevation={0}
+                  sx={{
+                    p: 2,
+                    height: '100%',
+                    borderRadius: 2,
+                    bgcolor: 'background.paper',
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-5px)',
+                      boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+                    }
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                    <Box 
+                      sx={{ 
+                        width: 36, 
+                        height: 36, 
+                        borderRadius: '50%', 
+                        bgcolor: 'primary.light',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        mr: 1.5
+                      }}
+                    >
+                      <GroupsIcon sx={{ fontSize: 20, color: 'primary.main' }} />
+                    </Box>
+                    <Typography variant="h6" fontWeight="bold">200+</Typography>
+                  </Box>
+                  <Typography variant="body2">
+                    Karyawan profesional yang siap melayani kebutuhan Anda
+                  </Typography>
+                </Paper>
+              </Grid>
+            </Grid>
+          </Box>
+          
+          <Typography variant="body1" paragraph>
+            PT Sarana Pancakarya Nusa telah mencetak berbagai macam cetakan antara lain:
+            buku-buku teks pelajaran (dari tingkat PAUD/TK s.d. SMA/MA);
+            buku-buku nonteks pelajaran (antara lain: buku pengayaan, buku
+            referensi, buku panduan pendidik, dan buku muatan lokal);
+            buku-buku PLS (Pendidikan Luar Sekolah); buku-buku KF
+            (Keaksaraan Fungsional); bukubuku perguruan tinggi; dan
+            buku-buku umum lainnya.
+          </Typography>
+          
+          <Typography variant="body1">
+            PT Sarana Pancakarya Nusa terus setia melengkapi kebutuhan
+            berbagai macam cetakan besar ataupun kecil serta berbagai
+            bahan ajar dan cetakan security secara tepat waktu, tepat
+            jumlah dengan standar kualitas terjamin karena PT Sarana
+            Pancakarya Nusa dipimpin dan didukung oleh para pekerja
+            profesional di bidangnya.
+          </Typography>
+        </Box>
+      </Fade>
+    </Grid>
+    <Grid item xs={12} md={6}>
+      <Slide direction="left" in={isVisible.content} timeout={1200}>
+        <Box>
+          <Paper
+            elevation={0}
+            sx={{
+              p: 3,
+              height: '100%',
+              borderRadius: 4,
+              overflow: 'hidden',
+              position: 'relative',
+              boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                background: 'linear-gradient(135deg, rgba(25, 118, 210, 0.05) 0%, rgba(25, 118, 210, 0.1) 100%)',
+                zIndex: 0
+              }
+            }}
+          >
+            <Box
+              sx={{
+                position: 'relative',
+                height: 400,
+                width: '100%',
+                borderRadius: 2,
+                overflow: 'hidden',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  transform: 'scale(1.02)',
+                }
+              }}
+            >
+              <AboutIllustration />
+            </Box>
+            
+            <Box sx={{ mt: 4, position: 'relative', zIndex: 1 }}>
+              <Typography
+                variant="h6"
+                fontWeight="bold"
+                gutterBottom
+                sx={{ color: 'primary.main' }}
+              >
+                Keunggulan Kami
+              </Typography>
+              
+              <Grid container spacing={2} sx={{ mt: 1 }}>
+                {[
+                  { label: 'Kualitas Terjamin', icon: <CheckCircleIcon fontSize="small" /> },
+                  { label: 'Tepat Waktu', icon: <CheckCircleIcon fontSize="small" /> },
+                  { label: 'Profesional', icon: <CheckCircleIcon fontSize="small" /> },
+                  { label: 'Inovatif', icon: <CheckCircleIcon fontSize="small" /> },
+                ].map((item, index) => (
+                  <Grid item xs={6} key={index}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        p: 1.5,
+                        borderRadius: 2,
+                        bgcolor: 'background.paper',
+                        border: '1px solid',
+                        borderColor: 'divider',
+                        transition: 'all 0.2s ease',
+                        '&:hover': {
+                          bgcolor: 'primary.main',
+                          color: 'white',
+                          '& .MuiSvgIcon-root': {
+                            color: 'white'
+                          }
+                        }
+                      }}
+                    >
+                      <Box 
+                        sx={{ 
+                          mr: 1.5,
+                          color: 'primary.main',
+                          transition: 'color 0.2s ease',
+                        }}
+                      >
+                        {item.icon}
+                      </Box>
+                      <Typography variant="body2" fontWeight="medium">
+                        {item.label}
+                      </Typography>
+                    </Box>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+          </Paper>
+        </Box>
+      </Slide>
+    </Grid>
+  </Grid>
+</Container>
 
       {/* Visi & Misi */}
-      <Box sx={{ bgcolor: "background.paper", py: 8 }}>
-        <Container maxWidth="lg">
-          <Grid container spacing={6}>
-            <Grid item xs={12} md={6}>
-              <Paper
-                elevation={0}
-                sx={{
-                  p: 4,
-                  height: "100%",
-                  borderRadius: 4,
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
-                }}
-              >
-                <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-                  <EmojiObjectsIcon
-                    color="primary"
-                    sx={{ fontSize: 40, mr: 2 }}
-                  />
-                  <Typography variant="h4" component="h2" fontWeight="bold">
-                    Visi
-                  </Typography>
+<Box 
+  sx={{ 
+    bgcolor: "background.paper", 
+    py: { xs: 8, md: 12 },
+    position: 'relative',
+    overflow: 'hidden',
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundImage: 'url(/images/bg-pattern.png)',
+      backgroundRepeat: 'repeat',
+      backgroundSize: '400px',
+      opacity: 0.03,
+      zIndex: 0,
+    }
+  }}
+>
+  <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+    <Box sx={{ mb: 6, textAlign: 'center' }}>
+      <Typography
+        variant="overline"
+        component="p"
+        sx={{ 
+          color: 'primary.main',
+          fontWeight: 600,
+          letterSpacing: 1.5,
+          mb: 1
+        }}
+      >
+        TUJUAN & ARAH KAMI
+      </Typography>
+      <Typography
+        variant="h3"
+        component="h2"
+        fontWeight="bold"
+        sx={{ 
+          mb: 2,
+          background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+        }}
+      >
+        Visi & Misi
+      </Typography>
+      <Typography
+        variant="body1"
+        color="text.secondary"
+        sx={{ 
+          maxWidth: 650,
+          mx: 'auto',
+          mb: 2
+        }}
+      >
+        Komitmen kami untuk memberikan layanan terbaik dan berkontribusi pada dunia pendidikan Indonesia
+      </Typography>
+      <Box 
+        sx={{ 
+          width: 60, 
+          height: 4, 
+          bgcolor: 'primary.main', 
+          borderRadius: 2,
+          mx: 'auto',
+          mb: 6
+        }}
+      />
+    </Box>
+
+    <Grid container spacing={6} alignItems="stretch">
+      <Grid item xs={12} md={6}>
+        <Zoom in={isVisible.values} timeout={800}>
+          <Paper
+            elevation={0}
+            sx={{
+              p: 0,
+              height: '100%',
+              borderRadius: 4,
+              overflow: 'hidden',
+              boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
+              transition: 'transform 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-10px)',
+                boxShadow: '0 15px 50px rgba(25, 118, 210, 0.15)',
+              }
+            }}
+          >
+            <Box 
+              sx={{ 
+                bgcolor: 'primary.main', 
+                p: 4, 
+                position: 'relative',
+                overflow: 'hidden',
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  top: -20,
+                  right: -20,
+                  width: 120,
+                  height: 120,
+                  borderRadius: '50%',
+                  bgcolor: 'rgba(255,255,255,0.1)',
+                },
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: -30,
+                  left: -30,
+                  width: 160,
+                  height: 160,
+                  borderRadius: '50%',
+                  bgcolor: 'rgba(255,255,255,0.05)',
+                }
+              }}
+            >
+              <Box sx={{ position: 'relative', zIndex: 1 }}>
+                <Box 
+                  sx={{ 
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 60,
+                    height: 60,
+                    borderRadius: '50%',
+                    bgcolor: 'rgba(255,255,255,0.15)',
+                    mb: 2
+                  }}
+                >
+                  <EmojiObjectsIcon sx={{ fontSize: 30, color: 'white' }} />
                 </Box>
-                <Typography variant="body1">
-                  Menjadi bagian dan mitra terpercaya dalam meningkatkan mutu
-                  pendidikan.
+                <Typography 
+                  variant="h4" 
+                  component="h3" 
+                  fontWeight="bold" 
+                  color="white"
+                  gutterBottom
+                >
+                  Visi
                 </Typography>
-              </Paper>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Paper
-                elevation={0}
-                sx={{
-                  p: 4,
-                  height: "100%",
-                  borderRadius: 4,
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
+                <Typography 
+                  variant="subtitle1" 
+                  color="rgba(255,255,255,0.8)"
+                  sx={{ 
+                    pb: 2,
+                    borderBottom: '1px solid rgba(255,255,255,0.2)',
+                    mb: 2
+                  }}
+                >
+                  Pandangan jangka panjang kami
+                </Typography>
+              </Box>
+            </Box>
+            
+            <Box sx={{ p: 4 }}>
+              <Typography 
+                variant="h6" 
+                sx={{ 
+                  fontStyle: 'italic', 
+                  color: 'text.primary',
+                  mb: 3,
+                  position: 'relative',
+                  '&::before': {
+                    content: '"""',
+                    position: 'absolute',
+                    left: -10,
+                    top: -10,
+                    fontSize: 40,
+                    fontFamily: 'serif',
+                    color: 'rgba(25, 118, 210, 0.1)',
+                  }
                 }}
               >
-                <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-                  <LocalPrintshopIcon
-                    color="primary"
-                    sx={{ fontSize: 40, mr: 2 }}
-                  />
-                  <Typography variant="h4" component="h2" fontWeight="bold">
-                    Misi
-                  </Typography>
+                Menjadi bagian dan mitra terpercaya dalam meningkatkan mutu pendidikan.
+              </Typography>
+              
+              <Box 
+                sx={{ 
+                  display: 'flex', 
+                  alignItems: 'center',
+                  p: 2,
+                  borderRadius: 2,
+                  bgcolor: 'rgba(25, 118, 210, 0.04)',
+                  border: '1px dashed',
+                  borderColor: 'primary.light'
+                }}
+              >
+                <Box 
+                  sx={{ 
+                    minWidth: 40, 
+                    height: 40, 
+                    borderRadius: '50%', 
+                    bgcolor: 'primary.light',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    mr: 2
+                  }}
+                >
+                  <CheckCircleIcon sx={{ fontSize: 20, color: 'primary.main' }} />
                 </Box>
-                <List disablePadding>
-                  <ListItem disableGutters>
-                    <ListItemIcon sx={{ minWidth: 36 }}>
-                      <CheckCircleIcon color="primary" />
+                <Typography variant="body2" color="text.secondary">
+                  Kami berkomitmen untuk menjadi mitra yang dapat diandalkan dalam upaya peningkatan kualitas pendidikan di Indonesia.
+                </Typography>
+              </Box>
+            </Box>
+          </Paper>
+        </Zoom>
+      </Grid>
+      
+      <Grid item xs={12} md={6}>
+        <Zoom in={isVisible.values} timeout={1000}>
+          <Paper
+            elevation={0}
+            sx={{
+              p: 0,
+              height: '100%',
+              borderRadius: 4,
+              overflow: 'hidden',
+              boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
+              transition: 'transform 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-10px)',
+                boxShadow: '0 15px 50px rgba(25, 118, 210, 0.15)',
+              }
+            }}
+          >
+            <Box 
+              sx={{ 
+                bgcolor: '#4caf50', 
+                p: 4, 
+                position: 'relative',
+                overflow: 'hidden',
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  top: -20,
+                  right: -20,
+                  width: 120,
+                  height: 120,
+                  borderRadius: '50%',
+                  bgcolor: 'rgba(255,255,255,0.1)',
+                },
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: -30,
+                  left: -30,
+                  width: 160,
+                  height: 160,
+                  borderRadius: '50%',
+                  bgcolor: 'rgba(255,255,255,0.05)',
+                }
+              }}
+            >
+              <Box sx={{ position: 'relative', zIndex: 1 }}>
+                <Box 
+                  sx={{ 
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 60,
+                    height: 60,
+                    borderRadius: '50%',
+                    bgcolor: 'rgba(255,255,255,0.15)',
+                    mb: 2
+                  }}
+                >
+                  <LocalPrintshopIcon sx={{ fontSize: 30, color: 'white' }} />
+                </Box>
+                <Typography 
+                  variant="h4" 
+                  component="h3" 
+                  fontWeight="bold" 
+                  color="white"
+                  gutterBottom
+                >
+                  Misi
+                </Typography>
+                <Typography 
+                  variant="subtitle1" 
+                  color="rgba(255,255,255,0.8)"
+                  sx={{ 
+                    pb: 2,
+                    borderBottom: '1px solid rgba(255,255,255,0.2)',
+                    mb: 2
+                  }}
+                >
+                  Langkah-langkah strategis kami
+                </Typography>
+              </Box>
+            </Box>
+            
+            <Box sx={{ p: 4 }}>
+              <List disablePadding>
+                {[
+                  "Ikut aktif dan berkontribusi dalam mencerdaskan bangsa melalui produk pendidikan yang berkualitas",
+                  "Patuh dan taat terhadap aturan yang sudah ditetapkan",
+                  "Meningkatkan dan mengembangkan bisnis secara bertahap ke seluruh nusantara",
+                  "Membangun kebersamaan secara profesional dengan mitra usaha",
+                  "Meningkatkan dan mengembangkan mekanisme kerja melalui online dan offline"
+                ].map((item, index) => (
+                  <ListItem 
+                    key={index} 
+                    disableGutters 
+                    sx={{ 
+                      py: 1.5,
+                      borderBottom: index < 4 ? '1px solid' : 'none',
+                      borderColor: 'divider'
+                    }}
+                  >
+                    <ListItemIcon 
+                      sx={{ 
+                        minWidth: 36,
+                        '& .MuiSvgIcon-root': {
+                          fontSize: 20,
+                          p: 0.5,
+                          borderRadius: '50%',
+                          bgcolor: 'rgba(76, 175, 80, 0.1)',
+                          color: '#4caf50'
+                        }
+                      }}
+                    >
+                      <CheckCircleIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Ikut aktif dan berkontribusi dalam mencerdaskan bangsa melalui produk pendidikan yang berkualitas" />
+                    <ListItemText 
+                      primary={item} 
+                      primaryTypographyProps={{ 
+                        variant: 'body2',
+                        color: 'text.primary',
+                        fontWeight: 'medium'
+                      }}
+                    />
                   </ListItem>
-                  <ListItem disableGutters>
-                    <ListItemIcon sx={{ minWidth: 36 }}>
-                      <CheckCircleIcon color="primary" />
-                    </ListItemIcon>
-                    <ListItemText primary="Patuh dan taat terhadap aturan yang sudah ditetapkan" />
-                  </ListItem>
-                  <ListItem disableGutters>
-                    <ListItemIcon sx={{ minWidth: 36 }}>
-                      <CheckCircleIcon color="primary" />
-                    </ListItemIcon>
-                    <ListItemText primary="Meningkatkan dan mengembangkan bisnis secara bertahap ke seluruh nusantara" />
-                  </ListItem>
-                  <ListItem disableGutters>
-                    <ListItemIcon sx={{ minWidth: 36 }}>
-                      <CheckCircleIcon color="primary" />
-                    </ListItemIcon>
-                    <ListItemText primary="Membangun kebersamaan secara profesional dengan mitra usaha" />
-                  </ListItem>
-                  <ListItem disableGutters>
-                    <ListItemIcon sx={{ minWidth: 36 }}>
-                      <CheckCircleIcon color="primary" />
-                    </ListItemIcon>
-                    <ListItemText primary="Meningkatkan dan mengembangkan mekanisme kerja melalui online dan offline" />
-                  </ListItem>
-                </List>
-              </Paper>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
+                ))}
+              </List>
+            </Box>
+          </Paper>
+        </Zoom>
+      </Grid>
+    </Grid>
+  </Container>
+</Box>
 
       {/* Perjalanan Kami - Baru */}
       <Box sx={{ py: 10 }}>
