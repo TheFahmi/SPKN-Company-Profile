@@ -25,7 +25,6 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SendIcon from '@mui/icons-material/Send';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import TwitterIcon from '@mui/icons-material/Twitter';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -33,6 +32,13 @@ import { ContactForm as ContactFormType } from '../types';
 import { ContactIllustration } from '../components/illustrations';
 import ContactForm from '../components/ContactForm';
 import PlaceIcon from '@mui/icons-material/Place';
+
+// Custom X icon component (formerly Twitter)
+const XIcon = (props) => (
+  <SvgIcon {...props} viewBox="0 0 24 24">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </SvgIcon>
+);
 
 // Skema validasi form kontak
 const contactSchema = z.object({
@@ -577,7 +583,7 @@ export default function ContactPage() {
                         gradient: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
                         hoverGradient: 'linear-gradient(45deg, #e6683c 0%, #dc2743 25%, #cc2366 50%, #bc1888 75%, #f09433 100%)' 
                       },
-                      { icon: <TwitterIcon />, label: 'X', color: '#000000', hoverColor: '#333333' }
+                      { icon: <XIcon />, label: 'X', color: '#000000', hoverColor: '#333333' }
                     ].map((item, index) => (
                       <Button 
                         key={index}
