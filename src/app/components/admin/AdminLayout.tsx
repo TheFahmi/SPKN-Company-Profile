@@ -541,11 +541,12 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
               sx={{
                 display: open ? 'inline-flex' : 'none',
                 borderRadius: '50%',
-                backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.08),
+                backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.1),
                 '&:hover': {
-                  backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.15),
+                  backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.2),
+                  transform: 'rotate(180deg)',
                 },
-                transition: 'all 0.2s ease',
+                transition: 'all 0.3s ease',
               }}
             >
               <ChevronLeftIcon sx={{ color: muiTheme.palette.primary.main }} />

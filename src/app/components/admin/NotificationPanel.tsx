@@ -376,16 +376,18 @@ export default function NotificationPanel() {
             <Button 
               size="small" 
               onClick={handleClose}
-              variant="outlined"
+              variant="contained"
+              disableElevation
               sx={{ 
                 textTransform: 'none',
                 borderRadius: '8px',
-                px: 2,
-                borderColor: alpha(theme.palette.primary.main, 0.3),
+                px: 3,
+                py: 0.75,
+                backgroundColor: alpha(theme.palette.primary.main, 0.9),
                 '&:hover': {
-                  backgroundColor: alpha(theme.palette.primary.main, 0.1),
-                  borderColor: theme.palette.primary.main,
+                  backgroundColor: theme.palette.primary.main,
                 },
+                transition: 'all 0.2s ease',
               }}
             >
               Tutup
