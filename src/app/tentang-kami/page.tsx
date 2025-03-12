@@ -1261,10 +1261,14 @@ export default function AboutPage() {
         display: "flex", 
         justifyContent: "center", 
         mt: 6,
-        gap: 2,
-        position: "relative",
-        zIndex: 2,
-        pb: 4
+        gap: 3,
+        position: "sticky",
+        bottom: { xs: 16, md: 24 },
+        zIndex: 10,
+        pb: 4,
+        '& button': {
+          minWidth: { xs: 120, md: 150 }
+        }
       }}
     >
       <Button
@@ -1276,15 +1280,19 @@ export default function AboutPage() {
           fontWeight: 'bold',
           borderRadius: 2,
           px: 3,
-          py: 1,
+          py: 1.5,
           borderWidth: 2,
+          boxShadow: '0 4px 10px rgba(0,0,0,0.05)',
           '&:not(:disabled)': {
             borderColor: 'primary.main',
             '&:hover': {
               borderWidth: 2,
-              bgcolor: 'rgba(25, 118, 210, 0.04)'
+              bgcolor: 'rgba(25, 118, 210, 0.04)',
+              transform: 'translateY(-3px)',
+              boxShadow: '0 6px 15px rgba(0,0,0,0.08)'
             }
-          }
+          },
+          transition: 'all 0.2s ease'
         }}
       >
         Sebelumnya
@@ -1298,12 +1306,14 @@ export default function AboutPage() {
           fontWeight: 'bold',
           borderRadius: 2,
           px: 3,
-          py: 1,
+          py: 1.5,
           boxShadow: '0 4px 14px rgba(25, 118, 210, 0.3)',
           background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
           '&:hover': {
             boxShadow: '0 6px 20px rgba(25, 118, 210, 0.4)',
-          }
+            transform: 'translateY(-3px)'
+          },
+          transition: 'all 0.2s ease'
         }}
       >
         Selanjutnya
