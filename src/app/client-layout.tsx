@@ -9,9 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import getTheme from './theme';
 import StructuredData from './components/StructuredData';
 import dynamic from 'next/dynamic';
-
-// Dynamically import components to improve initial load time
-const DynamicPreload = dynamic(() => import('./components/Preload'), { ssr: false });
+import Preload from './components/Preload';
 
 // Dynamically import Header and Footer to improve initial load time
 const DynamicHeader = dynamic(() => import('../components/Header'), { ssr: false });
@@ -68,7 +66,7 @@ export default function ClientLayout({
       }}
     >
       {/* Add Preload component */}
-      <DynamicPreload />
+      <Preload />
       {!hideHeaderFooter && <DynamicHeader />}
       <Box component="main" sx={{ flex: 1 }}>
         {children}
