@@ -15,12 +15,13 @@ import {
   useTheme,
   alpha,
   Paper,
+  SvgIcon,
 } from '@mui/material';
 import Link from 'next/link';
 import Image from 'next/image';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import XIcon from '@mui/icons-material/X';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
@@ -75,7 +76,7 @@ export default function Footer() {
     >
       {/* Newsletter Section */}
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-        <Box sx={{ py: 6 }}>
+        <Box sx={{ pt: 12, maxWidth: 800, textAlign: 'center', mx: 'auto', color: 'white'}}>
           <Paper
             elevation={isDark ? 3 : 0}
             sx={{
@@ -88,6 +89,7 @@ export default function Footer() {
                 ? `0 8px 32px ${alpha(theme.palette.common.black, 0.2)}` 
                 : `0 8px 32px ${alpha(theme.palette.common.black, 0.1)}`,
               transform: 'translateY(-50px)',
+              color: 'white',
             }}
           >
             <Grid container spacing={4} alignItems="center">
@@ -169,7 +171,6 @@ export default function Footer() {
                   height={40}
                   style={{ 
                     objectFit: 'contain',
-                    filter: isDark ? 'none' : 'brightness(0) invert(1)'
                   }}
                   priority
                 />
@@ -308,7 +309,7 @@ export default function Footer() {
                   }
                 }}
               >
-                <TwitterIcon />
+                <XIcon />
               </IconButton>
             </Stack>
 
@@ -349,7 +350,7 @@ export default function Footer() {
                 © {new Date().getFullYear()} PT Sarana Pancakarya Nusa. All rights reserved.
               </Typography>
             </Grid>
-            <Grid item xs={12} md={6} sx={{ mt: { xs: 2, md: 0 } }}>
+            {/* <Grid item xs={12} md={6} sx={{ mt: { xs: 2, md: 0 } }}>
               <Stack 
                 direction="row" 
                 spacing={3} 
@@ -379,7 +380,7 @@ export default function Footer() {
                   Terms of Service
                 </MuiLink>
               </Stack>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Container>
       </Box>

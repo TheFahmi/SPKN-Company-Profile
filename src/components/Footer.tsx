@@ -15,6 +15,7 @@ import {
   useTheme,
   alpha,
   Paper,
+  SvgIcon,
 } from '@mui/material';
 import Link from 'next/link';
 import Image from 'next/image';
