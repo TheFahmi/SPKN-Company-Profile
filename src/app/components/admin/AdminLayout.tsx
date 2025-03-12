@@ -631,13 +631,25 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
                                   py: 1,
                                   minHeight: 40,
                                   backgroundColor: isPathActive(subItem.href || '')
-                                    ? alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.15 : 0.1)
+                                    ? (theme) => `linear-gradient(90deg, ${alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.25 : 0.15)} 0%, ${alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.15 : 0.05)} 100%)`
                                     : 'transparent',
-                                  borderRadius: '24px',
+                                  borderRadius: '12px',
                                   mx: 1,
+                                  position: 'relative',
                                   '&:hover': {
-                                    backgroundColor: alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.2 : 0.15),
+                                    backgroundColor: (theme) => alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.2 : 0.1),
                                   },
+                                  '&::before': isPathActive(subItem.href || '') ? {
+                                    content: '""',
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: '25%',
+                                    height: '50%',
+                                    width: '4px',
+                                    backgroundColor: muiTheme.palette.primary.main,
+                                    borderRadius: '0 4px 4px 0',
+                                  } : {},
+                                  transition: 'all 0.2s ease',
                                 }}
                               >
                                 <ListItemIcon
@@ -647,6 +659,7 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
                                     color: isPathActive(subItem.href || '')
                                       ? muiTheme.palette.primary.main
                                       : muiTheme.palette.text.secondary,
+                                    transition: 'all 0.2s ease',
                                   }}
                                 >
                                   {subItem.icon}
@@ -655,10 +668,11 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
                                   primary={subItem.text}
                                   primaryTypographyProps={{
                                     fontSize: 14,
-                                    fontWeight: isPathActive(subItem.href || '') ? 'medium' : 'normal',
+                                    fontWeight: isPathActive(subItem.href || '') ? 600 : 400,
                                     color: isPathActive(subItem.href || '') 
                                       ? muiTheme.palette.primary.main 
                                       : muiTheme.palette.text.secondary,
+                                    transition: 'all 0.2s ease',
                                   }}
                                 />
                               </ListItemButton>
