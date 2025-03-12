@@ -1,11 +1,13 @@
 'use client';
 
-import { Box, Typography, Divider, useTheme } from '@mui/material';
+import { Box, Typography, Divider, useTheme, alpha, Chip } from '@mui/material';
 import { useState, useEffect } from 'react';
+import { AccessTime as AccessTimeIcon, Copyright as CopyrightIcon } from '@mui/icons-material';
 
 export default function AdminFooter() {
   const [pageLoadTime, setPageLoadTime] = useState<string>('');
   const currentYear = new Date().getFullYear();
+  const theme = useTheme();
   
   // Mengukur waktu pemuatan halaman
   useEffect(() => {
@@ -30,23 +32,63 @@ export default function AdminFooter() {
       component="footer"
       sx={{
         py: 3, 
-        px: 2,
+        px: 3,
         mt: 'auto',
         backgroundColor: (theme) => 
           theme.palette.mode === 'light' 
-            ? theme.palette.grey[100] 
-            : theme.palette.grey[900],
+            ? alpha(theme.palette.background.paper, 0.8)
+            : alpha(theme.palette.background.default, 0.8),
+        backdropFilter: 'blur(8px)',
+        borderTop: '1px solid',
+        borderColor: (theme) =>
+          theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.06)' : 'rgba(255, 255, 255, 0.06)',
+        borderRadius: '16px 16px 0 0',
       }}
     >
-      <Divider sx={{ mb: 2 }} />
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-        <Typography variant="body2" color="text.secondary">
-          &copy; {currentYear} PT. Sarana Pancakarya Nusa. All rights reserved.
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Loaded: {pageLoadTime}
-        </Typography>
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          flexWrap: 'wrap', 
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: 2
+        }}
+      >
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <CopyrightIcon 
+            sx={{ 
+              fontSize: 16, 
+              mr: 1, 
+              color: theme.palette.text.secondary 
+            }} 
+          />
+          <Typography 
+            variant="body2" 
+            sx={{ 
+              color: theme.palette.text.secondary,
+              fontWeight: 500
+            }}
+          >
+            {currentYear} PT. Sarana Pancakarya Nusa
+          </Typography>
+        </Box>
+        
+        <Chip
+          icon={<AccessTimeIcon sx={{ fontSize: 16 }} />}
+          label={`Loaded: ${pageLoadTime}`}
+          size="small"
+          sx={{
+            backgroundColor: alpha(theme.palette.primary.main, 0.1),
+            color: theme.palette.text.secondary,
+            fontWeight: 500,
+            fontSize: '0.75rem',
+            height: 28,
+            '& .MuiChip-icon': {
+              color: theme.palette.primary.main,
+            },
+          }}
+        />
       </Box>
     </Box>
   );
-} 
+}

@@ -363,17 +363,28 @@ export default function NotificationPanel() {
             sx={{ 
               p: 2, 
               textAlign: 'center',
-              borderTop: `1px solid ${theme.palette.divider}`,
+              borderTop: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+              backgroundColor: theme.palette.mode === 'light' 
+                ? alpha(theme.palette.background.paper, 0.8)
+                : alpha(theme.palette.background.paper, 0.8),
+              backdropFilter: 'blur(8px)',
+              position: 'sticky',
+              bottom: 0,
+              zIndex: 1,
             }}
           >
             <Button 
               size="small" 
               onClick={handleClose}
+              variant="outlined"
               sx={{ 
                 textTransform: 'none',
-                color: theme.palette.text.secondary,
+                borderRadius: '8px',
+                px: 2,
+                borderColor: alpha(theme.palette.primary.main, 0.3),
                 '&:hover': {
                   backgroundColor: alpha(theme.palette.primary.main, 0.1),
+                  borderColor: theme.palette.primary.main,
                 },
               }}
             >
