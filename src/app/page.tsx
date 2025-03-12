@@ -764,7 +764,9 @@ export default function Home() {
                   rating: 5,
                   bgColor: '#ffecb3',
                   avatar: 'B',
-                },                <Grid item key={index} xs={12} md={4}>
+                }
+              ].map((testimonial, index) => (
+                <Grid item key={index} xs={12} md={4}>
                   <Grow
                     in={isVisible.testimonial}
                     timeout={1000 + (index * 200)}
