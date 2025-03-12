@@ -299,6 +299,7 @@ export default function ContactPage() {
                   borderRadius: 4, 
                   boxShadow: '0 10px 30px rgba(0,0,0,0.08)', 
                   mb: 4,
+                  background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
                   position: 'relative',
                   overflow: 'hidden',
                   '&::before': {
@@ -306,9 +307,9 @@ export default function ContactPage() {
                     position: 'absolute',
                     top: 0,
                     right: 0,
-                    width: '150px',
-                    height: '150px',
-                    background: 'radial-gradient(circle, rgba(25, 118, 210, 0.1) 0%, rgba(255,255,255,0) 70%)',
+                    width: '200px',
+                    height: '200px',
+                    background: 'radial-gradient(circle, rgba(25, 118, 210, 0.05) 0%, rgba(255,255,255,0) 70%)',
                     borderRadius: '0 0 0 100%',
                     zIndex: 0
                   }
@@ -482,6 +483,39 @@ export default function ContactPage() {
                       />
                     </ListItem>
                   </List>
+                  
+                  <Box sx={{ 
+                    mt: 4, 
+                    pt: 3, 
+                    borderTop: '1px solid', 
+                    borderColor: 'divider',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    gap: 2,
+                    position: 'relative',
+                    zIndex: 1
+                  }}>
+                    <Typography variant="subtitle2" color="text.secondary">
+                      Jam operasional kantor: 08.00 - 17.00 WIB
+                    </Typography>
+                    <Button 
+                      variant="outlined" 
+                      color="primary"
+                      size="small"
+                      sx={{ 
+                        borderRadius: 2,
+                        transition: 'all 0.2s ease',
+                        '&:hover': {
+                          bgcolor: 'primary.main',
+                          color: 'white',
+                        }
+                      }}
+                    >
+                      Lihat di Maps
+                    </Button>
+                  </Box>
                 </Paper>
 
                 {/* Social Media */}
@@ -537,72 +571,40 @@ export default function ContactPage() {
                     position: 'relative',
                     zIndex: 1
                   }}>
-                    <Button 
-                      variant="contained" 
-                      startIcon={<FacebookIcon />}
-                      href="#" 
-                      target="_blank"
-                      sx={{ 
-                        borderRadius: 2,
-                        px: 3,
-                        py: 1.5,
-                        bgcolor: '#1877F2',
-                        fontWeight: 'medium',
-                        boxShadow: '0 4px 14px rgba(24, 119, 242, 0.4)',
-                        transition: 'all 0.3s ease',
-                        '&:hover': {
-                          bgcolor: '#0E63D1',
-                          transform: 'translateY(-3px)',
-                          boxShadow: '0 6px 20px rgba(14, 99, 209, 0.5)',
-                        }
-                      }}
-                    >
-                      Facebook
-                    </Button>
-                    <Button 
-                      variant="contained" 
-                      startIcon={<InstagramIcon />}
-                      href="#" 
-                      target="_blank"
-                      sx={{ 
-                        borderRadius: 2,
-                        px: 3,
-                        py: 1.5,
-                        fontWeight: 'medium',
-                        background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
-                        boxShadow: '0 4px 14px rgba(220, 39, 67, 0.4)',
-                        transition: 'all 0.3s ease',
-                        '&:hover': {
-                          background: 'linear-gradient(45deg, #e6683c 0%, #dc2743 25%, #cc2366 50%, #bc1888 75%, #f09433 100%)',
-                          transform: 'translateY(-3px)',
-                          boxShadow: '0 6px 20px rgba(220, 39, 67, 0.5)',
-                        }
-                      }}
-                    >
-                      Instagram
-                    </Button>
-                    <Button 
-                      variant="contained" 
-                      startIcon={<TwitterIcon />}
-                      href="#" 
-                      target="_blank"
-                      sx={{ 
-                        borderRadius: 2,
-                        px: 3,
-                        py: 1.5,
-                        bgcolor: '#000000', // Updated color for X (formerly Twitter)
-                        fontWeight: 'medium',
-                        boxShadow: '0 4px 14px rgba(0, 0, 0, 0.4)',
-                        transition: 'all 0.3s ease',
-                        '&:hover': {
-                          bgcolor: '#333333',
-                          transform: 'translateY(-3px)',
-                          boxShadow: '0 6px 20px rgba(0, 0, 0, 0.5)',
-                        }
-                      }}
-                    >
-                      X
-                    </Button>
+                    {[
+                      { icon: <FacebookIcon />, label: 'Facebook', color: '#1877F2', hoverColor: '#0E63D1' },
+                      { icon: <InstagramIcon />, label: 'Instagram', color: '#E1306C', hoverColor: '#C13584', 
+                        gradient: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
+                        hoverGradient: 'linear-gradient(45deg, #e6683c 0%, #dc2743 25%, #cc2366 50%, #bc1888 75%, #f09433 100%)' 
+                      },
+                      { icon: <TwitterIcon />, label: 'X', color: '#000000', hoverColor: '#333333' }
+                    ].map((item, index) => (
+                      <Button 
+                        key={index}
+                        variant="contained" 
+                        startIcon={item.icon}
+                        href="#" 
+                        target="_blank"
+                        sx={{ 
+                          borderRadius: 2,
+                          px: 3,
+                          py: 1.5,
+                          fontWeight: 'medium',
+                          bgcolor: item.color,
+                          background: item.gradient || undefined,
+                          boxShadow: `0 4px 14px rgba(0, 0, 0, 0.2)`,
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            bgcolor: item.hoverColor,
+                            background: item.hoverGradient || undefined,
+                            transform: 'translateY(-3px)',
+                            boxShadow: `0 6px 20px rgba(0, 0, 0, 0.3)`,
+                          }
+                        }}
+                      >
+                        {item.label}
+                      </Button>
+                    ))}
                   </Box>
                   
                   <Box sx={{ 
