@@ -14,16 +14,40 @@ export default function RootLayout({
   return (
     <html lang="id" className={inter.variable}>
       <head>
-        {/* Preload critical assets */}
+        {/* Preload critical assets with high priority */}
         <link rel="preload" href="/images/logo.png" as="image" fetchpriority="high" />
-        <link rel="preload" href="/images/hero-image.webp" as="image" fetchpriority="high" />
+        <link rel="preload" href="/images/bg-pattern.png" as="image" />
         <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         
-        {/* DNS prefetch and preconnect */}
+        {/* Preconnect to important domains */}
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="preconnect" href="//fonts.googleapis.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="//fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* Font display optimization */}
+        <style dangerouslySetInnerHTML={{ __html: `
+          @font-face {
+            font-family: 'Inter var';
+            font-weight: 100 900;
+            font-display: swap;
+            font-style: normal;
+            font-named-instance: 'Regular';
+            src: url("/fonts/inter-var.woff2") format("woff2");
+          }
+          
+          /* Prevent content layout shifts */
+          html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+          }
+          
+          /* Critical CSS for LCP elements */
+          #hero {
+            min-height: 400px;
+            display: block;
+          }
+        `}} />
       </head>
       <body>
         <ClientWrapper>
