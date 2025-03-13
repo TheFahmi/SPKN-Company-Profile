@@ -682,17 +682,24 @@ export default function ProductDetailPage() {
             <Card sx={{ mb: 4, borderRadius: 3 }}>
               <CardContent sx={{ p: 4 }}>
                 {hasImages ? (
-                  <>
+                  <Box sx={{ position: 'relative' }}>
+                    {/* Main Image Display with Zoom Effect */}
                     <Box 
                       sx={{ 
-                        height: 400, 
+                        height: 450, 
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                         mb: 2,
                         bgcolor: 'background.paper',
                         borderRadius: 2,
-                        p: 2
+                        p: 2,
+                        position: 'relative',
+                        overflow: 'hidden',
+                        boxShadow: 'inset 0 0 10px rgba(0,0,0,0.05)',
+                        '&:hover .zoom-icon': {
+                          opacity: 1,
+                        }
                       }}
                     >
                       <img
@@ -701,48 +708,145 @@ export default function ProductDetailPage() {
                         style={{
                           maxWidth: '100%',
                           maxHeight: '100%',
-                          objectFit: 'contain'
+                          objectFit: 'contain',
+                          transition: 'transform 0.3s ease'
                         }}
                       />
-                    </Box>
-                    {product.images && product.images.length > 1 && (
-                      <ImageList
+                      <Box 
+                        className="zoom-icon"
                         sx={{ 
-                          gridAutoFlow: 'column',
-                          gridTemplateColumns: 'repeat(auto-fill,minmax(100px,1fr)) !important',
-                          gridAutoColumns: 'minmax(100px, 1fr)',
-                          mt: 2,
-                          mb: 4
+                          position: 'absolute', 
+                          right: 16, 
+                          bottom: 16, 
+                          bgcolor: 'rgba(0,0,0,0.6)', 
+                          color: 'white',
+                          borderRadius: '50%',
+                          width: 40,
+                          height: 40,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          opacity: 0,
+                          transition: 'opacity 0.3s ease',
+                          cursor: 'pointer',
+                          '&:hover': {
+                            bgcolor: 'primary.main',
+                          }
                         }}
-                        gap={8}
                       >
-                        {product.images.map((image, index) => (
-                          <ImageListItem 
-                            key={index}
-                            onClick={() => setSelectedImage(image)}
-                            sx={{ 
-                              cursor: 'pointer',
-                              border: selectedImage === image ? '2px solid' : 'none',
-                              borderColor: 'primary.main',
-                              borderRadius: 1,
-                              overflow: 'hidden',
-                              height: '100px !important'
-                            }}
-                          >
-                            <img
-                              src={image}
-                              alt={`${product.name} ${index + 1}`}
-                              style={{ 
-                                height: '100%',
-                                width: '100%',
-                                objectFit: 'cover'
+                        <ZoomInIcon />
+                      </Box>
+                    </Box>
+                    
+                    {/* Thumbnail Navigation with Arrows */}
+                    {product.images && product.images.length > 1 && (
+                      <Box sx={{ position: 'relative', mt: 2, mb: 4 }}>
+                        {/* Left Navigation Arrow */}
+                        <IconButton 
+                          sx={{ 
+                            position: 'absolute', 
+                            left: -20, 
+                            top: '50%', 
+                            transform: 'translateY(-50%)',
+                            bgcolor: 'background.paper',
+                            boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+                            zIndex: 2,
+                            '&:hover': {
+                              bgcolor: 'primary.main',
+                              color: 'white'
+                            }
+                          }}
+                          size="small"
+                        >
+                          <ArrowBackIosNewIcon fontSize="small" />
+                        </IconButton>
+                        
+                        {/* Thumbnails */}
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            gap: 2,
+                            overflowX: 'auto',
+                            px: 2,
+                            py: 1,
+                            scrollbarWidth: 'none',
+                            '&::-webkit-scrollbar': {
+                              display: 'none'
+                            },
+                            mx: 2
+                          }}
+                        >
+                          {product.images.map((image, index) => (
+                            <Box
+                              key={index}
+                              onClick={() => setSelectedImage(image)}
+                              sx={{ 
+                                width: 80,
+                                height: 80,
+                                flexShrink: 0,
+                                cursor: 'pointer',
+                                borderRadius: 2,
+                                overflow: 'hidden',
+                                border: selectedImage === image ? '2px solid' : '2px solid transparent',
+                                borderColor: selectedImage === image ? 'primary.main' : 'transparent',
+                                boxShadow: selectedImage === image ? '0 0 0 2px rgba(25, 118, 210, 0.2)' : 'none',
+                                transition: 'all 0.2s ease',
+                                position: 'relative',
+                                '&:hover': {
+                                  transform: 'translateY(-4px)',
+                                  boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                                },
+                                '&:hover::after': {
+                                  opacity: selectedImage !== image ? 0.3 : 0,
+                                },
+                                '&::after': {
+                                  content: '""',
+                                  position: 'absolute',
+                                  top: 0,
+                                  left: 0,
+                                  right: 0,
+                                  bottom: 0,
+                                  backgroundColor: 'rgba(0,0,0,0)',
+                                  opacity: 0,
+                                  transition: 'opacity 0.2s ease',
+                                }
                               }}
-                            />
-                          </ImageListItem>
-                        ))}
-                      </ImageList>
+                            >
+                              <img
+                                src={image}
+                                alt={`${product.name} ${index + 1}`}
+                                style={{ 
+                                  height: '100%',
+                                  width: '100%',
+                                  objectFit: 'cover'
+                                }}
+                              />
+                            </Box>
+                          ))}
+                        </Box>
+                        
+                        {/* Right Navigation Arrow */}
+                        <IconButton 
+                          sx={{ 
+                            position: 'absolute', 
+                            right: -20, 
+                            top: '50%', 
+                            transform: 'translateY(-50%)',
+                            bgcolor: 'background.paper',
+                            boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+                            zIndex: 2,
+                            '&:hover': {
+                              bgcolor: 'primary.main',
+                              color: 'white'
+                            }
+                          }}
+                          size="small"
+                        >
+                          <ArrowForwardIosIcon fontSize="small" />
+                        </IconButton>
+                      </Box>
                     )}
-                  </>
+                  </Box>
                 ) : (
                   <Box sx={{ height: 400, position: "relative", mb: 4 }}>
                     <ProductDetailIllustration index={0} />
@@ -756,6 +860,58 @@ export default function ProductDetailPage() {
                 >
                   {formatPrice(product.price)}
                 </Typography>
+
+                {/* Feature-specific card with checkmarks */}
+                <Card 
+                  sx={{ 
+                    mt: 3, 
+                    mb: 3, 
+                    borderRadius: 2, 
+                    border: '1px solid', 
+                    borderColor: 'divider',
+                    boxShadow: 'none',
+                    overflow: 'visible'
+                  }}
+                >
+                  <CardContent sx={{ p: 3 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                      <VerifiedUserIcon color="primary" sx={{ mr: 1 }} />
+                      <Typography variant="subtitle1" fontWeight="bold">
+                        Fitur Produk
+                      </Typography>
+                    </Box>
+                    
+                    <List disablePadding>
+                      {[
+                        { text: 'Kualitas Premium', icon: <CheckIcon fontSize="small" sx={{ color: 'success.main' }} /> },
+                        { text: 'Garansi Produk', icon: <VerifiedUserIcon fontSize="small" sx={{ color: 'info.main' }} /> },
+                        { text: 'Pengiriman Cepat', icon: <LocalShippingIcon fontSize="small" sx={{ color: 'warning.main' }} /> },
+                        { text: 'Layanan Purna Jual', icon: <AssignmentTurnedInIcon fontSize="small" sx={{ color: 'error.main' }} /> }
+                      ].map((feature, index) => (
+                        <ListItem 
+                          key={index} 
+                          disablePadding 
+                          sx={{ 
+                            py: 1,
+                            borderBottom: index < 3 ? '1px dashed' : 'none',
+                            borderColor: 'divider'
+                          }}
+                        >
+                          <ListItemIcon sx={{ minWidth: 36 }}>
+                            {feature.icon}
+                          </ListItemIcon>
+                          <ListItemText 
+                            primary={feature.text} 
+                            primaryTypographyProps={{ 
+                              variant: 'body2',
+                              fontWeight: 500
+                            }} 
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </CardContent>
+                </Card>
                 <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
                   <Button
                     variant="contained"
@@ -766,7 +922,17 @@ export default function ProductDetailPage() {
                     component="a"
                     href="https://wa.me/6281234567890?text=Saya tertarik dengan produk ini: "
                     target="_blank"
-                    sx={{ py: 1.5 }}
+                    sx={{ 
+                      py: 1.5,
+                      borderRadius: 2,
+                      fontWeight: 'bold',
+                      boxShadow: '0 4px 12px rgba(76, 175, 80, 0.2)',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-4px)',
+                        boxShadow: '0 8px 16px rgba(76, 175, 80, 0.3)',
+                      }
+                    }}
                   >
                     Chat WhatsApp
                   </Button>
@@ -778,7 +944,17 @@ export default function ProductDetailPage() {
                     fullWidth
                     component={Link}
                     href="/kontak"
-                    sx={{ py: 1.5 }}
+                    sx={{ 
+                      py: 1.5,
+                      borderRadius: 2,
+                      fontWeight: 'bold',
+                      boxShadow: '0 4px 12px rgba(25, 118, 210, 0.2)',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-4px)',
+                        boxShadow: '0 8px 16px rgba(25, 118, 210, 0.3)',
+                      }
+                    }}
                   >
                     Pesan Sekarang
                   </Button>
@@ -804,26 +980,34 @@ export default function ProductDetailPage() {
                     Bagikan Produk Ini
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 1 }}>
-                    {['#3b5998', '#1da1f2', '#25D366', '#E60023'].map((color, index) => (
-                      <IconButton 
-                        key={index}
-                        sx={{ 
-                          bgcolor: color, 
-                          color: 'white',
-                          '&:hover': {
-                            bgcolor: color,
-                            opacity: 0.9,
-                            transform: 'translateY(-3px)',
-                          },
-                          transition: 'all 0.2s ease',
-                        }}
-                        size="small"
-                      >
-                        {index === 0 && <Box component="span" sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>f</Box>}
-                        {index === 1 && <Box component="span" sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>t</Box>}
-                        {index === 2 && <WhatsAppIcon fontSize="small" />}
-                        {index === 3 && <Box component="span" sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>p</Box>}
-                      </IconButton>
+                    {[
+                      { color: '#3b5998', icon: 'f', label: 'Facebook' },
+                      { color: '#1da1f2', icon: 't', label: 'Twitter' },
+                      { color: '#25D366', icon: <WhatsAppIcon fontSize="small" />, label: 'WhatsApp' },
+                      { color: '#E60023', icon: 'p', label: 'Pinterest' }
+                    ].map((social, index) => (
+                      <Tooltip key={index} title={social.label} arrow placement="top">
+                        <IconButton 
+                          sx={{ 
+                            bgcolor: social.color, 
+                            color: 'white',
+                            '&:hover': {
+                              bgcolor: social.color,
+                              opacity: 0.9,
+                              transform: 'translateY(-3px) scale(1.1)',
+                              boxShadow: '0 4px 8px rgba(0,0,0,0.2)'
+                            },
+                            transition: 'all 0.2s ease',
+                          }}
+                          size="small"
+                        >
+                          {typeof social.icon === 'string' ? (
+                            <Box component="span" sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+                              {social.icon}
+                            </Box>
+                          ) : social.icon}
+                        </IconButton>
+                      </Tooltip>
                     ))}
                   </Box>
                 </Box>
