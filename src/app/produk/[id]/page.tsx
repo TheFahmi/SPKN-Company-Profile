@@ -37,6 +37,13 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import StarIcon from "@mui/icons-material/Star";
+import ZoomInIcon from '@mui/icons-material/ZoomIn';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import CheckIcon from '@mui/icons-material/Check';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import { ProductDetailIllustration } from "../../components/illustrations";
 import { Product } from "@/app/types";
 
