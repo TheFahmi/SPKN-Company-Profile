@@ -289,7 +289,7 @@ const ProductDetailSkeleton = () => {
                       }}
                     >
                       <Typography variant="h4" fontWeight="bold" lineHeight={1}>
-                        {productRating.toFixed(1)}
+                        {"4.5"}
                       </Typography>
                       <Box sx={{ display: 'flex', mt: 0.5 }}>
                         {[...Array(5)].map((_, i) => (
