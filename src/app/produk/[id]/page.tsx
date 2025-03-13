@@ -240,6 +240,180 @@ const ProductDetailSkeleton = () => {
                 />
               </CardContent>
             </Card>
+
+            <Card 
+              sx={{ 
+                borderRadius: 3,
+                overflow: 'hidden',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+                border: '1px solid',
+                borderColor: 'divider',
+                mb: 4
+              }}
+            >
+              <Box sx={{ 
+                bgcolor: 'warning.main', 
+                py: 2, 
+                px: 3,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1.5
+              }}>
+                <StarIcon sx={{ color: 'white' }} />
+                <Typography 
+                  variant="h6" 
+                  fontWeight="bold" 
+                  sx={{ color: 'white' }}
+                >
+                  Ulasan Pelanggan
+                </Typography>
+              </Box>
+              <CardContent sx={{ p: 4 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <Box 
+                      sx={{ 
+                        width: 60, 
+                        height: 60, 
+                        bgcolor: 'warning.main', 
+                        color: 'white',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'column',
+                        boxShadow: '0 4px 12px rgba(255, 152, 0, 0.3)'
+                      }}
+                    >
+                      <Typography variant="h4" fontWeight="bold" lineHeight={1}>
+                        {productRating.toFixed(1)}
+                      </Typography>
+                      <Box sx={{ display: 'flex', mt: 0.5 }}>
+                        {[...Array(5)].map((_, i) => (
+                          <StarIcon key={i} sx={{ fontSize: '0.6rem', color: 'white' }} />
+                        ))}
+                      </Box>
+                    </Box>
+                    <Box>
+                      <Typography variant="body1" fontWeight={600} color="text.primary">
+                        Rating Keseluruhan
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Berdasarkan ulasan pelanggan kami
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    size="small"
+                    sx={{ 
+                      borderRadius: 2,
+                      fontWeight: 600,
+                      '&:hover': {
+                        bgcolor: 'warning.main',
+                        color: 'white'
+                      }
+                    }}
+                  >
+                    Tulis Ulasan
+                  </Button>
+                </Box>
+                
+                {/* Sample reviews */}
+                {[
+                  {
+                    name: 'Ahmad Fauzi',
+                    rating: 5,
+                    date: '12 Maret 2023',
+                    comment: 'Produk berkualitas tinggi dan sesuai dengan deskripsi. Pengiriman cepat dan pelayanan sangat baik. Sangat merekomendasikan!'
+                  },
+                  {
+                    name: 'Siti Nurhaliza',
+                    rating: 4,
+                    date: '5 Februari 2023',
+                    comment: 'Kualitas produk bagus dan sesuai dengan kebutuhan kami. Hanya saja pengiriman sedikit terlambat dari jadwal yang dijanjikan.'
+                  }
+                ].map((review, index) => (
+                  <Box 
+                    key={index}
+                    sx={{ 
+                      mb: index === 0 ? 3 : 0,
+                      pb: index === 0 ? 3 : 0,
+                      borderBottom: index === 0 ? '1px solid' : 'none',
+                      borderColor: 'divider'
+                    }}
+                  >
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Box
+                          sx={{
+                            width: 40,
+                            height: 40,
+                            borderRadius: '50%',
+                            bgcolor: 'primary.light',
+                            color: 'primary.main',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontWeight: 'bold',
+                            fontSize: '1.1rem'
+                          }}
+                        >
+                          {review.name.charAt(0)}
+                        </Box>
+                        <Box>
+                          <Typography variant="body1" fontWeight={600}>
+                            {review.name}
+                          </Typography>
+                          <Typography variant="caption" color="text.secondary">
+                            {review.date}
+                          </Typography>
+                        </Box>
+                      </Box>
+                      <Rating value={review.rating} readOnly size="small" />
+                    </Box>
+                    <Typography variant="body2" color="text.secondary" sx={{ pl: 6 }}>
+                      {review.comment}
+                    </Typography>
+                  </Box>
+                ))}
+                
+                <Box 
+                  sx={{ 
+                    mt: 4, 
+                    p: 3, 
+                    bgcolor: 'background.paper', 
+                    borderRadius: 2,
+                    border: '1px dashed',
+                    borderColor: 'divider',
+                    textAlign: 'center'
+                  }}
+                >
+                  <Typography variant="body1" fontWeight={500} color="text.primary" gutterBottom>
+                    Sudah menggunakan produk ini?
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    Bagikan pengalaman Anda dengan pelanggan lain
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color="warning"
+                    startIcon={<StarIcon />}
+                    sx={{ 
+                      borderRadius: 2,
+                      fontWeight: 600,
+                      boxShadow: '0 4px 12px rgba(255, 152, 0, 0.2)',
+                      '&:hover': {
+                        boxShadow: '0 6px 16px rgba(255, 152, 0, 0.3)',
+                      }
+                    }}
+                  >
+                    Tulis Ulasan
+                  </Button>
+                </Box>
+              </CardContent>
+            </Card>
           </Grid>
 
           {/* Right Column Skeleton */}
@@ -605,6 +779,50 @@ export default function ProductDetailPage() {
                     Pesan Sekarang
                   </Button>
                 </Stack>
+
+                {/* Add this after the action buttons */}
+                <Box 
+                  sx={{ 
+                    mt: 3, 
+                    p: 3, 
+                    bgcolor: 'background.paper', 
+                    borderRadius: 2,
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    gap: 2
+                  }}
+                >
+                  <Typography variant="body1" fontWeight={600} color="text.primary">
+                    Bagikan Produk Ini
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 1 }}>
+                    {['#3b5998', '#1da1f2', '#25D366', '#E60023'].map((color, index) => (
+                      <IconButton 
+                        key={index}
+                        sx={{ 
+                          bgcolor: color, 
+                          color: 'white',
+                          '&:hover': {
+                            bgcolor: color,
+                            opacity: 0.9,
+                            transform: 'translateY(-3px)',
+                          },
+                          transition: 'all 0.2s ease',
+                        }}
+                        size="small"
+                      >
+                        {index === 0 && <Box component="span" sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>f</Box>}
+                        {index === 1 && <Box component="span" sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>t</Box>}
+                        {index === 2 && <WhatsAppIcon fontSize="small" />}
+                        {index === 3 && <Box component="span" sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>p</Box>}
+                      </IconButton>
+                    ))}
+                  </Box>
+                </Box>
               </CardContent>
             </Card>
 
