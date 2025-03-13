@@ -38,23 +38,23 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import StarIcon from "@mui/icons-material/Star";
-import ZoomInIcon from '@mui/icons-material/ZoomIn';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import CheckIcon from '@mui/icons-material/Check';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import ZoomInIcon from "@mui/icons-material/ZoomIn";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import CheckIcon from "@mui/icons-material/Check";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import { ProductDetailIllustration } from "../../components/illustrations";
 import { Product } from "@/app/types";
-import Modal from '@mui/material/Modal';
-import CloseIcon from '@mui/icons-material/Close';
+import Modal from "@mui/material/Modal";
+import CloseIcon from "@mui/icons-material/Close";
 
 // Format harga ke format Rupiah
 function formatPrice(price: number) {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(price);
@@ -62,17 +62,19 @@ function formatPrice(price: number) {
 
 // Fungsi untuk membersihkan CSS Elementor dan HTML tags
 function cleanElementorCSS(text: string): string {
-  if (!text) return '';
-  
-  return text
-    // Hapus CSS Elementor
-    .replace(/\/\*![\s\S]*?\*\/[\s\S]*?{[\s\S]*?}/g, '')
-    // Hapus style tags dan kontennya
-    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
-    // Hapus link stylesheet Elementor
-    .replace(/<link[^>]*elementor[^>]*>/gi, '')
-    // Bersihkan HTML lainnya jika diperlukan
-    .trim();
+  if (!text) return "";
+
+  return (
+    text
+      // Hapus CSS Elementor
+      .replace(/\/\*![\s\S]*?\*\/[\s\S]*?{[\s\S]*?}/g, "")
+      // Hapus style tags dan kontennya
+      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
+      // Hapus link stylesheet Elementor
+      .replace(/<link[^>]*elementor[^>]*>/gi, "")
+      // Bersihkan HTML lainnya jika diperlukan
+      .trim()
+  );
 }
 
 // Komponen ProductDetailSkeleton
@@ -90,23 +92,23 @@ const ProductDetailSkeleton = () => {
         }}
       >
         <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
-          <Skeleton 
-            variant="text" 
-            width={300} 
-            height={20} 
-            sx={{ bgcolor: 'rgba(255,255,255,0.2)', mb: 3 }} 
+          <Skeleton
+            variant="text"
+            width={300}
+            height={20}
+            sx={{ bgcolor: "rgba(255,255,255,0.2)", mb: 3 }}
           />
-          <Skeleton 
-            variant="text" 
-            width="70%" 
-            height={60} 
-            sx={{ bgcolor: 'rgba(255,255,255,0.2)', mb: 2 }} 
+          <Skeleton
+            variant="text"
+            width="70%"
+            height={60}
+            sx={{ bgcolor: "rgba(255,255,255,0.2)", mb: 2 }}
           />
-          <Skeleton 
-            variant="rectangular" 
-            width={100} 
-            height={32} 
-            sx={{ bgcolor: 'rgba(255,255,255,0.2)' }} 
+          <Skeleton
+            variant="rectangular"
+            width={100}
+            height={32}
+            sx={{ bgcolor: "rgba(255,255,255,0.2)" }}
           />
         </Container>
       </Box>
@@ -116,414 +118,266 @@ const ProductDetailSkeleton = () => {
         <Grid container spacing={4}>
           {/* Left Column Skeleton */}
           <Grid item xs={12} md={7}>
-            <Card sx={{ mb: 4, borderRadius: 3, overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.08)' }}>
+            <Card
+              sx={{
+                mb: 4,
+                borderRadius: 3,
+                overflow: "hidden",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+              }}
+            >
               <CardContent sx={{ p: 0 }}>
-                <Skeleton 
-                  variant="rectangular" 
-                  height={450} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)' }} 
+                <Skeleton
+                  variant="rectangular"
+                  height={450}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
                 />
-                <Box sx={{ p: 2, display: 'flex', gap: 1, overflowX: 'auto' }}>
+                <Box sx={{ p: 2, display: "flex", gap: 1, overflowX: "auto" }}>
                   {Array.from(new Array(5)).map((_, index) => (
-                    <Skeleton 
+                    <Skeleton
                       key={index}
-                      variant="rectangular" 
-                      width={80} 
-                      height={80} 
-                      sx={{ 
-                        bgcolor: 'rgba(0,0,0,0.07)',
+                      variant="rectangular"
+                      width={80}
+                      height={80}
+                      sx={{
+                        bgcolor: "rgba(0,0,0,0.07)",
                         borderRadius: 2,
-                        flexShrink: 0
-                      }} 
+                        flexShrink: 0,
+                      }}
                     />
                   ))}
                 </Box>
                 <Box sx={{ p: 3 }}>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "flex-start",
+                      mb: 2,
+                    }}
+                  >
                     <Box>
-                      <Skeleton 
-                        variant="text" 
-                        width={150} 
-                        height={48} 
-                        sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 1 }} 
+                      <Skeleton
+                        variant="text"
+                        width={150}
+                        height={48}
+                        sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 1 }}
                       />
-                      <Skeleton 
-                        variant="rectangular" 
-                        width={100} 
-                        height={24} 
-                        sx={{ bgcolor: 'rgba(0,0,0,0.07)' }} 
+                      <Skeleton
+                        variant="rectangular"
+                        width={100}
+                        height={24}
+                        sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
                       />
                     </Box>
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                      <Skeleton 
-                        variant="circular" 
-                        width={40} 
-                        height={40} 
-                        sx={{ bgcolor: 'rgba(0,0,0,0.07)' }} 
+                    <Box sx={{ display: "flex", gap: 1 }}>
+                      <Skeleton
+                        variant="circular"
+                        width={40}
+                        height={40}
+                        sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
                       />
-                      <Skeleton 
-                        variant="circular" 
-                        width={40} 
-                        height={40} 
-                        sx={{ bgcolor: 'rgba(0,0,0,0.07)' }} 
+                      <Skeleton
+                        variant="circular"
+                        width={40}
+                        height={40}
+                        sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
                       />
                     </Box>
                   </Box>
                   <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
-                    <Skeleton 
-                      variant="rectangular" 
-                      width="100%" 
-                      height={48} 
-                      sx={{ bgcolor: 'rgba(0,0,0,0.07)', borderRadius: 2 }} 
+                    <Skeleton
+                      variant="rectangular"
+                      width="100%"
+                      height={48}
+                      sx={{ bgcolor: "rgba(0,0,0,0.07)", borderRadius: 2 }}
                     />
-                    <Skeleton 
-                      variant="rectangular" 
-                      width="100%" 
-                      height={48} 
-                      sx={{ bgcolor: 'rgba(0,0,0,0.07)', borderRadius: 2 }} 
+                    <Skeleton
+                      variant="rectangular"
+                      width="100%"
+                      height={48}
+                      sx={{ bgcolor: "rgba(0,0,0,0.07)", borderRadius: 2 }}
                     />
                   </Stack>
                 </Box>
               </CardContent>
             </Card>
 
-            <Card sx={{ borderRadius: 3, overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.08)' }}>
-              <Box sx={{ borderBottom: 1, borderColor: 'divider', px: 2 }}>
-                <Skeleton 
-                  variant="text" 
-                  width={200} 
-                  height={56} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)' }} 
-                />
-              </Box>
-              <CardContent sx={{ p: 4 }}>
-                <Skeleton 
-                  variant="text" 
-                  width="100%" 
-                  height={20} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 1 }} 
-                />
-                <Skeleton 
-                  variant="text" 
-                  width="100%" 
-                  height={20} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 1 }} 
-                />
-                <Skeleton 
-                  variant="text" 
-                  width="90%" 
-                  height={20} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 1 }} 
-                />
-                <Skeleton 
-                  variant="text" 
-                  width="95%" 
-                  height={20} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 1 }} 
-                />
-                <Skeleton 
-                  variant="text" 
-                  width="80%" 
-                  height={20} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 3 }} 
-                />
-                <Skeleton 
-                  variant="rectangular" 
-                  width="100%" 
-                  height={200} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)', borderRadius: 2, mb: 3 }} 
-                />
-                <Skeleton 
-                  variant="text" 
-                  width="100%" 
-                  height={20} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 1 }} 
-                />
-                <Skeleton 
-                  variant="text" 
-                  width="100%" 
-                  height={20} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 1 }} 
-                />
-                <Skeleton 
-                  variant="text" 
-                  width="90%" 
-                  height={20} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)' }} 
-                />
-              </CardContent>
-            </Card>
-
-            <Card 
-              sx={{ 
+            <Card
+              sx={{
                 borderRadius: 3,
-                overflow: 'hidden',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-                border: '1px solid',
-                borderColor: 'divider',
-                mb: 4
+                overflow: "hidden",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
               }}
             >
-              <Box sx={{ 
-                bgcolor: 'warning.main', 
-                py: 2, 
-                px: 3,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1.5
-              }}>
-                <StarIcon sx={{ color: 'white' }} />
-                <Typography 
-                  variant="h6" 
-                  fontWeight="bold" 
-                  sx={{ color: 'white' }}
-                >
-                  Ulasan Pelanggan
-                </Typography>
+              <Box sx={{ borderBottom: 1, borderColor: "divider", px: 2 }}>
+                <Skeleton
+                  variant="text"
+                  width={200}
+                  height={56}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
+                />
               </Box>
               <CardContent sx={{ p: 4 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                    <Box 
-                      sx={{ 
-                        width: 60, 
-                        height: 60, 
-                        bgcolor: 'warning.main', 
-                        color: 'white',
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexDirection: 'column',
-                        boxShadow: '0 4px 12px rgba(255, 152, 0, 0.3)'
-                      }}
-                    >
-                      <Typography variant="h4" fontWeight="bold" lineHeight={1}>
-                        {"4.5"}
-                      </Typography>
-                      <Box sx={{ display: 'flex', mt: 0.5 }}>
-                        {[...Array(5)].map((_, i) => (
-                          <StarIcon key={i} sx={{ fontSize: '0.6rem', color: 'white' }} />
-                        ))}
-                      </Box>
-                    </Box>
-                    <Box>
-                      <Typography variant="body1" fontWeight={600} color="text.primary">
-                        Rating Keseluruhan
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Berdasarkan ulasan pelanggan kami
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Button
-                    variant="outlined"
-                    color="warning"
-                    size="small"
-                    sx={{ 
-                      borderRadius: 2,
-                      fontWeight: 600,
-                      '&:hover': {
-                        bgcolor: 'warning.main',
-                        color: 'white'
-                      }
-                    }}
-                  >
-                    Tulis Ulasan
-                  </Button>
-                </Box>
-                
-                {/* Sample reviews */}
-                {[
-                  {
-                    name: 'Ahmad Fauzi',
-                    rating: 5,
-                    date: '12 Maret 2023',
-                    comment: 'Produk berkualitas tinggi dan sesuai dengan deskripsi. Pengiriman cepat dan pelayanan sangat baik. Sangat merekomendasikan!'
-                  },
-                  {
-                    name: 'Siti Nurhaliza',
-                    rating: 4,
-                    date: '5 Februari 2023',
-                    comment: 'Kualitas produk bagus dan sesuai dengan kebutuhan kami. Hanya saja pengiriman sedikit terlambat dari jadwal yang dijanjikan.'
-                  }
-                ].map((review, index) => (
-                  <Box 
-                    key={index}
-                    sx={{ 
-                      mb: index === 0 ? 3 : 0,
-                      pb: index === 0 ? 3 : 0,
-                      borderBottom: index === 0 ? '1px solid' : 'none',
-                      borderColor: 'divider'
-                    }}
-                  >
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <Box
-                          sx={{
-                            width: 40,
-                            height: 40,
-                            borderRadius: '50%',
-                            bgcolor: 'primary.light',
-                            color: 'primary.main',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontWeight: 'bold',
-                            fontSize: '1.1rem'
-                          }}
-                        >
-                          {review.name.charAt(0)}
-                        </Box>
-                        <Box>
-                          <Typography variant="body1" fontWeight={600}>
-                            {review.name}
-                          </Typography>
-                          <Typography variant="caption" color="text.secondary">
-                            {review.date}
-                          </Typography>
-                        </Box>
-                      </Box>
-                      <Rating value={review.rating} readOnly size="small" />
-                    </Box>
-                    <Typography variant="body2" color="text.secondary" sx={{ pl: 6 }}>
-                      {review.comment}
-                    </Typography>
-                  </Box>
-                ))}
-                
-                <Box 
-                  sx={{ 
-                    mt: 4, 
-                    p: 3, 
-                    bgcolor: 'background.paper', 
-                    borderRadius: 2,
-                    border: '1px dashed',
-                    borderColor: 'divider',
-                    textAlign: 'center'
-                  }}
-                >
-                  <Typography variant="body1" fontWeight={500} color="text.primary" gutterBottom>
-                    Sudah menggunakan produk ini?
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                    Bagikan pengalaman Anda dengan pelanggan lain
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    color="warning"
-                    startIcon={<StarIcon />}
-                    sx={{ 
-                      borderRadius: 2,
-                      fontWeight: 600,
-                      boxShadow: '0 4px 12px rgba(255, 152, 0, 0.2)',
-                      '&:hover': {
-                        boxShadow: '0 6px 16px rgba(255, 152, 0, 0.3)',
-                      }
-                    }}
-                  >
-                    Tulis Ulasan
-                  </Button>
-                </Box>
+                <Skeleton
+                  variant="text"
+                  width="100%"
+                  height={20}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 1 }}
+                />
+                <Skeleton
+                  variant="text"
+                  width="100%"
+                  height={20}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 1 }}
+                />
+                <Skeleton
+                  variant="text"
+                  width="90%"
+                  height={20}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 1 }}
+                />
+                <Skeleton
+                  variant="text"
+                  width="95%"
+                  height={20}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 1 }}
+                />
+                <Skeleton
+                  variant="text"
+                  width="80%"
+                  height={20}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 3 }}
+                />
+                <Skeleton
+                  variant="rectangular"
+                  width="100%"
+                  height={200}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)", borderRadius: 2, mb: 3 }}
+                />
+                <Skeleton
+                  variant="text"
+                  width="100%"
+                  height={20}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 1 }}
+                />
+                <Skeleton
+                  variant="text"
+                  width="100%"
+                  height={20}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 1 }}
+                />
+                <Skeleton
+                  variant="text"
+                  width="90%"
+                  height={20}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
+                />
               </CardContent>
             </Card>
           </Grid>
 
           {/* Right Column Skeleton */}
           <Grid item xs={12} md={5}>
-            <Card sx={{ 
-              borderRadius: 3, 
-              mb: 4,
-              overflow: 'hidden',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.08)'
-            }}>
-              <Box sx={{ bgcolor: 'primary.main', py: 2, px: 3 }}>
-                <Skeleton 
-                  variant="text" 
-                  width={200} 
-                  height={32} 
-                  sx={{ bgcolor: 'rgba(255,255,255,0.2)' }} 
+            <Card
+              sx={{
+                borderRadius: 3,
+                mb: 4,
+                overflow: "hidden",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+              }}
+            >
+              <Box sx={{ bgcolor: "primary.main", py: 2, px: 3 }}>
+                <Skeleton
+                  variant="text"
+                  width={200}
+                  height={32}
+                  sx={{ bgcolor: "rgba(255,255,255,0.2)" }}
                 />
               </Box>
               <CardContent sx={{ p: 0 }}>
                 {Array.from(new Array(6)).map((_, index) => (
-                  <Box 
+                  <Box
                     key={index}
-                    sx={{ 
-                      px: 3, 
+                    sx={{
+                      px: 3,
                       py: 2,
-                      borderBottom: index < 5 ? '1px solid' : 'none',
-                      borderColor: 'divider',
-                      display: 'flex',
-                      alignItems: 'center'
+                      borderBottom: index < 5 ? "1px solid" : "none",
+                      borderColor: "divider",
+                      display: "flex",
+                      alignItems: "center",
                     }}
                   >
-                    <Skeleton 
-                      variant="circular" 
-                      width={32} 
-                      height={32} 
-                      sx={{ bgcolor: 'rgba(0,0,0,0.07)', mr: 2 }} 
+                    <Skeleton
+                      variant="circular"
+                      width={32}
+                      height={32}
+                      sx={{ bgcolor: "rgba(0,0,0,0.07)", mr: 2 }}
                     />
-                    <Box sx={{ width: '100%' }}>
-                      <Skeleton 
-                        variant="text" 
-                        width="30%" 
-                        height={16} 
-                        sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 1 }} 
+                    <Box sx={{ width: "100%" }}>
+                      <Skeleton
+                        variant="text"
+                        width="30%"
+                        height={16}
+                        sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 1 }}
                       />
-                      <Skeleton 
-                        variant="text" 
-                        width="60%" 
-                        height={24} 
-                        sx={{ bgcolor: 'rgba(0,0,0,0.07)' }} 
+                      <Skeleton
+                        variant="text"
+                        width="60%"
+                        height={24}
+                        sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
                       />
                     </Box>
                   </Box>
                 ))}
               </CardContent>
             </Card>
-            
-            <Card sx={{ 
-              borderRadius: 3, 
-              mb: 4,
-              overflow: 'hidden',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.08)'
-            }}>
+
+            <Card
+              sx={{
+                borderRadius: 3,
+                mb: 4,
+                overflow: "hidden",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+              }}
+            >
               <CardContent sx={{ p: 3 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-                  <Skeleton 
-                    variant="circular" 
-                    width={24} 
-                    height={24} 
-                    sx={{ bgcolor: 'rgba(0,0,0,0.07)' }} 
+                <Box
+                  sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}
+                >
+                  <Skeleton
+                    variant="circular"
+                    width={24}
+                    height={24}
+                    sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
                   />
-                  <Skeleton 
-                    variant="text" 
-                    width={150} 
-                    height={32} 
-                    sx={{ bgcolor: 'rgba(0,0,0,0.07)' }} 
+                  <Skeleton
+                    variant="text"
+                    width={150}
+                    height={32}
+                    sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
                   />
                 </Box>
                 {Array.from(new Array(4)).map((_, index) => (
-                  <Box 
+                  <Box
                     key={index}
-                    sx={{ 
-                      display: 'flex',
-                      alignItems: 'center',
-                      mb: 2
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      mb: 2,
                     }}
                   >
-                    <Skeleton 
-                      variant="circular" 
-                      width={20} 
-                      height={20} 
-                      sx={{ bgcolor: 'rgba(0,0,0,0.07)', mr: 2 }} 
+                    <Skeleton
+                      variant="circular"
+                      width={20}
+                      height={20}
+                      sx={{ bgcolor: "rgba(0,0,0,0.07)", mr: 2 }}
                     />
-                    <Skeleton 
-                      variant="text" 
-                      width="80%" 
-                      height={20} 
-                      sx={{ bgcolor: 'rgba(0,0,0,0.07)' }} 
+                    <Skeleton
+                      variant="text"
+                      width="80%"
+                      height={20}
+                      sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
                     />
                   </Box>
                 ))}
@@ -541,7 +395,7 @@ export default function ProductDetailPage() {
   const productId = params.id as string;
   const [product, setProduct] = useState<Product | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
-  const [selectedImage, setSelectedImage] = useState<string>('');
+  const [selectedImage, setSelectedImage] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [productRating, setProductRating] = useState<number>(4.5); // Default rating
@@ -558,12 +412,14 @@ export default function ProductDetailPage() {
         }
 
         const data = await response.json();
-        
+
         // Bersihkan deskripsi dari CSS Elementor
         if (data.product.description) {
-          data.product.description = cleanElementorCSS(data.product.description);
+          data.product.description = cleanElementorCSS(
+            data.product.description
+          );
         }
-        
+
         setProduct(data.product);
         // Set gambar utama sebagai gambar yang dipilih di awal
         if (data.product.imageUrl) {
@@ -693,63 +549,63 @@ export default function ProductDetailPage() {
             <Card sx={{ mb: 4, borderRadius: 3 }}>
               <CardContent sx={{ p: 4 }}>
                 {hasImages ? (
-                  <Box sx={{ position: 'relative' }}>
+                  <Box sx={{ position: "relative" }}>
                     {/* Main Image Display with Zoom Effect */}
-                    <Box 
-                      sx={{ 
-                        height: 450, 
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
+                    <Box
+                      sx={{
+                        height: 450,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
                         mb: 2,
-                        bgcolor: 'background.paper',
+                        bgcolor: "background.paper",
                         borderRadius: 2,
                         p: 2,
-                        position: 'relative',
-                        overflow: 'hidden',
-                        boxShadow: 'inset 0 0 10px rgba(0,0,0,0.05)',
-                        '&:hover .zoom-icon': {
+                        position: "relative",
+                        overflow: "hidden",
+                        boxShadow: "inset 0 0 10px rgba(0,0,0,0.05)",
+                        "&:hover .zoom-icon": {
                           opacity: 1,
-                        }
+                        },
                       }}
                     >
                       <img
                         src={selectedImage || product.imageUrl}
                         alt={product.name}
                         style={{
-                          maxWidth: '100%',
-                          maxHeight: '100%',
-                          objectFit: 'contain',
-                          transition: 'transform 0.3s ease'
+                          maxWidth: "100%",
+                          maxHeight: "100%",
+                          objectFit: "contain",
+                          transition: "transform 0.3s ease",
                         }}
                       />
-                      <Box 
+                      <Box
                         className="zoom-icon"
                         onClick={() => setZoomOpen(true)}
-                        sx={{ 
-                          position: 'absolute', 
-                          right: 16, 
-                          bottom: 16, 
-                          bgcolor: 'rgba(0,0,0,0.6)', 
-                          color: 'white',
-                          borderRadius: '50%',
+                        sx={{
+                          position: "absolute",
+                          right: 16,
+                          bottom: 16,
+                          bgcolor: "rgba(0,0,0,0.6)",
+                          color: "white",
+                          borderRadius: "50%",
                           width: 40,
                           height: 40,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
                           opacity: 0,
-                          transition: 'opacity 0.3s ease',
-                          cursor: 'pointer',
-                          '&:hover': {
-                            bgcolor: 'primary.main',
-                          }
+                          transition: "opacity 0.3s ease",
+                          cursor: "pointer",
+                          "&:hover": {
+                            bgcolor: "primary.main",
+                          },
                         }}
                       >
                         <ZoomInIcon />
                       </Box>
                     </Box>
-                    
+
                     {/* Zoom Modal */}
                     <Modal
                       open={zoomOpen}
@@ -757,160 +613,173 @@ export default function ProductDetailPage() {
                       aria-labelledby="image-zoom-modal"
                       aria-describedby="zoomed-product-image"
                     >
-                      <Box sx={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        width: '90%',
-                        maxWidth: 1000,
-                        maxHeight: '90vh',
-                        bgcolor: 'background.paper',
-                        boxShadow: 24,
-                        p: 4,
-                        borderRadius: 2,
-                        outline: 'none',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}>
-                        <IconButton 
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -50%)",
+                          width: "90%",
+                          maxWidth: 1000,
+                          maxHeight: "90vh",
+                          bgcolor: "background.paper",
+                          boxShadow: 24,
+                          p: 4,
+                          borderRadius: 2,
+                          outline: "none",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <IconButton
                           onClick={() => setZoomOpen(false)}
-                          sx={{ 
-                            position: 'absolute', 
-                            right: 8, 
+                          sx={{
+                            position: "absolute",
+                            right: 8,
                             top: 8,
-                            bgcolor: 'rgba(0,0,0,0.1)',
-                            '&:hover': {
-                              bgcolor: 'rgba(0,0,0,0.2)',
-                            }
+                            bgcolor: "rgba(0,0,0,0.1)",
+                            "&:hover": {
+                              bgcolor: "rgba(0,0,0,0.2)",
+                            },
                           }}
                         >
                           <CloseIcon />
                         </IconButton>
-                        <Box sx={{ 
-                          width: '100%', 
-                          height: '100%', 
-                          display: 'flex', 
-                          alignItems: 'center', 
-                          justifyContent: 'center',
-                          overflow: 'auto',
-                        }}>
+                        <Box
+                          sx={{
+                            width: "100%",
+                            height: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            overflow: "auto",
+                          }}
+                        >
                           <img
                             src={selectedImage || product.imageUrl}
                             alt={product.name}
                             style={{
-                              maxWidth: '100%',
-                              maxHeight: '80vh',
-                              objectFit: 'contain',
+                              maxWidth: "100%",
+                              maxHeight: "80vh",
+                              objectFit: "contain",
                             }}
                           />
                         </Box>
                       </Box>
                     </Modal>
-                    
+
                     {/* Thumbnail Navigation with Arrows */}
                     {product.images && product.images.length > 1 && (
-                      <Box sx={{ position: 'relative', mt: 2, mb: 4 }}>
+                      <Box sx={{ position: "relative", mt: 2, mb: 4 }}>
                         {/* Left Navigation Arrow */}
-                        <IconButton 
-                          sx={{ 
-                            position: 'absolute', 
-                            left: -20, 
-                            top: '50%', 
-                            transform: 'translateY(-50%)',
-                            bgcolor: 'background.paper',
-                            boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+                        <IconButton
+                          sx={{
+                            position: "absolute",
+                            left: -20,
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            bgcolor: "background.paper",
+                            boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
                             zIndex: 2,
-                            '&:hover': {
-                              bgcolor: 'primary.main',
-                              color: 'white'
-                            }
+                            "&:hover": {
+                              bgcolor: "primary.main",
+                              color: "white",
+                            },
                           }}
                           size="small"
                         >
                           <ArrowBackIosNewIcon fontSize="small" />
                         </IconButton>
-                        
+
                         {/* Thumbnails */}
                         <Box
                           sx={{
-                            display: 'flex',
+                            display: "flex",
                             gap: 2,
-                            overflowX: 'auto',
+                            overflowX: "auto",
                             px: 2,
                             py: 1,
-                            scrollbarWidth: 'none',
-                            '&::-webkit-scrollbar': {
-                              display: 'none'
+                            scrollbarWidth: "none",
+                            "&::-webkit-scrollbar": {
+                              display: "none",
                             },
-                            mx: 2
+                            mx: 2,
                           }}
                         >
                           {product.images.map((image, index) => (
                             <Box
                               key={index}
                               onClick={() => setSelectedImage(image)}
-                              sx={{ 
+                              sx={{
                                 width: 80,
                                 height: 80,
                                 flexShrink: 0,
-                                cursor: 'pointer',
+                                cursor: "pointer",
                                 borderRadius: 2,
-                                overflow: 'hidden',
-                                border: selectedImage === image ? '2px solid' : '2px solid transparent',
-                                borderColor: selectedImage === image ? 'primary.main' : 'transparent',
-                                boxShadow: selectedImage === image ? '0 0 0 2px rgba(25, 118, 210, 0.2)' : 'none',
-                                transition: 'all 0.2s ease',
-                                position: 'relative',
-                                '&:hover': {
-                                  transform: 'translateY(-4px)',
-                                  boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                                overflow: "hidden",
+                                border:
+                                  selectedImage === image
+                                    ? "2px solid"
+                                    : "2px solid transparent",
+                                borderColor:
+                                  selectedImage === image
+                                    ? "primary.main"
+                                    : "transparent",
+                                boxShadow:
+                                  selectedImage === image
+                                    ? "0 0 0 2px rgba(25, 118, 210, 0.2)"
+                                    : "none",
+                                transition: "all 0.2s ease",
+                                position: "relative",
+                                "&:hover": {
+                                  transform: "translateY(-4px)",
+                                  boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
                                 },
-                                '&:hover::after': {
+                                "&:hover::after": {
                                   opacity: selectedImage !== image ? 0.3 : 0,
                                 },
-                                '&::after': {
+                                "&::after": {
                                   content: '""',
-                                  position: 'absolute',
+                                  position: "absolute",
                                   top: 0,
                                   left: 0,
                                   right: 0,
                                   bottom: 0,
-                                  backgroundColor: 'rgba(0,0,0,0)',
+                                  backgroundColor: "rgba(0,0,0,0)",
                                   opacity: 0,
-                                  transition: 'opacity 0.2s ease',
-                                }
+                                  transition: "opacity 0.2s ease",
+                                },
                               }}
                             >
                               <img
                                 src={image}
                                 alt={`${product.name} ${index + 1}`}
-                                style={{ 
-                                  height: '100%',
-                                  width: '100%',
-                                  objectFit: 'cover'
+                                style={{
+                                  height: "100%",
+                                  width: "100%",
+                                  objectFit: "cover",
                                 }}
                               />
                             </Box>
                           ))}
                         </Box>
-                        
+
                         {/* Right Navigation Arrow */}
-                        <IconButton 
-                          sx={{ 
-                            position: 'absolute', 
-                            right: -20, 
-                            top: '50%', 
-                            transform: 'translateY(-50%)',
-                            bgcolor: 'background.paper',
-                            boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+                        <IconButton
+                          sx={{
+                            position: "absolute",
+                            right: -20,
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            bgcolor: "background.paper",
+                            boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
                             zIndex: 2,
-                            '&:hover': {
-                              bgcolor: 'primary.main',
-                              color: 'white'
-                            }
+                            "&:hover": {
+                              bgcolor: "primary.main",
+                              color: "white",
+                            },
                           }}
                           size="small"
                         >
@@ -934,50 +803,82 @@ export default function ProductDetailPage() {
                 </Typography>
 
                 {/* Feature-specific card with checkmarks */}
-                <Card 
-                  sx={{ 
-                    mt: 3, 
-                    mb: 3, 
-                    borderRadius: 2, 
-                    border: '1px solid', 
-                    borderColor: 'divider',
-                    boxShadow: 'none',
-                    overflow: 'visible'
+                <Card
+                  sx={{
+                    mt: 3,
+                    mb: 3,
+                    borderRadius: 2,
+                    border: "1px solid",
+                    borderColor: "divider",
+                    boxShadow: "none",
+                    overflow: "visible",
                   }}
                 >
                   <CardContent sx={{ p: 3 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                    <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                       <VerifiedUserIcon color="primary" sx={{ mr: 1 }} />
                       <Typography variant="subtitle1" fontWeight="bold">
                         Fitur Produk
                       </Typography>
                     </Box>
-                    
+
                     <List disablePadding>
                       {[
-                        { text: 'Kualitas Premium', icon: <CheckIcon fontSize="small" sx={{ color: 'success.main' }} /> },
-                        { text: 'Garansi Produk', icon: <VerifiedUserIcon fontSize="small" sx={{ color: 'info.main' }} /> },
-                        { text: 'Pengiriman Cepat', icon: <LocalShippingIcon fontSize="small" sx={{ color: 'warning.main' }} /> },
-                        { text: 'Layanan Purna Jual', icon: <AssignmentTurnedInIcon fontSize="small" sx={{ color: 'error.main' }} /> }
+                        {
+                          text: "Kualitas Premium",
+                          icon: (
+                            <CheckIcon
+                              fontSize="small"
+                              sx={{ color: "success.main" }}
+                            />
+                          ),
+                        },
+                        {
+                          text: "Garansi Produk",
+                          icon: (
+                            <VerifiedUserIcon
+                              fontSize="small"
+                              sx={{ color: "info.main" }}
+                            />
+                          ),
+                        },
+                        {
+                          text: "Pengiriman Cepat",
+                          icon: (
+                            <LocalShippingIcon
+                              fontSize="small"
+                              sx={{ color: "warning.main" }}
+                            />
+                          ),
+                        },
+                        {
+                          text: "Layanan Purna Jual",
+                          icon: (
+                            <AssignmentTurnedInIcon
+                              fontSize="small"
+                              sx={{ color: "error.main" }}
+                            />
+                          ),
+                        },
                       ].map((feature, index) => (
-                        <ListItem 
-                          key={index} 
-                          disablePadding 
-                          sx={{ 
+                        <ListItem
+                          key={index}
+                          disablePadding
+                          sx={{
                             py: 1,
-                            borderBottom: index < 3 ? '1px dashed' : 'none',
-                            borderColor: 'divider'
+                            borderBottom: index < 3 ? "1px dashed" : "none",
+                            borderColor: "divider",
                           }}
                         >
                           <ListItemIcon sx={{ minWidth: 36 }}>
                             {feature.icon}
                           </ListItemIcon>
-                          <ListItemText 
-                            primary={feature.text} 
-                            primaryTypographyProps={{ 
-                              variant: 'body2',
-                              fontWeight: 500
-                            }} 
+                          <ListItemText
+                            primary={feature.text}
+                            primaryTypographyProps={{
+                              variant: "body2",
+                              fontWeight: 500,
+                            }}
                           />
                         </ListItem>
                       ))}
@@ -994,16 +895,16 @@ export default function ProductDetailPage() {
                     component="a"
                     href="https://wa.me/6281234567890?text=Saya tertarik dengan produk ini: "
                     target="_blank"
-                    sx={{ 
+                    sx={{
                       py: 1.5,
                       borderRadius: 2,
-                      fontWeight: 'bold',
-                      boxShadow: '0 4px 12px rgba(76, 175, 80, 0.2)',
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        transform: 'translateY(-4px)',
-                        boxShadow: '0 8px 16px rgba(76, 175, 80, 0.3)',
-                      }
+                      fontWeight: "bold",
+                      boxShadow: "0 4px 12px rgba(76, 175, 80, 0.2)",
+                      transition: "all 0.3s ease",
+                      "&:hover": {
+                        transform: "translateY(-4px)",
+                        boxShadow: "0 8px 16px rgba(76, 175, 80, 0.3)",
+                      },
                     }}
                   >
                     Chat WhatsApp
@@ -1016,16 +917,16 @@ export default function ProductDetailPage() {
                     fullWidth
                     component={Link}
                     href="/kontak"
-                    sx={{ 
+                    sx={{
                       py: 1.5,
                       borderRadius: 2,
-                      fontWeight: 'bold',
-                      boxShadow: '0 4px 12px rgba(25, 118, 210, 0.2)',
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        transform: 'translateY(-4px)',
-                        boxShadow: '0 8px 16px rgba(25, 118, 210, 0.3)',
-                      }
+                      fontWeight: "bold",
+                      boxShadow: "0 4px 12px rgba(25, 118, 210, 0.2)",
+                      transition: "all 0.3s ease",
+                      "&:hover": {
+                        transform: "translateY(-4px)",
+                        boxShadow: "0 8px 16px rgba(25, 118, 210, 0.3)",
+                      },
                     }}
                   >
                     Pesan Sekarang
@@ -1033,54 +934,72 @@ export default function ProductDetailPage() {
                 </Stack>
 
                 {/* Add this after the action buttons */}
-                <Box 
-                  sx={{ 
-                    mt: 3, 
-                    p: 3, 
-                    bgcolor: 'background.paper', 
+                <Box
+                  sx={{
+                    mt: 3,
+                    p: 3,
+                    bgcolor: "background.paper",
                     borderRadius: 2,
-                    border: '1px solid',
-                    borderColor: 'divider',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    flexWrap: 'wrap',
-                    gap: 2
+                    border: "1px solid",
+                    borderColor: "divider",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    flexWrap: "wrap",
+                    gap: 2,
                   }}
                 >
-                  <Typography variant="body1" fontWeight={600} color="text.primary">
+                  <Typography
+                    variant="body1"
+                    fontWeight={600}
+                    color="text.primary"
+                  >
                     Bagikan Produk Ini
                   </Typography>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
+                  <Box sx={{ display: "flex", gap: 1 }}>
                     {[
-                      { color: '#3b5998', icon: 'f', label: 'Facebook' },
-                      { color: '#1da1f2', icon: 't', label: 'Twitter' },
-                      { color: '#25D366', icon: <WhatsAppIcon fontSize="small" />, label: 'WhatsApp' },
-                      { color: '#E60023', icon: 'p', label: 'Pinterest' }
+                      { color: "#3b5998", icon: "f", label: "Facebook" },
+                      { color: "#1da1f2", icon: "t", label: "Twitter" },
+                      {
+                        color: "#25D366",
+                        icon: <WhatsAppIcon fontSize="small" />,
+                        label: "WhatsApp",
+                      },
+                      { color: "#E60023", icon: "p", label: "Pinterest" },
                     ].map((social, index) => (
-                      <Tooltip key={index} title={social.label} arrow placement="top">
-                        <IconButton 
-                          sx={{ 
-                            bgcolor: social.color, 
-                            color: 'white',
+                      <Tooltip
+                        key={index}
+                        title={social.label}
+                        arrow
+                        placement="top"
+                      >
+                        <IconButton
+                          sx={{
+                            bgcolor: social.color,
+                            color: "white",
                             width: 36,
                             height: 36,
-                            borderRadius: '50%',
-                            '&:hover': {
+                            borderRadius: "50%",
+                            "&:hover": {
                               bgcolor: social.color,
                               opacity: 0.9,
-                              transform: 'translateY(-3px) scale(1.1)',
-                              boxShadow: '0 4px 8px rgba(0,0,0,0.2)'
+                              transform: "translateY(-3px) scale(1.1)",
+                              boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
                             },
-                            transition: 'all 0.2s ease',
+                            transition: "all 0.2s ease",
                           }}
                           size="small"
                         >
-                          {typeof social.icon === 'string' ? (
-                            <Box component="span" sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+                          {typeof social.icon === "string" ? (
+                            <Box
+                              component="span"
+                              sx={{ fontSize: "1.2rem", fontWeight: "bold" }}
+                            >
                               {social.icon}
                             </Box>
-                          ) : social.icon}
+                          ) : (
+                            social.icon
+                          )}
                         </IconButton>
                       </Tooltip>
                     ))}
@@ -1169,6 +1088,221 @@ export default function ProductDetailPage() {
                 )}
               </CardContent>
             </Card>
+
+            <Card
+              sx={{
+                borderRadius: 3,
+                overflow: "hidden",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+                border: "1px solid",
+                borderColor: "divider",
+                mt: 4,
+                mb: 4,
+              }}
+            >
+              <Box
+                sx={{
+                  bgcolor: "warning.main",
+                  py: 2,
+                  px: 3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1.5,
+                }}
+              >
+                <StarIcon sx={{ color: "white" }} />
+                <Typography
+                  variant="h6"
+                  fontWeight="bold"
+                  sx={{ color: "white" }}
+                >
+                  Ulasan Pelanggan
+                </Typography>
+              </Box>
+              <CardContent sx={{ p: 4 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    mb: 4,
+                  }}
+                >
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                    <Box
+                      sx={{
+                        width: 60,
+                        height: 60,
+                        bgcolor: "warning.main",
+                        color: "white",
+                        borderRadius: "50%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexDirection: "column",
+                        boxShadow: "0 4px 12px rgba(255, 152, 0, 0.3)",
+                      }}
+                    >
+                      <Typography variant="h4" fontWeight="bold" lineHeight={1}>
+                        {"4.5"}
+                      </Typography>
+                      <Box sx={{ display: "flex", mt: 0.5 }}>
+                        {[...Array(5)].map((_, i) => (
+                          <StarIcon
+                            key={i}
+                            sx={{ fontSize: "0.6rem", color: "white" }}
+                          />
+                        ))}
+                      </Box>
+                    </Box>
+                    <Box>
+                      <Typography
+                        variant="body1"
+                        fontWeight={600}
+                        color="text.primary"
+                      >
+                        Rating Keseluruhan
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Berdasarkan ulasan pelanggan kami
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    size="small"
+                    sx={{
+                      borderRadius: 2,
+                      fontWeight: 600,
+                      "&:hover": {
+                        bgcolor: "warning.main",
+                        color: "white",
+                      },
+                    }}
+                  >
+                    Tulis Ulasan
+                  </Button>
+                </Box>
+
+                {/* Sample reviews */}
+                {[
+                  {
+                    name: "Ahmad Fauzi",
+                    rating: 5,
+                    date: "12 Maret 2023",
+                    comment:
+                      "Produk berkualitas tinggi dan sesuai dengan deskripsi. Pengiriman cepat dan pelayanan sangat baik. Sangat merekomendasikan!",
+                  },
+                  {
+                    name: "Siti Nurhaliza",
+                    rating: 4,
+                    date: "5 Februari 2023",
+                    comment:
+                      "Kualitas produk bagus dan sesuai dengan kebutuhan kami. Hanya saja pengiriman sedikit terlambat dari jadwal yang dijanjikan.",
+                  },
+                ].map((review, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      mb: index === 0 ? 3 : 0,
+                      pb: index === 0 ? 3 : 0,
+                      borderBottom: index === 0 ? "1px solid" : "none",
+                      borderColor: "divider",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "flex-start",
+                        mb: 1,
+                      }}
+                    >
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                      >
+                        <Box
+                          sx={{
+                            width: 40,
+                            height: 40,
+                            borderRadius: "50%",
+                            bgcolor: "primary.light",
+                            color: "primary.main",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontWeight: "bold",
+                            fontSize: "1.1rem",
+                          }}
+                        >
+                          {review.name.charAt(0)}
+                        </Box>
+                        <Box>
+                          <Typography variant="body1" fontWeight={600}>
+                            {review.name}
+                          </Typography>
+                          <Typography variant="caption" color="text.secondary">
+                            {review.date}
+                          </Typography>
+                        </Box>
+                      </Box>
+                      <Rating value={review.rating} readOnly size="small" />
+                    </Box>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ pl: 6 }}
+                    >
+                      {review.comment}
+                    </Typography>
+                  </Box>
+                ))}
+
+                <Box
+                  sx={{
+                    mt: 4,
+                    p: 3,
+                    bgcolor: "background.paper",
+                    borderRadius: 2,
+                    border: "1px dashed",
+                    borderColor: "divider",
+                    textAlign: "center",
+                  }}
+                >
+                  <Typography
+                    variant="body1"
+                    fontWeight={500}
+                    color="text.primary"
+                    gutterBottom
+                  >
+                    Sudah menggunakan produk ini?
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mb: 2 }}
+                  >
+                    Bagikan pengalaman Anda dengan pelanggan lain
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color="warning"
+                    startIcon={<StarIcon />}
+                    sx={{
+                      borderRadius: 2,
+                      fontWeight: 600,
+                      boxShadow: "0 4px 12px rgba(255, 152, 0, 0.2)",
+                      "&:hover": {
+                        boxShadow: "0 6px 16px rgba(255, 152, 0, 0.3)",
+                      },
+                    }}
+                  >
+                    Tulis Ulasan
+                  </Button>
+                </Box>
+              </CardContent>
+            </Card>
           </Grid>
 
           {/* Right Column - Informasi Produk */}
@@ -1184,71 +1318,120 @@ export default function ProductDetailPage() {
                     <TableBody>
                       {product.author && (
                         <TableRow>
-                          <TableCell component="th" sx={{ width: '40%', border: 'none' }}>
-                            <Typography variant="body2" color="text.secondary">Penulis</Typography>
+                          <TableCell
+                            component="th"
+                            sx={{ width: "40%", border: "none" }}
+                          >
+                            <Typography variant="body2" color="text.secondary">
+                              Penulis
+                            </Typography>
                           </TableCell>
-                          <TableCell sx={{ border: 'none' }}>
-                            <Typography variant="body2">{product.author}</Typography>
+                          <TableCell sx={{ border: "none" }}>
+                            <Typography variant="body2">
+                              {product.author}
+                            </Typography>
                           </TableCell>
                         </TableRow>
                       )}
                       {product.publisher && (
                         <TableRow>
-                          <TableCell component="th" sx={{ width: '40%', border: 'none' }}>
-                            <Typography variant="body2" color="text.secondary">Penerbit</Typography>
+                          <TableCell
+                            component="th"
+                            sx={{ width: "40%", border: "none" }}
+                          >
+                            <Typography variant="body2" color="text.secondary">
+                              Penerbit
+                            </Typography>
                           </TableCell>
-                          <TableCell sx={{ border: 'none' }}>
-                            <Typography variant="body2">{product.publisher}</Typography>
+                          <TableCell sx={{ border: "none" }}>
+                            <Typography variant="body2">
+                              {product.publisher}
+                            </Typography>
                           </TableCell>
                         </TableRow>
                       )}
                       {product.level && (
                         <TableRow>
-                          <TableCell component="th" sx={{ width: '40%', border: 'none' }}>
-                            <Typography variant="body2" color="text.secondary">Jenjang</Typography>
+                          <TableCell
+                            component="th"
+                            sx={{ width: "40%", border: "none" }}
+                          >
+                            <Typography variant="body2" color="text.secondary">
+                              Jenjang
+                            </Typography>
                           </TableCell>
-                          <TableCell sx={{ border: 'none' }}>
-                            <Typography variant="body2">{product.level}</Typography>
+                          <TableCell sx={{ border: "none" }}>
+                            <Typography variant="body2">
+                              {product.level}
+                            </Typography>
                           </TableCell>
                         </TableRow>
                       )}
                       {product.pages > 0 && (
                         <TableRow>
-                          <TableCell component="th" sx={{ width: '40%', border: 'none' }}>
-                            <Typography variant="body2" color="text.secondary">Jumlah Halaman</Typography>
+                          <TableCell
+                            component="th"
+                            sx={{ width: "40%", border: "none" }}
+                          >
+                            <Typography variant="body2" color="text.secondary">
+                              Jumlah Halaman
+                            </Typography>
                           </TableCell>
-                          <TableCell sx={{ border: 'none' }}>
-                            <Typography variant="body2">{product.pages}</Typography>
+                          <TableCell sx={{ border: "none" }}>
+                            <Typography variant="body2">
+                              {product.pages}
+                            </Typography>
                           </TableCell>
                         </TableRow>
                       )}
                       {product.year && (
                         <TableRow>
-                          <TableCell component="th" sx={{ width: '40%', border: 'none' }}>
-                            <Typography variant="body2" color="text.secondary">Tahun Terbit</Typography>
+                          <TableCell
+                            component="th"
+                            sx={{ width: "40%", border: "none" }}
+                          >
+                            <Typography variant="body2" color="text.secondary">
+                              Tahun Terbit
+                            </Typography>
                           </TableCell>
-                          <TableCell sx={{ border: 'none' }}>
-                            <Typography variant="body2">{product.year}</Typography>
+                          <TableCell sx={{ border: "none" }}>
+                            <Typography variant="body2">
+                              {product.year}
+                            </Typography>
                           </TableCell>
                         </TableRow>
                       )}
                       {product.size && (
                         <TableRow>
-                          <TableCell component="th" sx={{ width: '40%', border: 'none' }}>
-                            <Typography variant="body2" color="text.secondary">Ukuran</Typography>
+                          <TableCell
+                            component="th"
+                            sx={{ width: "40%", border: "none" }}
+                          >
+                            <Typography variant="body2" color="text.secondary">
+                              Ukuran
+                            </Typography>
                           </TableCell>
-                          <TableCell sx={{ border: 'none' }}>
-                            <Typography variant="body2">{product.size}</Typography>
+                          <TableCell sx={{ border: "none" }}>
+                            <Typography variant="body2">
+                              {product.size}
+                            </Typography>
                           </TableCell>
                         </TableRow>
                       )}
                       {product.isbn && (
                         <TableRow>
-                          <TableCell component="th" sx={{ width: '40%', border: 'none' }}>
-                            <Typography variant="body2" color="text.secondary">ISBN</Typography>
+                          <TableCell
+                            component="th"
+                            sx={{ width: "40%", border: "none" }}
+                          >
+                            <Typography variant="body2" color="text.secondary">
+                              ISBN
+                            </Typography>
                           </TableCell>
-                          <TableCell sx={{ border: 'none' }}>
-                            <Typography variant="body2">{product.isbn}</Typography>
+                          <TableCell sx={{ border: "none" }}>
+                            <Typography variant="body2">
+                              {product.isbn}
+                            </Typography>
                           </TableCell>
                         </TableRow>
                       )}
@@ -1272,26 +1455,37 @@ export default function ProductDetailPage() {
           </Typography>
           <Grid container spacing={3} sx={{ mt: 1 }}>
             {relatedProducts.map((relatedProduct) => (
-              <Grid item key={relatedProduct._id ? relatedProduct._id.toString() : relatedProduct.id} xs={12} sm={6} md={3} lg={3}>
+              <Grid
+                item
+                key={
+                  relatedProduct._id
+                    ? relatedProduct._id.toString()
+                    : relatedProduct.id
+                }
+                xs={12}
+                sm={6}
+                md={3}
+                lg={3}
+              >
                 <Card
                   sx={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
                     borderRadius: 3,
-                    overflow: 'hidden',
-                    boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-                    transition: 'all 0.3s ease-in-out',
-                    position: 'relative',
-                    '&:hover': {
-                      transform: 'translateY(-12px)',
-                      boxShadow: '0 15px 35px rgba(25, 118, 210, 0.15)',
-                      '& .MuiCardMedia-root': {
-                        transform: 'scale(1.05)',
+                    overflow: "hidden",
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+                    transition: "all 0.3s ease-in-out",
+                    position: "relative",
+                    "&:hover": {
+                      transform: "translateY(-12px)",
+                      boxShadow: "0 15px 35px rgba(25, 118, 210, 0.15)",
+                      "& .MuiCardMedia-root": {
+                        transform: "scale(1.05)",
                       },
-                      '& .product-quick-actions': {
+                      "& .product-quick-actions": {
                         opacity: 1,
-                        transform: 'translateY(0)',
+                        transform: "translateY(0)",
                       },
                     },
                   }}
@@ -1302,27 +1496,27 @@ export default function ProductDetailPage() {
                     color="primary"
                     size="small"
                     sx={{
-                      position: 'absolute',
+                      position: "absolute",
                       top: 16,
                       right: 16,
                       zIndex: 10,
-                      fontWeight: 'bold',
-                      boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                      '& .MuiChip-label': {
+                      fontWeight: "bold",
+                      boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                      "& .MuiChip-label": {
                         px: 1,
-                      }
+                      },
                     }}
                   />
 
                   {/* Image container with enhanced hover effect */}
-                  <Box 
-                    sx={{ 
-                      position: 'relative', 
-                      overflow: 'hidden',
-                      bgcolor: 'grey.50',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                  <Box
+                    sx={{
+                      position: "relative",
+                      overflow: "hidden",
+                      bgcolor: "grey.50",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                       pt: 2,
                       pb: 2,
                     }}
@@ -1335,36 +1529,49 @@ export default function ProductDetailPage() {
                         alt={relatedProduct.name}
                         sx={{
                           objectFit: "contain",
-                          maxWidth: '80%',
-                          transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                          maxWidth: "80%",
+                          transition:
+                            "transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
                         }}
                       />
                     ) : (
-                      <Box sx={{ p: 2, height: 180, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Box
+                        sx={{
+                          p: 2,
+                          height: 180,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
                         <ProductDetailIllustration index={0} />
                       </Box>
                     )}
-                    
+
                     {/* Quick action buttons that appear on hover */}
-                    <Box 
+                    <Box
                       className="product-quick-actions"
                       sx={{
-                        position: 'absolute',
+                        position: "absolute",
                         bottom: 0,
                         left: 0,
                         right: 0,
-                        bgcolor: 'rgba(255,255,255,0.9)',
-                        backdropFilter: 'blur(4px)',
-                        display: 'flex',
-                        justifyContent: 'center',
+                        bgcolor: "rgba(255,255,255,0.9)",
+                        backdropFilter: "blur(4px)",
+                        display: "flex",
+                        justifyContent: "center",
                         py: 1.5,
                         opacity: 0,
-                        transform: 'translateY(10px)',
-                        transition: 'all 0.3s ease-in-out',
+                        transform: "translateY(10px)",
+                        transition: "all 0.3s ease-in-out",
                       }}
                     >
                       <Link
-                        href={`/produk/${relatedProduct._id ? relatedProduct._id.toString() : relatedProduct.id}`}
+                        href={`/produk/${
+                          relatedProduct._id
+                            ? relatedProduct._id.toString()
+                            : relatedProduct.id
+                        }`}
                         passHref
                         style={{ textDecoration: "none" }}
                       >
@@ -1376,7 +1583,7 @@ export default function ProductDetailPage() {
                             px: 2,
                             fontWeight: 600,
                             boxShadow: 2,
-                            textTransform: 'none',
+                            textTransform: "none",
                           }}
                         >
                           Lihat Detail
@@ -1386,11 +1593,11 @@ export default function ProductDetailPage() {
                   </Box>
 
                   {/* Content area with improved typography and layout */}
-                  <CardContent 
-                    sx={{ 
-                      flexGrow: 1, 
-                      display: 'flex', 
-                      flexDirection: 'column',
+                  <CardContent
+                    sx={{
+                      flexGrow: 1,
+                      display: "flex",
+                      flexDirection: "column",
                       p: 3,
                       pt: 2,
                     }}
@@ -1401,117 +1608,140 @@ export default function ProductDetailPage() {
                       component="h4"
                       sx={{
                         fontWeight: 700,
-                        fontSize: '1.1rem',
+                        fontSize: "1.1rem",
                         lineHeight: 1.4,
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         display: "-webkit-box",
                         WebkitLineClamp: 2,
                         WebkitBoxOrient: "vertical",
-                        height: '3.1em',
+                        height: "3.1em",
                         mb: 1,
-                        background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
+                        background: "linear-gradient(45deg, #1976d2, #42a5f5)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
                       }}
                     >
                       {relatedProduct.name}
                     </Typography>
 
                     {/* Product features as chips */}
-                    {relatedProduct.features && relatedProduct.features.length > 0 && (
-                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
-                        {relatedProduct.features.slice(0, 2).map((feature, idx) => (
-                          <Chip
-                            key={idx}
-                            label={feature}
-                            size="small"
-                            variant="outlined"
-                            sx={{ 
-                              fontSize: '0.7rem',
-                              height: 24,
-                              '& .MuiChip-label': { px: 1 }
-                            }}
-                          />
-                        ))}
-                        {relatedProduct.features.length > 2 && (
-                          <Chip
-                            label={`+${relatedProduct.features.length - 2}`}
-                            size="small"
-                            sx={{ 
-                              fontSize: '0.7rem',
-                              height: 24,
-                              bgcolor: 'grey.100',
-                              '& .MuiChip-label': { px: 1 }
-                            }}
-                          />
-                        )}
-                      </Box>
-                    )}
+                    {relatedProduct.features &&
+                      relatedProduct.features.length > 0 && (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            gap: 0.5,
+                            mb: 2,
+                          }}
+                        >
+                          {relatedProduct.features
+                            .slice(0, 2)
+                            .map((feature, idx) => (
+                              <Chip
+                                key={idx}
+                                label={feature}
+                                size="small"
+                                variant="outlined"
+                                sx={{
+                                  fontSize: "0.7rem",
+                                  height: 24,
+                                  "& .MuiChip-label": { px: 1 },
+                                }}
+                              />
+                            ))}
+                          {relatedProduct.features.length > 2 && (
+                            <Chip
+                              label={`+${relatedProduct.features.length - 2}`}
+                              size="small"
+                              sx={{
+                                fontSize: "0.7rem",
+                                height: 24,
+                                bgcolor: "grey.100",
+                                "& .MuiChip-label": { px: 1 },
+                              }}
+                            />
+                          )}
+                        </Box>
+                      )}
 
                     {/* Product attributes with improved styling */}
-                    <Box sx={{ mt: 'auto' }}>
+                    <Box sx={{ mt: "auto" }}>
                       {/* Author info with icon */}
                       {relatedProduct.author && (
-                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, gap: 1 }}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            mb: 1,
+                            gap: 1,
+                          }}
+                        >
                           <Box
                             sx={{
                               width: 24,
                               height: 24,
-                              borderRadius: '50%',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              bgcolor: 'primary.light',
-                              color: 'primary.main',
-                              fontSize: '0.8rem',
-                              fontWeight: 'bold',
+                              borderRadius: "50%",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              bgcolor: "primary.light",
+                              color: "primary.main",
+                              fontSize: "0.8rem",
+                              fontWeight: "bold",
                             }}
                           >
                             A
                           </Box>
                           <Typography
                             variant="body2"
-                            sx={{ 
-                              color: 'text.secondary',
-                              fontSize: '0.85rem',
+                            sx={{
+                              color: "text.secondary",
+                              fontSize: "0.85rem",
                               fontWeight: 500,
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap',
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
                             }}
                           >
                             {relatedProduct.author}
                           </Typography>
                         </Box>
                       )}
-                      
+
                       {/* Price with enhanced styling */}
-                      <Box 
-                        sx={{ 
-                          display: 'flex', 
-                          alignItems: 'center', 
-                          justifyContent: 'space-between', 
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
                           mt: 2,
                           pt: 2,
-                          borderTop: '1px solid',
-                          borderColor: 'divider',
+                          borderTop: "1px solid",
+                          borderColor: "divider",
                         }}
                       >
                         <Typography
                           variant="h6"
                           sx={{
                             fontWeight: 700,
-                            color: 'primary.main',
+                            color: "primary.main",
                           }}
                         >
-                          {formatPrice ? formatPrice(relatedProduct.price) : `Rp ${relatedProduct.price.toLocaleString("id-ID")}`}
+                          {formatPrice
+                            ? formatPrice(relatedProduct.price)
+                            : `Rp ${relatedProduct.price.toLocaleString(
+                                "id-ID"
+                              )}`}
                         </Typography>
-                        
+
                         {/* Stock indicator */}
                         {relatedProduct.inStock !== undefined && (
                           <Chip
-                            label={relatedProduct.inStock ? "Tersedia" : "Habis"}
+                            label={
+                              relatedProduct.inStock ? "Tersedia" : "Habis"
+                            }
                             color={relatedProduct.inStock ? "success" : "error"}
                             size="small"
                             variant="outlined"

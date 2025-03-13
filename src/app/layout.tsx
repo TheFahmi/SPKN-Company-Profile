@@ -15,7 +15,7 @@ export default function RootLayout({
     <html lang="id" className={inter.variable}>
       <head>
         {/* Preload critical assets with high priority */}
-        <link rel="preload" href="/images/logo.png" as="image" fetchpriority="high" />
+        <link rel="preload" href="/images/logo.png" as="image" fetchPriority="high" />
         <link rel="preload" href="/images/bg-pattern.png" as="image" />
         <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         

@@ -300,7 +300,7 @@ export default function ContactPage() {
                   borderRadius: 4, 
                   boxShadow: '0 10px 30px rgba(0,0,0,0.08)', 
                   mb: 4,
-                  background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+                  // background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
                   position: 'relative',
                   overflow: 'hidden',
                   '&::before': {
@@ -524,7 +524,7 @@ export default function ContactPage() {
                   p: 4, 
                   borderRadius: 4, 
                   boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-                  background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+                  // background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
                   position: 'relative',
                   overflow: 'hidden',
                   '&::before': {
