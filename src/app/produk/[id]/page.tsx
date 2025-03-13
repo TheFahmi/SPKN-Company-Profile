@@ -1,6 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import ImageGallery from "./components/ImageGallery";
+import ProductInformation from "./components/ProductInformation";
+import ProductDescription from "./components/ProductDescription";
+import CustomerReviews from "./components/CustomerReviews";
+import RelatedProducts from "./components/RelatedProducts";
 import {
   Box,
   Container,
