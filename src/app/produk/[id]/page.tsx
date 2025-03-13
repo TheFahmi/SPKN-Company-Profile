@@ -47,6 +47,8 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import { ProductDetailIllustration } from "../../components/illustrations";
 import { Product } from "@/app/types";
+import Modal from '@mui/material/Modal';
+import CloseIcon from '@mui/icons-material/Close';
 
 // Format harga ke format Rupiah
 function formatPrice(price: number) {
@@ -543,6 +545,7 @@ export default function ProductDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [productRating, setProductRating] = useState<number>(4.5); // Default rating
+  const [zoomOpen, setZoomOpen] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -722,6 +725,7 @@ export default function ProductDetailPage() {
                       />
                       <Box 
                         className="zoom-icon"
+                        onClick={() => setZoomOpen(true)}
                         sx={{ 
                           position: 'absolute', 
                           right: 16, 
@@ -745,6 +749,66 @@ export default function ProductDetailPage() {
                         <ZoomInIcon />
                       </Box>
                     </Box>
+                    
+                    {/* Zoom Modal */}
+                    <Modal
+                      open={zoomOpen}
+                      onClose={() => setZoomOpen(false)}
+                      aria-labelledby="image-zoom-modal"
+                      aria-describedby="zoomed-product-image"
+                    >
+                      <Box sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: '90%',
+                        maxWidth: 1000,
+                        maxHeight: '90vh',
+                        bgcolor: 'background.paper',
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 2,
+                        outline: 'none',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                        <IconButton 
+                          onClick={() => setZoomOpen(false)}
+                          sx={{ 
+                            position: 'absolute', 
+                            right: 8, 
+                            top: 8,
+                            bgcolor: 'rgba(0,0,0,0.1)',
+                            '&:hover': {
+                              bgcolor: 'rgba(0,0,0,0.2)',
+                            }
+                          }}
+                        >
+                          <CloseIcon />
+                        </IconButton>
+                        <Box sx={{ 
+                          width: '100%', 
+                          height: '100%', 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'center',
+                          overflow: 'auto',
+                        }}>
+                          <img
+                            src={selectedImage || product.imageUrl}
+                            alt={product.name}
+                            style={{
+                              maxWidth: '100%',
+                              maxHeight: '80vh',
+                              objectFit: 'contain',
+                            }}
+                          />
+                        </Box>
+                      </Box>
+                    </Modal>
                     
                     {/* Thumbnail Navigation with Arrows */}
                     {product.images && product.images.length > 1 && (
@@ -999,6 +1063,9 @@ export default function ProductDetailPage() {
                           sx={{ 
                             bgcolor: social.color, 
                             color: 'white',
+                            width: 36,
+                            height: 36,
+                            borderRadius: '50%',
                             '&:hover': {
                               bgcolor: social.color,
                               opacity: 0.9,
