@@ -28,12 +28,15 @@ import {
   Paper,
   Skeleton,
   CardMedia,
+  Rating,
+  IconButton,
 } from "@mui/material";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import StarIcon from "@mui/icons-material/Star";
 import { ProductDetailIllustration } from "../../components/illustrations";
 import { Product } from "@/app/types";
 
@@ -531,6 +534,7 @@ export default function ProductDetailPage() {
   const [selectedImage, setSelectedImage] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [productRating, setProductRating] = useState<number>(4.5); // Default rating
 
   useEffect(() => {
     const fetchProduct = async () => {
