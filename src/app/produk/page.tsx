@@ -247,18 +247,77 @@ const ProductSkeleton = () => {
         flexDirection: "column",
         borderRadius: 3,
         overflow: "hidden",
-        boxShadow: '0 10px 30px rgba(0,0,0,0.04)',
+        boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
       }}
     >
-      <Box sx={{ position: 'relative', pt: 2, pb: 2, bgcolor: 'grey.50' }}>
+      {/* Category badge skeleton */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 16,
+          right: 16,
+          zIndex: 10,
+        }}
+      >
         <Skeleton
           variant="rectangular"
-          height={200}
+          width={80}
+          height={24}
           animation="wave"
-          sx={{ bgcolor: "rgba(0,0,0,0.04)" }}
+          sx={{ borderRadius: 4, bgcolor: "rgba(0,0,0,0.04)" }}
         />
       </Box>
-      <CardContent sx={{ flexGrow: 1, p: 3 }}>
+
+      {/* Image container with skeleton */}
+      <Box 
+        sx={{ 
+          position: 'relative', 
+          overflow: 'hidden',
+          bgcolor: 'grey.50',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          pt: 2,
+          pb: 2,
+        }}
+      >
+        <Skeleton
+          variant="rectangular"
+          width="80%"
+          height={200}
+          animation="wave"
+          sx={{ 
+            bgcolor: "rgba(0,0,0,0.04)",
+            borderRadius: 1
+          }}
+        />
+        
+        {/* Quick action button skeleton */}
+        <Box 
+          sx={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            bgcolor: 'rgba(255,255,255,0.9)',
+            display: 'flex',
+            justifyContent: 'center',
+            py: 1.5,
+          }}
+        >
+          <Skeleton
+            variant="rectangular"
+            width={120}
+            height={32}
+            animation="wave"
+            sx={{ borderRadius: 2, bgcolor: "rgba(0,0,0,0.04)" }}
+          />
+        </Box>
+      </Box>
+
+      {/* Content area with skeletons */}
+      <CardContent sx={{ flexGrow: 1, p: 3, pt: 2 }}>
+        {/* Product title skeleton */}
         <Skeleton
           variant="text"
           height={32}
@@ -266,7 +325,9 @@ const ProductSkeleton = () => {
           animation="wave"
           sx={{ mb: 1, bgcolor: "rgba(0,0,0,0.04)" }}
         />
-        <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
+        
+        {/* Product features as chips */}
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
           <Skeleton
             variant="rectangular"
             height={24}
@@ -278,11 +339,20 @@ const ProductSkeleton = () => {
             variant="rectangular"
             height={24}
             width={60}
+            animation="wave"
+            sx={{ borderRadius: 4, bgcolor: "rgba(0,0,0,0.04)" }}
+          />
+          <Skeleton
+            variant="rectangular"
+            height={24}
+            width={40}
             animation="wave"
             sx={{ borderRadius: 4, bgcolor: "rgba(0,0,0,0.04)" }}
           />
         </Box>
+
         <Box sx={{ mt: 'auto' }}>
+          {/* Author info skeleton */}
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, gap: 1 }}>
             <Skeleton
               variant="circular"
@@ -299,6 +369,8 @@ const ProductSkeleton = () => {
               sx={{ bgcolor: "rgba(0,0,0,0.04)" }}
             />
           </Box>
+          
+          {/* Publisher info skeleton */}
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, gap: 1 }}>
             <Skeleton
               variant="circular"
@@ -315,6 +387,8 @@ const ProductSkeleton = () => {
               sx={{ bgcolor: "rgba(0,0,0,0.04)" }}
             />
           </Box>
+          
+          {/* Price and stock indicator */}
           <Box sx={{ 
             display: 'flex', 
             alignItems: 'center', 

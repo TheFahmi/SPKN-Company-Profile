@@ -354,7 +354,8 @@ export default function Home() {
                             justifyContent: 'center',
                             bgcolor: `${item.color}20`,
                             color: item.color,
-                            transition: 'all 0.3s ease-in-out'
+                            transition: 'all 0.3s ease-in-out',
+                            overflow: 'hidden' // Add this to ensure content doesn't overflow the circular shape
                           }}
                         >
                           {item.icon === 'TimelineIcon' && <TimelineIcon fontSize="medium" />}

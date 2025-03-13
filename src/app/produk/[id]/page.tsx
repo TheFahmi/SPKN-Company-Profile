@@ -45,6 +45,13 @@ import CheckIcon from "@mui/icons-material/Check";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import PersonIcon from '@mui/icons-material/Person';
+import BusinessIcon from '@mui/icons-material/Business';
+import SchoolIcon from '@mui/icons-material/School';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import AspectRatioIcon from '@mui/icons-material/AspectRatio';
+import QrCodeIcon from '@mui/icons-material/QrCode';
 import { ProductDetailIllustration } from "../../components/illustrations";
 import ProductCard from "../../components/ProductCard";
 import { Product } from "@/app/types";
@@ -1323,9 +1330,24 @@ export default function ProductDetailPage() {
                             component="th"
                             sx={{ width: "40%", border: "none" }}
                           >
-                            <Typography variant="body2" color="text.secondary">
-                              Penulis
-                            </Typography>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                              <Box
+                                sx={{
+                                  width: 32,
+                                  height: 32,
+                                  borderRadius: '50%',
+                                  bgcolor: 'primary.light',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                }}
+                              >
+                                <PersonIcon fontSize="small" color="primary" />
+                              </Box>
+                              <Typography variant="body2" color="text.secondary">
+                                Penulis
+                              </Typography>
+                            </Box>
                           </TableCell>
                           <TableCell sx={{ border: "none" }}>
                             <Typography variant="body2">
@@ -1340,9 +1362,24 @@ export default function ProductDetailPage() {
                             component="th"
                             sx={{ width: "40%", border: "none" }}
                           >
-                            <Typography variant="body2" color="text.secondary">
-                              Penerbit
-                            </Typography>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                              <Box
+                                sx={{
+                                  width: 32,
+                                  height: 32,
+                                  borderRadius: '50%',
+                                  bgcolor: 'primary.light',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                }}
+                              >
+                                <BusinessIcon fontSize="small" color="primary" />
+                              </Box>
+                              <Typography variant="body2" color="text.secondary">
+                                Penerbit
+                              </Typography>
+                            </Box>
                           </TableCell>
                           <TableCell sx={{ border: "none" }}>
                             <Typography variant="body2">
@@ -1357,9 +1394,24 @@ export default function ProductDetailPage() {
                             component="th"
                             sx={{ width: "40%", border: "none" }}
                           >
-                            <Typography variant="body2" color="text.secondary">
-                              Jenjang
-                            </Typography>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                              <Box
+                                sx={{
+                                  width: 32,
+                                  height: 32,
+                                  borderRadius: '50%',
+                                  bgcolor: 'primary.light',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                }}
+                              >
+                                <SchoolIcon fontSize="small" color="primary" />
+                              </Box>
+                              <Typography variant="body2" color="text.secondary">
+                                Jenjang
+                              </Typography>
+                            </Box>
                           </TableCell>
                           <TableCell sx={{ border: "none" }}>
                             <Typography variant="body2">
@@ -1374,9 +1426,24 @@ export default function ProductDetailPage() {
                             component="th"
                             sx={{ width: "40%", border: "none" }}
                           >
-                            <Typography variant="body2" color="text.secondary">
-                              Jumlah Halaman
-                            </Typography>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                              <Box
+                                sx={{
+                                  width: 32,
+                                  height: 32,
+                                  borderRadius: '50%',
+                                  bgcolor: 'primary.light',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                }}
+                              >
+                                <MenuBookIcon fontSize="small" color="primary" />
+                              </Box>
+                              <Typography variant="body2" color="text.secondary">
+                                Jumlah Halaman
+                              </Typography>
+                            </Box>
                           </TableCell>
                           <TableCell sx={{ border: "none" }}>
                             <Typography variant="body2">
@@ -1391,9 +1458,24 @@ export default function ProductDetailPage() {
                             component="th"
                             sx={{ width: "40%", border: "none" }}
                           >
-                            <Typography variant="body2" color="text.secondary">
-                              Tahun Terbit
-                            </Typography>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                              <Box
+                                sx={{
+                                  width: 32,
+                                  height: 32,
+                                  borderRadius: '50%',
+                                  bgcolor: 'primary.light',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                }}
+                              >
+                                <CalendarTodayIcon fontSize="small" color="primary" />
+                              </Box>
+                              <Typography variant="body2" color="text.secondary">
+                                Tahun Terbit
+                              </Typography>
+                            </Box>
                           </TableCell>
                           <TableCell sx={{ border: "none" }}>
                             <Typography variant="body2">
@@ -1408,9 +1490,24 @@ export default function ProductDetailPage() {
                             component="th"
                             sx={{ width: "40%", border: "none" }}
                           >
-                            <Typography variant="body2" color="text.secondary">
-                              Ukuran
-                            </Typography>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                              <Box
+                                sx={{
+                                  width: 32,
+                                  height: 32,
+                                  borderRadius: '50%',
+                                  bgcolor: 'primary.light',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                }}
+                              >
+                                <AspectRatioIcon fontSize="small" color="primary" />
+                              </Box>
+                              <Typography variant="body2" color="text.secondary">
+                                Ukuran
+                              </Typography>
+                            </Box>
                           </TableCell>
                           <TableCell sx={{ border: "none" }}>
                             <Typography variant="body2">
@@ -1425,9 +1522,24 @@ export default function ProductDetailPage() {
                             component="th"
                             sx={{ width: "40%", border: "none" }}
                           >
-                            <Typography variant="body2" color="text.secondary">
-                              ISBN
-                            </Typography>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                              <Box
+                                sx={{
+                                  width: 32,
+                                  height: 32,
+                                  borderRadius: '50%',
+                                  bgcolor: 'primary.light',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                }}
+                              >
+                                <QrCodeIcon fontSize="small" color="primary" />
+                              </Box>
+                              <Typography variant="body2" color="text.secondary">
+                                ISBN
+                              </Typography>
+                            </Box>
                           </TableCell>
                           <TableCell sx={{ border: "none" }}>
                             <Typography variant="body2">
