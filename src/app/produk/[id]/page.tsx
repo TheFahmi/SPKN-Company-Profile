@@ -30,6 +30,7 @@ import {
   CardMedia,
   Rating,
   IconButton,
+  Tooltip,
 } from "@mui/material";
 import Link from "next/link";
 import { useParams } from "next/navigation";
