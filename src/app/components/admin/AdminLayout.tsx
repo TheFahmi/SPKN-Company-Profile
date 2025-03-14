@@ -488,7 +488,7 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
           [`& .MuiDrawer-paper`]: {
             width: open ? drawerWidth : 72,
             transition: (theme) =>
-              theme.transitions.create('width', {
+              theme.transitions.create(['width', 'box-shadow'], {
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.enteringScreen,
               }),
@@ -499,7 +499,12 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
             justifyContent: 'space-between',
             borderRight: '1px solid',
             borderColor: (theme) =>
-              theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.12)',
+              theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.08)',
+            boxShadow: open ? '4px 0 15px rgba(0, 0, 0, 0.05)' : 'none',
+            background: (theme) => 
+              theme.palette.mode === 'light' 
+                ? 'linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%)' 
+                : 'linear-gradient(180deg, #1e1e1e 0%, #121212 100%)',
           },
         }}
         open={open}
@@ -513,8 +518,12 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
               p: 2,
               borderBottom: '1px solid',
               borderColor: (theme) =>
-                theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.12)',
+                theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.08)',
               height: 64,
+              background: (theme) => 
+                theme.palette.mode === 'light' 
+                  ? 'linear-gradient(90deg, rgba(25, 118, 210, 0.05) 0%, rgba(25, 118, 210, 0.02) 100%)' 
+                  : 'linear-gradient(90deg, rgba(25, 118, 210, 0.15) 0%, rgba(25, 118, 210, 0.05) 100%)',
             }}
           >
             <Image
@@ -524,15 +533,23 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
               height={open ? 40 : 40}
               style={{
                 objectFit: 'contain',
+                transition: 'all 0.3s ease',
               }}
             />
             <IconButton 
               onClick={handleDrawerToggle}
               sx={{
-                display: open ? 'inline-flex' : 'none'
+                display: open ? 'inline-flex' : 'none',
+                borderRadius: '50%',
+                backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.1),
+                '&:hover': {
+                  backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.2),
+                  transform: 'rotate(180deg)',
+                },
+                transition: 'all 0.3s ease',
               }}
             >
-              <ChevronLeftIcon sx={{ color: muiTheme.palette.text.primary }} />
+              <ChevronLeftIcon sx={{ color: muiTheme.palette.primary.main }} />
             </IconButton>
           </Box>
 
@@ -615,13 +632,25 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
                                   py: 1,
                                   minHeight: 40,
                                   backgroundColor: isPathActive(subItem.href || '')
-                                    ? alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.15 : 0.1)
+                                    ? (theme) => `linear-gradient(90deg, ${alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.25 : 0.15)} 0%, ${alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.15 : 0.05)} 100%)`
                                     : 'transparent',
-                                  borderRadius: '24px',
+                                  borderRadius: '12px',
                                   mx: 1,
+                                  position: 'relative',
                                   '&:hover': {
-                                    backgroundColor: alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.2 : 0.15),
+                                    backgroundColor: (theme) => alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.2 : 0.1),
                                   },
+                                  '&::before': isPathActive(subItem.href || '') ? {
+                                    content: '""',
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: '25%',
+                                    height: '50%',
+                                    width: '4px',
+                                    backgroundColor: muiTheme.palette.primary.main,
+                                    borderRadius: '0 4px 4px 0',
+                                  } : {},
+                                  transition: 'all 0.2s ease',
                                 }}
                               >
                                 <ListItemIcon
@@ -631,6 +660,7 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
                                     color: isPathActive(subItem.href || '')
                                       ? muiTheme.palette.primary.main
                                       : muiTheme.palette.text.secondary,
+                                    transition: 'all 0.2s ease',
                                   }}
                                 >
                                   {subItem.icon}
@@ -639,10 +669,11 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
                                   primary={subItem.text}
                                   primaryTypographyProps={{
                                     fontSize: 14,
-                                    fontWeight: isPathActive(subItem.href || '') ? 'medium' : 'normal',
+                                    fontWeight: isPathActive(subItem.href || '') ? 600 : 400,
                                     color: isPathActive(subItem.href || '') 
                                       ? muiTheme.palette.primary.main 
                                       : muiTheme.palette.text.secondary,
+                                    transition: 'all 0.2s ease',
                                   }}
                                 />
                               </ListItemButton>
@@ -661,15 +692,27 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
                           minHeight: 48,
                           px: 2.5,
                           backgroundColor: isMenuWithSubItemsActive(item)
-                            ? alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.15 : 0.1)
+                            ? (theme) => `linear-gradient(90deg, ${alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.25 : 0.15)} 0%, ${alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.15 : 0.05)} 100%)`
                             : 'transparent',
-                          borderRadius: '24px',
+                          borderRadius: '12px',
                           mx: open ? 1 : 'auto',
                           width: open ? 'auto' : 40,
                           justifyContent: open ? 'initial' : 'center',
+                          position: 'relative',
                           '&:hover': {
-                            backgroundColor: alpha(muiTheme.palette.primary.main, muiTheme.palette.mode === 'dark' ? 0.2 : 0.15),
+                            backgroundColor: (theme) => alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.2 : 0.1),
                           },
+                          '&::before': isMenuWithSubItemsActive(item) ? {
+                            content: '""',
+                            position: 'absolute',
+                            left: 0,
+                            top: '25%',
+                            height: '50%',
+                            width: '4px',
+                            backgroundColor: muiTheme.palette.primary.main,
+                            borderRadius: '0 4px 4px 0',
+                          } : {},
+                          transition: 'all 0.2s ease',
                         }}
                       >
                         <ListItemIcon
@@ -680,6 +723,7 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
                             color: isMenuWithSubItemsActive(item)
                               ? muiTheme.palette.primary.main
                               : muiTheme.palette.text.primary,
+                            transition: 'all 0.2s ease',
                           }}
                         >
                           {item.icon}
@@ -692,6 +736,8 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
                               color: isMenuWithSubItemsActive(item) 
                                 ? muiTheme.palette.primary.main 
                                 : muiTheme.palette.text.primary,
+                              fontWeight: isMenuWithSubItemsActive(item) ? 600 : 400,
+                              transition: 'all 0.2s ease',
                             }
                           }}
                         />
@@ -737,7 +783,12 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
             width: drawerWidth,
             borderRight: '1px solid',
             borderColor: (theme) =>
-              theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.12)',
+              theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.08)',
+            boxShadow: '4px 0 15px rgba(0, 0, 0, 0.1)',
+            background: (theme) => 
+              theme.palette.mode === 'light' 
+                ? 'linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%)' 
+                : 'linear-gradient(180deg, #1e1e1e 0%, #121212 100%)',
           },
         }}
       >

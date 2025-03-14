@@ -15,12 +15,13 @@ import {
   useTheme,
   alpha,
   Paper,
+  SvgIcon,
 } from '@mui/material';
 import Link from 'next/link';
 import Image from 'next/image';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import XIcon from '@mui/icons-material/X';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
@@ -295,7 +296,7 @@ export default function Footer() {
                 <InstagramIcon />
               </IconButton>
               <IconButton 
-                href="https://twitter.com" 
+                href="https://x.com" 
                 target="_blank"
                 sx={{ 
                   color: isDark ? 'text.primary' : 'white',
@@ -308,7 +309,7 @@ export default function Footer() {
                   }
                 }}
               >
-                <TwitterIcon />
+                <XIcon />
               </IconButton>
             </Stack>
 

@@ -1,0 +1,71 @@
+{
+  "name": "PT Sarana Pancakarya Nusa",
+  "short_name": "SPKN",
+  "description": "Perusahaan percetakan dan penerbitan terpercaya sejak 1966, menyediakan solusi cetak berkualitas tinggi.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1976d2",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Produk & Layanan",
+      "short_name": "Produk",
+      "description": "Lihat produk dan layanan kami",
+      "url": "/produk",
+      "icons": [{ "src": "/icons/product.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Tentang Kami",
+      "short_name": "Tentang",
+      "description": "Pelajari lebih lanjut tentang kami",
+      "url": "/tentang-kami",
+      "icons": [{ "src": "/icons/about.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Hubungi Kami",
+      "short_name": "Kontak",
+      "description": "Hubungi kami untuk informasi lebih lanjut",
+      "url": "/kontak",
+      "icons": [{ "src": "/icons/contact.png", "sizes": "96x96" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "categories": ["business", "productivity", "utilities"],
+  "screenshots": [
+    {
+      "src": "/screenshots/home.webp",
+      "type": "image/webp",
+      "sizes": "1280x720",
+      "platform": "wide",
+      "label": "Halaman Utama PT SPKN"
+    },
+    {
+      "src": "/screenshots/products.webp",
+      "type": "image/webp",
+      "sizes": "1280x720",
+      "platform": "wide",
+      "label": "Produk & Layanan PT SPKN"
+    }
+  ]
+}

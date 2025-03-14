@@ -1,0 +1,156 @@
+# Tipografi
+
+Sistem tipografi untuk PT Sarana Pancakarya Nusa dirancang untuk menciptakan hierarki visual yang jelas dan meningkatkan keterbacaan di seluruh aplikasi.
+
+## Font Family
+
+Aplikasi menggunakan font Poppins sebagai font utama untuk semua elemen UI. Font ini dipilih karena keterbacaannya yang baik dan tampilan yang modern.
+
+```jsx
+// Definisi font di src/app/theme.ts
+export const poppins = Poppins({
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+});
+```
+
+## Hierarki Tipografi
+
+Hierarki tipografi yang jelas membantu pengguna memahami struktur konten dan menavigasi aplikasi dengan mudah.
+
+### Heading
+
+<div style={{ marginBottom: '32px' }}>
+  <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '2.5rem', fontWeight: 700, lineHeight: 1.2, marginBottom: '8px' }}>
+    Heading 1
+  </div>
+  <div style={{ fontSize: '14px', color: '#757575' }}>2.5rem • 700 weight • 1.2 line height</div>
+</div>
+
+<div style={{ marginBottom: '32px' }}>
+  <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '2rem', fontWeight: 700, lineHeight: 1.2, marginBottom: '8px' }}>
+    Heading 2
+  </div>
+  <div style={{ fontSize: '14px', color: '#757575' }}>2rem • 700 weight • 1.2 line height</div>
+</div>
+
+<div style={{ marginBottom: '32px' }}>
+  <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '1.75rem', fontWeight: 600, lineHeight: 1.2, marginBottom: '8px' }}>
+    Heading 3
+  </div>
+  <div style={{ fontSize: '14px', color: '#757575' }}>1.75rem • 600 weight • 1.2 line height</div>
+</div>
+
+<div style={{ marginBottom: '32px' }}>
+  <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '1.5rem', fontWeight: 600, lineHeight: 1.2, marginBottom: '8px' }}>
+    Heading 4
+  </div>
+  <div style={{ fontSize: '14px', color: '#757575' }}>1.5rem • 600 weight • 1.2 line height</div>
+</div>
+
+<div style={{ marginBottom: '32px' }}>
+  <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '1.25rem', fontWeight: 600, lineHeight: 1.2, marginBottom: '8px' }}>
+    Heading 5
+  </div>
+  <div style={{ fontSize: '14px', color: '#757575' }}>1.25rem • 600 weight • 1.2 line height</div>
+</div>
+
+<div style={{ marginBottom: '32px' }}>
+  <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '1.125rem', fontWeight: 600, lineHeight: 1.2, marginBottom: '8px' }}>
+    Heading 6
+  </div>
+  <div style={{ fontSize: '14px', color: '#757575' }}>1.125rem • 600 weight • 1.2 line height</div>
+</div>
+
+### Subtitle
+
+<div style={{ marginBottom: '32px' }}>
+  <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '1rem', fontWeight: 500, lineHeight: 1.5, marginBottom: '8px' }}>
+    Subtitle 1
+  </div>
+  <div style={{ fontSize: '14px', color: '#757575' }}>1rem • 500 weight • 1.5 line height</div>
+</div>
+
+<div style={{ marginBottom: '32px' }}>
+  <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.875rem', fontWeight: 500, lineHeight: 1.5, marginBottom: '8px' }}>
+    Subtitle 2
+  </div>
+  <div style={{ fontSize: '14px', color: '#757575' }}>0.875rem • 500 weight • 1.5 line height</div>
+</div>
+
+### Body Text
+
+<div style={{ marginBottom: '32px' }}>
+  <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '1rem', fontWeight: 400, lineHeight: 1.5, marginBottom: '8px' }}>
+    Body 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus.
+  </div>
+  <div style={{ fontSize: '14px', color: '#757575' }}>1rem • 400 weight • 1.5 line height</div>
+</div>
+
+<div style={{ marginBottom: '32px' }}>
+  <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.875rem', fontWeight: 400, lineHeight: 1.5, marginBottom: '8px' }}>
+    Body 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus.
+  </div>
+  <div style={{ fontSize: '14px', color: '#757575' }}>0.875rem • 400 weight • 1.5 line height</div>
+</div>
+
+### Utilitas
+
+<div style={{ marginBottom: '32px' }}>
+  <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.875rem', fontWeight: 500, lineHeight: 1.75, textTransform: 'uppercase', marginBottom: '8px' }}>
+    BUTTON TEXT
+  </div>
+  <div style={{ fontSize: '14px', color: '#757575' }}>0.875rem • 500 weight • 1.75 line height</div>
+</div>
+
+<div style={{ marginBottom: '32px' }}>
+  <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.75rem', fontWeight: 400, lineHeight: 1.66, marginBottom: '8px' }}>
+    Caption Text
+  </div>
+  <div style={{ fontSize: '14px', color: '#757575' }}>0.75rem • 400 weight • 1.66 line height</div>
+</div>
+
+<div style={{ marginBottom: '32px' }}>
+  <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.75rem', fontWeight: 500, lineHeight: 2.66, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '8px' }}>
+    OVERLINE TEXT
+  </div>
+  <div style={{ fontSize: '14px', color: '#757575' }}>0.75rem • 500 weight • 2.66 line height • uppercase</div>
+</div>
+
+## Penggunaan Tipografi
+
+### Penggunaan Heading
+
+- **Heading 1**: Digunakan untuk judul utama halaman.
+- **Heading 2**: Digunakan untuk judul bagian utama.
+- **Heading 3-6**: Digunakan untuk sub-judul dengan tingkat kepentingan yang menurun.
+
+### Penggunaan Body Text
+
+- **Body 1**: Digunakan untuk teks konten utama.
+- **Body 2**: Digunakan untuk teks konten sekunder atau pendukung.
+
+### Penggunaan Utilitas
+
+- **Button**: Digunakan untuk teks pada tombol.
+- **Caption**: Digunakan untuk keterangan, label kecil, atau teks bantuan.
+- **Overline**: Digunakan untuk label kategori atau header kecil di atas konten.
+
+## Responsivitas
+
+Sistem tipografi dirancang untuk responsif di berbagai ukuran layar. Font size akan menyesuaikan secara otomatis pada breakpoint yang berbeda menggunakan `responsiveFontSizes` dari Material UI.
+
+```jsx
+// Implementasi responsiveFontSizes di src/app/theme.ts
+let theme = createTheme(themeOptions);
+theme = responsiveFontSizes(theme);
+```
+
+## Praktik Terbaik
+
+- Gunakan hierarki tipografi yang konsisten di seluruh aplikasi.
+- Batasi jumlah ukuran font yang digunakan untuk menjaga konsistensi.
+- Pastikan kontras warna teks dan latar belakang memenuhi standar aksesibilitas WCAG 2.0 AA.
+- Gunakan line height yang cukup untuk meningkatkan keterbacaan, terutama untuk teks yang panjang.
+- Hindari penggunaan terlalu banyak variasi font weight dalam satu halaman. 

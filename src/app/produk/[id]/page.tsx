@@ -1,6 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import ImageGallery from "./components/ImageGallery";
+import ProductInformation from "./components/ProductInformation";
+import ProductDescription from "./components/ProductDescription";
+import CustomerReviews from "./components/CustomerReviews";
+import RelatedProducts from "./components/RelatedProducts";
 import {
   Box,
   Container,
@@ -28,20 +33,41 @@ import {
   Paper,
   Skeleton,
   CardMedia,
+  Rating,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import StarIcon from "@mui/icons-material/Star";
+import ZoomInIcon from "@mui/icons-material/ZoomIn";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import CheckIcon from "@mui/icons-material/Check";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import PersonIcon from '@mui/icons-material/Person';
+import BusinessIcon from '@mui/icons-material/Business';
+import SchoolIcon from '@mui/icons-material/School';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import AspectRatioIcon from '@mui/icons-material/AspectRatio';
+import QrCodeIcon from '@mui/icons-material/QrCode';
 import { ProductDetailIllustration } from "../../components/illustrations";
+import ProductCard from "../../components/ProductCard";
 import { Product } from "@/app/types";
+import Modal from "@mui/material/Modal";
+import CloseIcon from "@mui/icons-material/Close";
 
 // Format harga ke format Rupiah
 function formatPrice(price: number) {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(price);
@@ -49,17 +75,19 @@ function formatPrice(price: number) {
 
 // Fungsi untuk membersihkan CSS Elementor dan HTML tags
 function cleanElementorCSS(text: string): string {
-  if (!text) return '';
-  
-  return text
-    // Hapus CSS Elementor
-    .replace(/\/\*![\s\S]*?\*\/[\s\S]*?{[\s\S]*?}/g, '')
-    // Hapus style tags dan kontennya
-    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
-    // Hapus link stylesheet Elementor
-    .replace(/<link[^>]*elementor[^>]*>/gi, '')
-    // Bersihkan HTML lainnya jika diperlukan
-    .trim();
+  if (!text) return "";
+
+  return (
+    text
+      // Hapus CSS Elementor
+      .replace(/\/\*![\s\S]*?\*\/[\s\S]*?{[\s\S]*?}/g, "")
+      // Hapus style tags dan kontennya
+      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
+      // Hapus link stylesheet Elementor
+      .replace(/<link[^>]*elementor[^>]*>/gi, "")
+      // Bersihkan HTML lainnya jika diperlukan
+      .trim()
+  );
 }
 
 // Komponen ProductDetailSkeleton
@@ -77,23 +105,23 @@ const ProductDetailSkeleton = () => {
         }}
       >
         <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
-          <Skeleton 
-            variant="text" 
-            width={300} 
-            height={20} 
-            sx={{ bgcolor: 'rgba(255,255,255,0.2)', mb: 3 }} 
+          <Skeleton
+            variant="text"
+            width={300}
+            height={20}
+            sx={{ bgcolor: "rgba(255,255,255,0.2)", mb: 3 }}
           />
-          <Skeleton 
-            variant="text" 
-            width="70%" 
-            height={60} 
-            sx={{ bgcolor: 'rgba(255,255,255,0.2)', mb: 2 }} 
+          <Skeleton
+            variant="text"
+            width="70%"
+            height={60}
+            sx={{ bgcolor: "rgba(255,255,255,0.2)", mb: 2 }}
           />
-          <Skeleton 
-            variant="rectangular" 
-            width={100} 
-            height={32} 
-            sx={{ bgcolor: 'rgba(255,255,255,0.2)' }} 
+          <Skeleton
+            variant="rectangular"
+            width={100}
+            height={32}
+            sx={{ bgcolor: "rgba(255,255,255,0.2)" }}
           />
         </Container>
       </Box>
@@ -103,84 +131,160 @@ const ProductDetailSkeleton = () => {
         <Grid container spacing={4}>
           {/* Left Column Skeleton */}
           <Grid item xs={12} md={7}>
-            <Card sx={{ mb: 4, borderRadius: 3 }}>
-              <CardContent sx={{ p: 4 }}>
-                <Skeleton 
-                  variant="rectangular" 
-                  height={400} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 2 }} 
+            <Card
+              sx={{
+                mb: 4,
+                borderRadius: 3,
+                overflow: "hidden",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+              }}
+            >
+              <CardContent sx={{ p: 0 }}>
+                <Skeleton
+                  variant="rectangular"
+                  height={450}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
                 />
-                <Box sx={{ display: 'flex', mb: 1 }}>
-                  {Array.from(new Array(4)).map((_, index) => (
-                    <Skeleton 
+                <Box sx={{ p: 2, display: "flex", gap: 1, overflowX: "auto" }}>
+                  {Array.from(new Array(5)).map((_, index) => (
+                    <Skeleton
                       key={index}
-                      variant="rectangular" 
-                      width={80} 
-                      height={80} 
-                      sx={{ bgcolor: 'rgba(0,0,0,0.07)', mr: 1 }} 
+                      variant="rectangular"
+                      width={80}
+                      height={80}
+                      sx={{
+                        bgcolor: "rgba(0,0,0,0.07)",
+                        borderRadius: 2,
+                        flexShrink: 0,
+                      }}
                     />
                   ))}
                 </Box>
-                <Skeleton 
-                  variant="text" 
-                  width={200} 
-                  height={48} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 2 }} 
-                />
-                <Stack direction="row" spacing={2}>
-                  <Skeleton 
-                    variant="rectangular" 
-                    width="100%" 
-                    height={48} 
-                    sx={{ bgcolor: 'rgba(0,0,0,0.07)' }} 
-                  />
-                  <Skeleton 
-                    variant="rectangular" 
-                    width="100%" 
-                    height={48} 
-                    sx={{ bgcolor: 'rgba(0,0,0,0.07)' }} 
-                  />
-                </Stack>
+                <Box sx={{ p: 3 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "flex-start",
+                      mb: 2,
+                    }}
+                  >
+                    <Box>
+                      <Skeleton
+                        variant="text"
+                        width={150}
+                        height={48}
+                        sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 1 }}
+                      />
+                      <Skeleton
+                        variant="rectangular"
+                        width={100}
+                        height={24}
+                        sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
+                      />
+                    </Box>
+                    <Box sx={{ display: "flex", gap: 1 }}>
+                      <Skeleton
+                        variant="circular"
+                        width={40}
+                        height={40}
+                        sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
+                      />
+                      <Skeleton
+                        variant="circular"
+                        width={40}
+                        height={40}
+                        sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
+                      />
+                    </Box>
+                  </Box>
+                  <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
+                    <Skeleton
+                      variant="rectangular"
+                      width="100%"
+                      height={48}
+                      sx={{ bgcolor: "rgba(0,0,0,0.07)", borderRadius: 2 }}
+                    />
+                    <Skeleton
+                      variant="rectangular"
+                      width="100%"
+                      height={48}
+                      sx={{ bgcolor: "rgba(0,0,0,0.07)", borderRadius: 2 }}
+                    />
+                  </Stack>
+                </Box>
               </CardContent>
             </Card>
 
-            <Card sx={{ borderRadius: 3 }}>
+            <Card
+              sx={{
+                borderRadius: 3,
+                overflow: "hidden",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+              }}
+            >
+              <Box sx={{ borderBottom: 1, borderColor: "divider", px: 2 }}>
+                <Skeleton
+                  variant="text"
+                  width={200}
+                  height={56}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
+                />
+              </Box>
               <CardContent sx={{ p: 4 }}>
-                <Skeleton 
-                  variant="text" 
-                  width={200} 
-                  height={32} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 2 }} 
+                <Skeleton
+                  variant="text"
+                  width="100%"
+                  height={20}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 1 }}
                 />
-                <Skeleton 
-                  variant="text" 
-                  width="100%" 
-                  height={20} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 1 }} 
+                <Skeleton
+                  variant="text"
+                  width="100%"
+                  height={20}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 1 }}
                 />
-                <Skeleton 
-                  variant="text" 
-                  width="100%" 
-                  height={20} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 1 }} 
+                <Skeleton
+                  variant="text"
+                  width="90%"
+                  height={20}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 1 }}
                 />
-                <Skeleton 
-                  variant="text" 
-                  width="90%" 
-                  height={20} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 1 }} 
+                <Skeleton
+                  variant="text"
+                  width="95%"
+                  height={20}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 1 }}
                 />
-                <Skeleton 
-                  variant="text" 
-                  width="95%" 
-                  height={20} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 1 }} 
+                <Skeleton
+                  variant="text"
+                  width="80%"
+                  height={20}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 3 }}
                 />
-                <Skeleton 
-                  variant="text" 
-                  width="80%" 
-                  height={20} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)' }} 
+                <Skeleton
+                  variant="rectangular"
+                  width="100%"
+                  height={200}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)", borderRadius: 2, mb: 3 }}
+                />
+                <Skeleton
+                  variant="text"
+                  width="100%"
+                  height={20}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 1 }}
+                />
+                <Skeleton
+                  variant="text"
+                  width="100%"
+                  height={20}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 1 }}
+                />
+                <Skeleton
+                  variant="text"
+                  width="90%"
+                  height={20}
+                  sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
                 />
               </CardContent>
             </Card>
@@ -188,32 +292,108 @@ const ProductDetailSkeleton = () => {
 
           {/* Right Column Skeleton */}
           <Grid item xs={12} md={5}>
-            <Card sx={{ borderRadius: 3, mb: 4 }}>
-              <CardContent sx={{ p: 4 }}>
-                <Skeleton 
-                  variant="text" 
-                  width={200} 
-                  height={32} 
-                  sx={{ bgcolor: 'rgba(0,0,0,0.07)', mb: 2 }} 
+            <Card
+              sx={{
+                borderRadius: 3,
+                mb: 4,
+                overflow: "hidden",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+              }}
+            >
+              <Box sx={{ bgcolor: "primary.main", py: 2, px: 3 }}>
+                <Skeleton
+                  variant="text"
+                  width={200}
+                  height={32}
+                  sx={{ bgcolor: "rgba(255,255,255,0.2)" }}
                 />
-                <Stack spacing={2}>
-                  {Array.from(new Array(6)).map((_, index) => (
-                    <Box sx={{ display: 'flex' }} key={index}>
-                      <Skeleton 
-                        variant="text" 
-                        width="40%" 
-                        height={24} 
-                        sx={{ bgcolor: 'rgba(0,0,0,0.07)', mr: 2 }} 
+              </Box>
+              <CardContent sx={{ p: 0 }}>
+                {Array.from(new Array(6)).map((_, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      px: 3,
+                      py: 2,
+                      borderBottom: index < 5 ? "1px solid" : "none",
+                      borderColor: "divider",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Skeleton
+                      variant="circular"
+                      width={32}
+                      height={32}
+                      sx={{ bgcolor: "rgba(0,0,0,0.07)", mr: 2 }}
+                    />
+                    <Box sx={{ width: "100%" }}>
+                      <Skeleton
+                        variant="text"
+                        width="30%"
+                        height={16}
+                        sx={{ bgcolor: "rgba(0,0,0,0.07)", mb: 1 }}
                       />
-                      <Skeleton 
-                        variant="text" 
-                        width="60%" 
-                        height={24} 
-                        sx={{ bgcolor: 'rgba(0,0,0,0.07)' }} 
+                      <Skeleton
+                        variant="text"
+                        width="60%"
+                        height={24}
+                        sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
                       />
                     </Box>
-                  ))}
-                </Stack>
+                  </Box>
+                ))}
+              </CardContent>
+            </Card>
+
+            <Card
+              sx={{
+                borderRadius: 3,
+                mb: 4,
+                overflow: "hidden",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+              }}
+            >
+              <CardContent sx={{ p: 3 }}>
+                <Box
+                  sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}
+                >
+                  <Skeleton
+                    variant="circular"
+                    width={24}
+                    height={24}
+                    sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
+                  />
+                  <Skeleton
+                    variant="text"
+                    width={150}
+                    height={32}
+                    sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
+                  />
+                </Box>
+                {Array.from(new Array(4)).map((_, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      mb: 2,
+                    }}
+                  >
+                    <Skeleton
+                      variant="circular"
+                      width={20}
+                      height={20}
+                      sx={{ bgcolor: "rgba(0,0,0,0.07)", mr: 2 }}
+                    />
+                    <Skeleton
+                      variant="text"
+                      width="80%"
+                      height={20}
+                      sx={{ bgcolor: "rgba(0,0,0,0.07)" }}
+                    />
+                  </Box>
+                ))}
               </CardContent>
             </Card>
           </Grid>
@@ -228,9 +408,11 @@ export default function ProductDetailPage() {
   const productId = params.id as string;
   const [product, setProduct] = useState<Product | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
-  const [selectedImage, setSelectedImage] = useState<string>('');
+  const [selectedImage, setSelectedImage] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [productRating, setProductRating] = useState<number>(4.5); // Default rating
+  const [zoomOpen, setZoomOpen] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -243,12 +425,14 @@ export default function ProductDetailPage() {
         }
 
         const data = await response.json();
-        
+
         // Bersihkan deskripsi dari CSS Elementor
         if (data.product.description) {
-          data.product.description = cleanElementorCSS(data.product.description);
+          data.product.description = cleanElementorCSS(
+            data.product.description
+          );
         }
-        
+
         setProduct(data.product);
         // Set gambar utama sebagai gambar yang dipilih di awal
         if (data.product.imageUrl) {
@@ -377,73 +561,11 @@ export default function ProductDetailPage() {
           <Grid item xs={12} md={7}>
             <Card sx={{ mb: 4, borderRadius: 3 }}>
               <CardContent sx={{ p: 4 }}>
-                {hasImages ? (
-                  <>
-                    <Box 
-                      sx={{ 
-                        height: 400, 
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        mb: 2,
-                        bgcolor: 'background.paper',
-                        borderRadius: 2,
-                        p: 2
-                      }}
-                    >
-                      <img
-                        src={selectedImage || product.imageUrl}
-                        alt={product.name}
-                        style={{
-                          maxWidth: '100%',
-                          maxHeight: '100%',
-                          objectFit: 'contain'
-                        }}
-                      />
-                    </Box>
-                    {product.images && product.images.length > 1 && (
-                      <ImageList
-                        sx={{ 
-                          gridAutoFlow: 'column',
-                          gridTemplateColumns: 'repeat(auto-fill,minmax(100px,1fr)) !important',
-                          gridAutoColumns: 'minmax(100px, 1fr)',
-                          mt: 2,
-                          mb: 4
-                        }}
-                        gap={8}
-                      >
-                        {product.images.map((image, index) => (
-                          <ImageListItem 
-                            key={index}
-                            onClick={() => setSelectedImage(image)}
-                            sx={{ 
-                              cursor: 'pointer',
-                              border: selectedImage === image ? '2px solid' : 'none',
-                              borderColor: 'primary.main',
-                              borderRadius: 1,
-                              overflow: 'hidden',
-                              height: '100px !important'
-                            }}
-                          >
-                            <img
-                              src={image}
-                              alt={`${product.name} ${index + 1}`}
-                              style={{ 
-                                height: '100%',
-                                width: '100%',
-                                objectFit: 'cover'
-                              }}
-                            />
-                          </ImageListItem>
-                        ))}
-                      </ImageList>
-                    )}
-                  </>
-                ) : (
-                  <Box sx={{ height: 400, position: "relative", mb: 4 }}>
-                    <ProductDetailIllustration index={0} />
-                  </Box>
-                )}
+                <ImageGallery 
+                  images={product.images || []} 
+                  productName={product.name} 
+                  defaultImage={product.imageUrl} 
+                />
                 <Typography
                   variant="h4"
                   color="primary"
@@ -452,6 +574,90 @@ export default function ProductDetailPage() {
                 >
                   {formatPrice(product.price)}
                 </Typography>
+
+                {/* Feature-specific card with checkmarks */}
+                <Card
+                  sx={{
+                    mt: 3,
+                    mb: 3,
+                    borderRadius: 2,
+                    border: "1px solid",
+                    borderColor: "divider",
+                    boxShadow: "none",
+                    overflow: "visible",
+                  }}
+                >
+                  <CardContent sx={{ p: 3 }}>
+                    <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                      <VerifiedUserIcon color="primary" sx={{ mr: 1 }} />
+                      <Typography variant="subtitle1" fontWeight="bold">
+                        Fitur Produk
+                      </Typography>
+                    </Box>
+
+                    <List disablePadding>
+                      {[
+                        {
+                          text: "Kualitas Premium",
+                          icon: (
+                            <CheckIcon
+                              fontSize="small"
+                              sx={{ color: "success.main" }}
+                            />
+                          ),
+                        },
+                        {
+                          text: "Garansi Produk",
+                          icon: (
+                            <VerifiedUserIcon
+                              fontSize="small"
+                              sx={{ color: "info.main" }}
+                            />
+                          ),
+                        },
+                        {
+                          text: "Pengiriman Cepat",
+                          icon: (
+                            <LocalShippingIcon
+                              fontSize="small"
+                              sx={{ color: "warning.main" }}
+                            />
+                          ),
+                        },
+                        {
+                          text: "Layanan Purna Jual",
+                          icon: (
+                            <AssignmentTurnedInIcon
+                              fontSize="small"
+                              sx={{ color: "error.main" }}
+                            />
+                          ),
+                        },
+                      ].map((feature, index) => (
+                        <ListItem
+                          key={index}
+                          disablePadding
+                          sx={{
+                            py: 1,
+                            borderBottom: index < 3 ? "1px dashed" : "none",
+                            borderColor: "divider",
+                          }}
+                        >
+                          <ListItemIcon sx={{ minWidth: 36 }}>
+                            {feature.icon}
+                          </ListItemIcon>
+                          <ListItemText
+                            primary={feature.text}
+                            primaryTypographyProps={{
+                              variant: "body2",
+                              fontWeight: 500,
+                            }}
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </CardContent>
+                </Card>
                 <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
                   <Button
                     variant="contained"
@@ -462,7 +668,17 @@ export default function ProductDetailPage() {
                     component="a"
                     href="https://wa.me/6281234567890?text=Saya tertarik dengan produk ini: "
                     target="_blank"
-                    sx={{ py: 1.5 }}
+                    sx={{
+                      py: 1.5,
+                      borderRadius: 2,
+                      fontWeight: "bold",
+                      boxShadow: "0 4px 12px rgba(76, 175, 80, 0.2)",
+                      transition: "all 0.3s ease",
+                      "&:hover": {
+                        transform: "translateY(-4px)",
+                        boxShadow: "0 8px 16px rgba(76, 175, 80, 0.3)",
+                      },
+                    }}
                   >
                     Chat WhatsApp
                   </Button>
@@ -474,451 +690,128 @@ export default function ProductDetailPage() {
                     fullWidth
                     component={Link}
                     href="/kontak"
-                    sx={{ py: 1.5 }}
+                    sx={{
+                      py: 1.5,
+                      borderRadius: 2,
+                      fontWeight: "bold",
+                      boxShadow: "0 4px 12px rgba(25, 118, 210, 0.2)",
+                      transition: "all 0.3s ease",
+                      "&:hover": {
+                        transform: "translateY(-4px)",
+                        boxShadow: "0 8px 16px rgba(25, 118, 210, 0.3)",
+                      },
+                    }}
                   >
                     Pesan Sekarang
                   </Button>
                 </Stack>
+
+                {/* Add this after the action buttons */}
+                <Box
+                  sx={{
+                    mt: 3,
+                    p: 3,
+                    bgcolor: "background.paper",
+                    borderRadius: 2,
+                    border: "1px solid",
+                    borderColor: "divider",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    flexWrap: "wrap",
+                    gap: 2,
+                  }}
+                >
+                  <Typography
+                    variant="body1"
+                    fontWeight={600}
+                    color="text.primary"
+                  >
+                    Bagikan Produk Ini
+                  </Typography>
+                  <Box sx={{ display: "flex", gap: 1 }}>
+                    {[
+                      { color: "#3b5998", icon: "f", label: "Facebook" },
+                      { color: "#1da1f2", icon: "t", label: "Twitter" },
+                      {
+                        color: "#25D366",
+                        icon: <WhatsAppIcon fontSize="small" />,
+                        label: "WhatsApp",
+                      },
+                      { color: "#E60023", icon: "p", label: "Pinterest" },
+                    ].map((social, index) => (
+                      <Tooltip
+                        key={index}
+                        title={social.label}
+                        arrow
+                        placement="top"
+                      >
+                        <IconButton
+                          sx={{
+                            bgcolor: social.color,
+                            color: "white",
+                            width: 36,
+                            height: 36,
+                            borderRadius: "50%",
+                            "&:hover": {
+                              bgcolor: social.color,
+                              opacity: 0.9,
+                              transform: "translateY(-3px) scale(1.1)",
+                              boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+                            },
+                            transition: "all 0.2s ease",
+                          }}
+                          size="small"
+                        >
+                          {typeof social.icon === "string" ? (
+                            <Box
+                              component="span"
+                              sx={{ fontSize: "1.2rem", fontWeight: "bold" }}
+                            >
+                              {social.icon}
+                            </Box>
+                          ) : (
+                            social.icon
+                          )}
+                        </IconButton>
+                      </Tooltip>
+                    ))}
+                  </Box>
+                </Box>
               </CardContent>
             </Card>
 
-            <Card sx={{ borderRadius: 3 }}>
-              <CardContent sx={{ p: 4 }}>
-                <Typography variant="h6" fontWeight="bold" gutterBottom>
-                  Deskripsi Produk
-                </Typography>
-                <Divider sx={{ my: 2 }} />
-                {product.description ? (
-                  <Box
-                    sx={{
-                      color: "text.secondary",
-                      lineHeight: 1.8,
-                      "& img": {
-                        maxWidth: "100%",
-                        height: "auto",
-                        borderRadius: 1,
-                        my: 2,
-                      },
-                      "& p": {
-                        mb: 2,
-                      },
-                      "& h1, & h2, & h3, & h4, & h5, & h6": {
-                        color: "text.primary",
-                        fontWeight: "bold",
-                        mt: 3,
-                        mb: 2,
-                      },
-                      "& ul, & ol": {
-                        pl: 3,
-                        mb: 2,
-                      },
-                      "& li": {
-                        mb: 1,
-                      },
-                      "& a": {
-                        color: "primary.main",
-                        textDecoration: "none",
-                        "&:hover": {
-                          textDecoration: "underline",
-                        },
-                      },
-                      "& blockquote": {
-                        borderLeft: "4px solid",
-                        borderColor: "divider",
-                        pl: 2,
-                        py: 1,
-                        my: 2,
-                        fontStyle: "italic",
-                        bgcolor: "background.paper",
-                        borderRadius: 1,
-                      },
-                      "& table": {
-                        width: "100%",
-                        borderCollapse: "collapse",
-                        my: 2,
-                      },
-                      "& th, & td": {
-                        border: "1px solid",
-                        borderColor: "divider",
-                        p: 1,
-                      },
-                      "& th": {
-                        bgcolor: "background.paper",
-                        fontWeight: "bold",
-                      },
-                    }}
-                    dangerouslySetInnerHTML={{ __html: product.description }}
-                  />
-                ) : (
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      color: "text.secondary",
-                      lineHeight: 1.8,
-                    }}
-                  >
-                    Tidak ada deskripsi tersedia untuk produk ini.
-                  </Typography>
-                )}
-              </CardContent>
-            </Card>
+            <ProductDescription description={product.description} />
+
+            <CustomerReviews 
+              reviews={[
+                {
+                  name: "Ahmad Fauzi",
+                  rating: 5,
+                  date: "12 Maret 2023",
+                  comment:
+                    "Produk berkualitas tinggi dan sesuai dengan deskripsi. Pengiriman cepat dan pelayanan sangat baik. Sangat merekomendasikan!",
+                },
+                {
+                  name: "Siti Nurhaliza",
+                  rating: 4,
+                  date: "5 Februari 2023",
+                  comment:
+                    "Kualitas produk bagus dan sesuai dengan kebutuhan kami. Hanya saja pengiriman sedikit terlambat dari jadwal yang dijanjikan.",
+                },
+              ]} 
+              overallRating={productRating} 
+            />
           </Grid>
 
           {/* Right Column - Informasi Produk */}
           <Grid item xs={12} md={5}>
-            <Card sx={{ borderRadius: 3, mb: 4 }}>
-              <CardContent sx={{ p: 4 }}>
-                <Typography variant="h6" fontWeight="bold" gutterBottom>
-                  Informasi Produk
-                </Typography>
-                <Divider sx={{ my: 2 }} />
-                <TableContainer component={Paper} elevation={0}>
-                  <Table>
-                    <TableBody>
-                      {product.author && (
-                        <TableRow>
-                          <TableCell component="th" sx={{ width: '40%', border: 'none' }}>
-                            <Typography variant="body2" color="text.secondary">Penulis</Typography>
-                          </TableCell>
-                          <TableCell sx={{ border: 'none' }}>
-                            <Typography variant="body2">{product.author}</Typography>
-                          </TableCell>
-                        </TableRow>
-                      )}
-                      {product.publisher && (
-                        <TableRow>
-                          <TableCell component="th" sx={{ width: '40%', border: 'none' }}>
-                            <Typography variant="body2" color="text.secondary">Penerbit</Typography>
-                          </TableCell>
-                          <TableCell sx={{ border: 'none' }}>
-                            <Typography variant="body2">{product.publisher}</Typography>
-                          </TableCell>
-                        </TableRow>
-                      )}
-                      {product.level && (
-                        <TableRow>
-                          <TableCell component="th" sx={{ width: '40%', border: 'none' }}>
-                            <Typography variant="body2" color="text.secondary">Jenjang</Typography>
-                          </TableCell>
-                          <TableCell sx={{ border: 'none' }}>
-                            <Typography variant="body2">{product.level}</Typography>
-                          </TableCell>
-                        </TableRow>
-                      )}
-                      {product.pages > 0 && (
-                        <TableRow>
-                          <TableCell component="th" sx={{ width: '40%', border: 'none' }}>
-                            <Typography variant="body2" color="text.secondary">Jumlah Halaman</Typography>
-                          </TableCell>
-                          <TableCell sx={{ border: 'none' }}>
-                            <Typography variant="body2">{product.pages}</Typography>
-                          </TableCell>
-                        </TableRow>
-                      )}
-                      {product.year && (
-                        <TableRow>
-                          <TableCell component="th" sx={{ width: '40%', border: 'none' }}>
-                            <Typography variant="body2" color="text.secondary">Tahun Terbit</Typography>
-                          </TableCell>
-                          <TableCell sx={{ border: 'none' }}>
-                            <Typography variant="body2">{product.year}</Typography>
-                          </TableCell>
-                        </TableRow>
-                      )}
-                      {product.size && (
-                        <TableRow>
-                          <TableCell component="th" sx={{ width: '40%', border: 'none' }}>
-                            <Typography variant="body2" color="text.secondary">Ukuran</Typography>
-                          </TableCell>
-                          <TableCell sx={{ border: 'none' }}>
-                            <Typography variant="body2">{product.size}</Typography>
-                          </TableCell>
-                        </TableRow>
-                      )}
-                      {product.isbn && (
-                        <TableRow>
-                          <TableCell component="th" sx={{ width: '40%', border: 'none' }}>
-                            <Typography variant="body2" color="text.secondary">ISBN</Typography>
-                          </TableCell>
-                          <TableCell sx={{ border: 'none' }}>
-                            <Typography variant="body2">{product.isbn}</Typography>
-                          </TableCell>
-                        </TableRow>
-                      )}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </CardContent>
-            </Card>
+            <ProductInformation product={product} />
           </Grid>
         </Grid>
 
         {/* Related Products */}
-        <Box sx={{ mt: 8 }}>
-          <Typography
-            variant="h5"
-            component="h3"
-            fontWeight="bold"
-            gutterBottom
-          >
-            Produk Terkait
-          </Typography>
-          <Grid container spacing={3} sx={{ mt: 1 }}>
-            {relatedProducts.map((relatedProduct) => (
-              <Grid item key={relatedProduct._id ? relatedProduct._id.toString() : relatedProduct.id} xs={12} sm={6} md={3} lg={3}>
-                <Card
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    borderRadius: 3,
-                    overflow: 'hidden',
-                    boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-                    transition: 'all 0.3s ease-in-out',
-                    position: 'relative',
-                    '&:hover': {
-                      transform: 'translateY(-12px)',
-                      boxShadow: '0 15px 35px rgba(25, 118, 210, 0.15)',
-                      '& .MuiCardMedia-root': {
-                        transform: 'scale(1.05)',
-                      },
-                      '& .product-quick-actions': {
-                        opacity: 1,
-                        transform: 'translateY(0)',
-                      },
-                    },
-                  }}
-                >
-                  {/* Category badge with improved styling */}
-                  <Chip
-                    label={relatedProduct.category}
-                    color="primary"
-                    size="small"
-                    sx={{
-                      position: 'absolute',
-                      top: 16,
-                      right: 16,
-                      zIndex: 10,
-                      fontWeight: 'bold',
-                      boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                      '& .MuiChip-label': {
-                        px: 1,
-                      }
-                    }}
-                  />
-
-                  {/* Image container with enhanced hover effect */}
-                  <Box 
-                    sx={{ 
-                      position: 'relative', 
-                      overflow: 'hidden',
-                      bgcolor: 'grey.50',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      pt: 2,
-                      pb: 2,
-                    }}
-                  >
-                    {relatedProduct.imageUrl ? (
-                      <CardMedia
-                        component="img"
-                        height="180"
-                        image={relatedProduct.imageUrl}
-                        alt={relatedProduct.name}
-                        sx={{
-                          objectFit: "contain",
-                          maxWidth: '80%',
-                          transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-                        }}
-                      />
-                    ) : (
-                      <Box sx={{ p: 2, height: 180, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <ProductDetailIllustration index={0} />
-                      </Box>
-                    )}
-                    
-                    {/* Quick action buttons that appear on hover */}
-                    <Box 
-                      className="product-quick-actions"
-                      sx={{
-                        position: 'absolute',
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        bgcolor: 'rgba(255,255,255,0.9)',
-                        backdropFilter: 'blur(4px)',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        py: 1.5,
-                        opacity: 0,
-                        transform: 'translateY(10px)',
-                        transition: 'all 0.3s ease-in-out',
-                      }}
-                    >
-                      <Link
-                        href={`/produk/${relatedProduct._id ? relatedProduct._id.toString() : relatedProduct.id}`}
-                        passHref
-                        style={{ textDecoration: "none" }}
-                      >
-                        <Button
-                          variant="contained"
-                          size="small"
-                          sx={{
-                            borderRadius: 2,
-                            px: 2,
-                            fontWeight: 600,
-                            boxShadow: 2,
-                            textTransform: 'none',
-                          }}
-                        >
-                          Lihat Detail
-                        </Button>
-                      </Link>
-                    </Box>
-                  </Box>
-
-                  {/* Content area with improved typography and layout */}
-                  <CardContent 
-                    sx={{ 
-                      flexGrow: 1, 
-                      display: 'flex', 
-                      flexDirection: 'column',
-                      p: 3,
-                      pt: 2,
-                    }}
-                  >
-                    {/* Product title with gradient effect */}
-                    <Typography
-                      variant="h6"
-                      component="h4"
-                      sx={{
-                        fontWeight: 700,
-                        fontSize: '1.1rem',
-                        lineHeight: 1.4,
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        display: "-webkit-box",
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: "vertical",
-                        height: '3.1em',
-                        mb: 1,
-                        background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                      }}
-                    >
-                      {relatedProduct.name}
-                    </Typography>
-
-                    {/* Product features as chips */}
-                    {relatedProduct.features && relatedProduct.features.length > 0 && (
-                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
-                        {relatedProduct.features.slice(0, 2).map((feature, idx) => (
-                          <Chip
-                            key={idx}
-                            label={feature}
-                            size="small"
-                            variant="outlined"
-                            sx={{ 
-                              fontSize: '0.7rem',
-                              height: 24,
-                              '& .MuiChip-label': { px: 1 }
-                            }}
-                          />
-                        ))}
-                        {relatedProduct.features.length > 2 && (
-                          <Chip
-                            label={`+${relatedProduct.features.length - 2}`}
-                            size="small"
-                            sx={{ 
-                              fontSize: '0.7rem',
-                              height: 24,
-                              bgcolor: 'grey.100',
-                              '& .MuiChip-label': { px: 1 }
-                            }}
-                          />
-                        )}
-                      </Box>
-                    )}
-
-                    {/* Product attributes with improved styling */}
-                    <Box sx={{ mt: 'auto' }}>
-                      {/* Author info with icon */}
-                      {relatedProduct.author && (
-                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, gap: 1 }}>
-                          <Box
-                            sx={{
-                              width: 24,
-                              height: 24,
-                              borderRadius: '50%',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              bgcolor: 'primary.light',
-                              color: 'primary.main',
-                              fontSize: '0.8rem',
-                              fontWeight: 'bold',
-                            }}
-                          >
-                            A
-                          </Box>
-                          <Typography
-                            variant="body2"
-                            sx={{ 
-                              color: 'text.secondary',
-                              fontSize: '0.85rem',
-                              fontWeight: 500,
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap',
-                            }}
-                          >
-                            {relatedProduct.author}
-                          </Typography>
-                        </Box>
-                      )}
-                      
-                      {/* Price with enhanced styling */}
-                      <Box 
-                        sx={{ 
-                          display: 'flex', 
-                          alignItems: 'center', 
-                          justifyContent: 'space-between', 
-                          mt: 2,
-                          pt: 2,
-                          borderTop: '1px solid',
-                          borderColor: 'divider',
-                        }}
-                      >
-                        <Typography
-                          variant="h6"
-                          sx={{
-                            fontWeight: 700,
-                            color: 'primary.main',
-                          }}
-                        >
-                          {formatPrice ? formatPrice(relatedProduct.price) : `Rp ${relatedProduct.price.toLocaleString("id-ID")}`}
-                        </Typography>
-                        
-                        {/* Stock indicator */}
-                        {relatedProduct.inStock !== undefined && (
-                          <Chip
-                            label={relatedProduct.inStock ? "Tersedia" : "Habis"}
-                            color={relatedProduct.inStock ? "success" : "error"}
-                            size="small"
-                            variant="outlined"
-                            sx={{ height: 24 }}
-                          />
-                        )}
-                      </Box>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+        <RelatedProducts products={relatedProducts} showViewAll={true} />
 
         {/* CTA Section */}
         <Card

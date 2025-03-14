@@ -1,0 +1,157 @@
+# Komponen Kustom
+
+Dokumentasi komponen kustom yang dibuat khusus untuk PT Sarana Pancakarya Nusa. Komponen-komponen ini dirancang untuk memenuhi kebutuhan spesifik aplikasi percetakan dan menjaga konsistensi UI.
+
+## ProductCard
+
+ProductCard adalah komponen untuk menampilkan informasi produk dalam format kartu yang menarik. Komponen ini digunakan untuk menampilkan produk-produk percetakan yang ditawarkan.
+
+### Fitur Utama
+
+- Tampilan gambar produk dengan dukungan badge "Baru" dan "Best Seller"
+- Informasi produk termasuk judul, deskripsi, dan harga
+- Dukungan untuk harga diskon
+- Rating produk dengan tampilan bintang
+- Tombol aksi untuk melihat detail dan menambahkan ke keranjang
+- Efek hover untuk meningkatkan interaktivitas
+
+### Contoh Penggunaan
+
+```jsx
+import ProductCard from '../components/ProductCard';
+
+<ProductCard
+  id="1"
+  title="Brosur Premium A4"
+  description="Brosur full color dengan kertas art paper 150gsm"
+  price={250000}
+  imageUrl="/images/brochure.jpg"
+  rating={4.5}
+  isNew={true}
+  onAddToCart={(id) => console.log(`Added product ${id} to cart`)}
+  onViewDetail={(id) => console.log(`Viewing product ${id} details`)}
+/>
+```
+
+## ServiceCard
+
+ServiceCard adalah komponen untuk menampilkan layanan percetakan dalam format kartu yang informatif. Komponen ini digunakan untuk menampilkan berbagai layanan yang ditawarkan.
+
+### Fitur Utama
+
+- Tampilan gambar layanan dengan aksen warna primer
+- Badge "Populer" untuk layanan unggulan
+- Informasi layanan termasuk judul, deskripsi, harga, dan estimasi waktu
+- Daftar fitur dengan ikon centang
+- Tombol aksi untuk memesan dan mempelajari lebih lanjut
+- Efek hover untuk meningkatkan interaktivitas
+
+### Contoh Penggunaan
+
+```jsx
+import ServiceCard from '../components/ServiceCard';
+
+<ServiceCard
+  id="1"
+  title="Cetak Brosur"
+  description="Layanan cetak brosur berkualitas tinggi"
+  imageUrl="/images/brochure-service.jpg"
+  features={[
+    'Kertas art paper 150gsm',
+    'Cetak full color dua sisi',
+    'Finishing laminasi doff/glossy',
+    'Desain gratis (syarat & ketentuan berlaku)',
+  ]}
+  price="Rp 250.000"
+  estimatedTime="2-3 hari"
+  isPopular={true}
+  onOrderNow={(id) => console.log(`Ordering service ${id}`)}
+  onLearnMore={(id) => console.log(`Learning more about service ${id}`)}
+/>
+```
+
+## TestimonialCard
+
+TestimonialCard adalah komponen untuk menampilkan testimoni pelanggan dalam format kartu yang menarik. Komponen ini digunakan untuk menampilkan ulasan dan pengalaman pelanggan.
+
+### Fitur Utama
+
+- Tampilan testimoni dengan ikon kutipan
+- Avatar pelanggan dengan dukungan inisial otomatis jika tidak ada gambar
+- Informasi pelanggan termasuk nama, jabatan, dan perusahaan
+- Rating dengan tampilan bintang
+- Informasi produk/layanan yang diulas
+- Tanggal testimoni
+- Efek hover untuk meningkatkan interaktivitas
+
+### Contoh Penggunaan
+
+```jsx
+import TestimonialCard from '../components/TestimonialCard';
+
+<TestimonialCard
+  id="1"
+  name="Budi Santoso"
+  role="Marketing Manager"
+  company="PT Maju Bersama"
+  avatarUrl="/images/avatar.jpg"
+  testimonial="Kualitas cetakan sangat bagus dan pengiriman tepat waktu."
+  rating={4.5}
+  date="15 Maret 2023"
+  productOrService="Cetak Brosur"
+/>
+```
+
+## PricingCard
+
+PricingCard adalah komponen untuk menampilkan paket harga dalam format kartu yang informatif. Komponen ini digunakan untuk menampilkan berbagai paket layanan dengan harga dan fitur yang berbeda.
+
+### Fitur Utama
+
+- Tampilan paket harga dengan dukungan untuk paket populer dan disorot
+- Informasi paket termasuk judul, deskripsi, harga, dan periode
+- Daftar fitur dengan ikon centang untuk fitur yang tersedia dan ikon silang untuk fitur yang tidak tersedia
+- Tombol aksi untuk memilih paket
+- Dukungan untuk styling khusus pada paket yang disorot
+- Efek hover untuk meningkatkan interaktivitas
+
+### Contoh Penggunaan
+
+```jsx
+import PricingCard from '../components/PricingCard';
+
+<PricingCard
+  id="1"
+  title="Paket Dasar"
+  description="Paket cetak untuk kebutuhan dasar"
+  price="Rp 250.000"
+  features={[
+    { title: 'Cetak full color', included: true },
+    { title: 'Kertas art paper 150gsm', included: true },
+    { title: 'Revisi desain 1x', included: true },
+    { title: 'Pengiriman gratis', included: false },
+    { title: 'Finishing laminasi', included: false },
+  ]}
+  isPopular={false}
+  isHighlighted={false}
+  onSelectPlan={(id) => console.log(`Selected plan ${id}`)}
+/>
+```
+
+## Praktik Terbaik
+
+1. **Konsistensi**: Gunakan komponen-komponen ini secara konsisten di seluruh aplikasi untuk menjaga pengalaman pengguna yang kohesif.
+2. **Responsivitas**: Pastikan komponen-komponen ini ditampilkan dengan baik di berbagai ukuran layar.
+3. **Aksesibilitas**: Pastikan komponen-komponen ini memenuhi standar aksesibilitas WCAG 2.0 AA.
+4. **Performa**: Optimasi gambar dan hindari penggunaan komponen yang terlalu kompleks untuk menjaga performa aplikasi.
+5. **Tema**: Gunakan tema yang telah didefinisikan untuk menjaga konsistensi visual.
+
+## Pengembangan Selanjutnya
+
+Komponen-komponen ini dapat dikembangkan lebih lanjut dengan menambahkan fitur-fitur baru seperti:
+
+1. Dukungan untuk tema gelap
+2. Animasi dan transisi yang lebih canggih
+3. Variasi tambahan untuk setiap komponen
+4. Integrasi dengan sistem analitik untuk melacak interaksi pengguna
+5. Optimasi untuk performa dan aksesibilitas 

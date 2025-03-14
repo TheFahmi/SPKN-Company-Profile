@@ -37,4 +37,12 @@ export interface Product extends MongoDocument {
   category?: string;
   features?: string[];
   imageUrl?: string;
+  author?: string;
+  publisher?: string;
+  level?: string;
+  pages?: number;
+  year?: string;
+  size?: string;
+  isbn?: string;
+  images?: string[];
 } 

@@ -1,0 +1,65 @@
+# Sistem Desain PT Sarana Pancakarya Nusa
+
+Selamat datang di dokumentasi Storybook untuk sistem desain PT Sarana Pancakarya Nusa. Dokumentasi ini berisi komponen-komponen UI, palet warna, tipografi, dan elemen desain lainnya yang digunakan dalam aplikasi.
+
+## Tujuan Sistem Desain
+
+Sistem desain ini dibuat untuk:
+
+1. **Konsistensi Visual** - Memastikan semua bagian aplikasi memiliki tampilan yang konsisten
+2. **Pengembangan Lebih Cepat** - Pengembang dapat menggunakan komponen yang telah didefinisikan
+3. **Onboarding Lebih Mudah** - Anggota tim baru dapat dengan cepat memahami standar desain
+4. **Pengalaman Pengguna yang Lebih Baik** - Aplikasi terlihat profesional dan mudah digunakan
+
+## Cara Menggunakan Storybook
+
+Navigasi di sebelah kiri menampilkan semua komponen yang tersedia. Klik pada komponen untuk melihat:
+
+- Contoh visual komponen
+- Dokumentasi penggunaan
+- Props yang tersedia
+- Variasi komponen
+
+## Komponen Utama
+
+Sistem desain ini mencakup beberapa kategori komponen:
+
+- **Dasar** - Button, TextField, Card, Alert, dll.
+- **Bisnis** - ProductCard, ServiceCard, TestimonialCard, PricingCard, dll.
+- **Navigasi** - Menu, tabs, breadcrumbs, dll.
+- **Feedback** - Alert, snackbar, progress, dll.
+- **Data Display** - Tabel, list, dll.
+- **Layout** - Grid, container, dll.
+
+## Dokumentasi Desain
+
+Selain komponen, sistem desain ini juga mendokumentasikan:
+
+- **Colors** - Palet warna utama, sekunder, dan netral dengan variasi shade
+- **Typography** - Hierarki tipografi, font family, dan penggunaan teks
+- **SpacingShadows** - Sistem spacing konsisten dan penggunaan shadows untuk elevasi
+
+## Tema dan Kustomisasi
+
+Sistem desain mendukung tema terang (light) dan gelap (dark). Semua komponen dapat dikustomisasi melalui tema yang didefinisikan di `src/app/theme.ts`.
+
+## ThemeProvider
+
+Untuk memastikan komponen menggunakan tema yang benar, kita menggunakan komponen `ThemeProvider` khusus yang tersedia di `src/stories/ThemeProvider.tsx`. Komponen ini menangani error saat mendapatkan tema dengan menggunakan tema fallback jika terjadi error.
+
+```tsx
+import ThemeProvider from './ThemeProvider';
+
+// Gunakan dalam decorator
+decorators: [
+  (Story) => (
+    <ThemeProvider mode="light">
+      <Story />
+    </ThemeProvider>
+  ),
+],
+```
+
+## Kontribusi
+
+Jika Anda ingin berkontribusi pada sistem desain ini, silakan ikuti panduan kontribusi di repositori GitHub. 

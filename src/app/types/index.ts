@@ -27,6 +27,7 @@ export interface Product {
     finishing: string;
     jilid: string;
   };
+  inStock: string;
 }
 
 // Tipe data untuk kategori produk
