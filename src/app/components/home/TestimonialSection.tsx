@@ -10,12 +10,12 @@ import {
   Button,
   Avatar,
   Rating,
-  Grow,
-  Fade
+  Fade,
+  Grow
 } from '@mui/material';
 import Link from 'next/link';
-import StarIcon from '@mui/icons-material/Star';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
+import StarIcon from '@mui/icons-material/Star';
 import BusinessIcon from '@mui/icons-material/Business';
 
 interface TestimonialSectionProps {

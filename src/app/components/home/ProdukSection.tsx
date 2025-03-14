@@ -8,13 +8,13 @@ import {
   Grid, 
   Card, 
   Button,
-  Grow,
-  Fade
+  Fade,
+  Grow
 } from '@mui/material';
 import Link from 'next/link';
 import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop';
-import VerifiedIcon from '@mui/icons-material/Verified';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import VerifiedIcon from '@mui/icons-material/Verified';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
@@ -23,7 +23,7 @@ interface ProdukSectionProps {
 }
 
 const ProdukSection: React.FC<ProdukSectionProps> = ({ isVisible }) => {
-  const productItems = [
+  const produkItems = [
     {
       title: 'Percetakan Umum',
       description: 'Layanan cetak berkualitas tinggi untuk berbagai kebutuhan bisnis dan personal, termasuk brosur, kartu nama, banner, dan material promosi.',
@@ -128,7 +128,7 @@ const ProdukSection: React.FC<ProdukSectionProps> = ({ isVisible }) => {
           </Box>
 
           <Grid container spacing={4}>
-            {productItems.map((item, index) => (
+            {produkItems.map((item, index) => (
               <Grid item key={index} xs={12} sm={6} lg={3}>
                 <Grow
                   in={isVisible}

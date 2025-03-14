@@ -25,13 +25,22 @@ const pages = [
 export default function Navbar() {
   const pathname = usePathname();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
 
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
   };
 
   return (
@@ -140,8 +149,23 @@ export default function Navbar() {
             ))}
           </Box>
 
-          {/* Login button */}
-          <Box sx={{ flexGrow: 0 }}>
+          {/* Admin & Design System buttons */}
+          <Box sx={{ flexGrow: 0, display: 'flex', gap: 2 }}>
+            <Button 
+              component={Link} 
+              href="/design-system" 
+              variant="outlined" 
+              color="inherit"
+              sx={{ 
+                borderColor: 'white', 
+                '&:hover': { 
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  borderColor: 'white'
+                } 
+              }}
+            >
+              Sistem Desain
+            </Button>
             <Button 
               component={Link} 
               href="/admin" 

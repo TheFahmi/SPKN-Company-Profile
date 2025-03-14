@@ -6,10 +6,10 @@ import {
   Container, 
   Typography, 
   Grid, 
-  Card, 
+  Card,
   Chip,
-  Grow,
-  Fade
+  Fade,
+  Grow
 } from '@mui/material';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import BuildIcon from '@mui/icons-material/Build';
@@ -52,7 +52,7 @@ const KeunggulanSection: React.FC<KeunggulanSectionProps> = ({ isVisible }) => {
     },
   ];
 
-  const renderIcon = (iconName: string) => {
+  const renderIcon = (iconName: string, color: string) => {
     switch (iconName) {
       case 'TimelineIcon':
         return <TimelineIcon fontSize="medium" />;
@@ -185,10 +185,10 @@ const KeunggulanSection: React.FC<KeunggulanSectionProps> = ({ isVisible }) => {
                           bgcolor: `${item.color}20`,
                           color: item.color,
                           transition: 'all 0.3s ease-in-out',
-                          overflow: 'hidden' // Add this to ensure content doesn't overflow the circular shape
+                          overflow: 'hidden'
                         }}
                       >
-                        {renderIcon(item.icon)}
+                        {renderIcon(item.icon, item.color)}
                       </Box>
                     </Box>
                     

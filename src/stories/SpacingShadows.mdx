@@ -1,0 +1,176 @@
+# Spacing dan Shadows
+
+Sistem spacing dan shadows untuk PT Sarana Pancakarya Nusa dirancang untuk menciptakan tata letak yang konsisten dan memberikan kedalaman visual pada elemen UI.
+
+## Spacing
+
+Sistem spacing menggunakan basis 8px dengan kelipatan yang digunakan secara konsisten di seluruh aplikasi. Ini membantu menciptakan ritme visual dan keselarasan antar elemen.
+
+### Basis Spacing
+
+```jsx
+// Definisi spacing di src/app/theme.ts
+const spacing = 8;
+```
+
+### Skala Spacing
+
+<div style={{ marginBottom: '32px' }}>
+  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+    <div style={{ width: '8px', height: '20px', backgroundColor: '#1976d2', marginRight: '8px' }}></div>
+    <div style={{ fontSize: '14px' }}>1 (8px)</div>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+    <div style={{ width: '16px', height: '20px', backgroundColor: '#1976d2', marginRight: '8px' }}></div>
+    <div style={{ fontSize: '14px' }}>2 (16px)</div>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+    <div style={{ width: '24px', height: '20px', backgroundColor: '#1976d2', marginRight: '8px' }}></div>
+    <div style={{ fontSize: '14px' }}>3 (24px)</div>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+    <div style={{ width: '32px', height: '20px', backgroundColor: '#1976d2', marginRight: '8px' }}></div>
+    <div style={{ fontSize: '14px' }}>4 (32px)</div>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+    <div style={{ width: '48px', height: '20px', backgroundColor: '#1976d2', marginRight: '8px' }}></div>
+    <div style={{ fontSize: '14px' }}>6 (48px)</div>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+    <div style={{ width: '64px', height: '20px', backgroundColor: '#1976d2', marginRight: '8px' }}></div>
+    <div style={{ fontSize: '14px' }}>8 (64px)</div>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+    <div style={{ width: '96px', height: '20px', backgroundColor: '#1976d2', marginRight: '8px' }}></div>
+    <div style={{ fontSize: '14px' }}>12 (96px)</div>
+  </div>
+</div>
+
+### Penggunaan Spacing
+
+Spacing digunakan untuk:
+
+- **Margin**: Jarak antara elemen-elemen UI.
+- **Padding**: Jarak internal dalam elemen UI.
+- **Gap**: Jarak antara item dalam grid atau flex container.
+
+```jsx
+// Contoh penggunaan spacing dalam komponen
+<Box sx={{ p: 2 }}>                  {/* padding: 16px (2 * 8px) */}
+<Box sx={{ m: 3 }}>                  {/* margin: 24px (3 * 8px) */}
+<Box sx={{ px: 2, py: 3 }}>          {/* padding-left & right: 16px, padding-top & bottom: 24px */}
+<Box sx={{ mt: 2, mb: 4 }}>          {/* margin-top: 16px, margin-bottom: 32px */}
+<Stack spacing={2}>                  {/* gap: 16px antara item */}
+```
+
+## Border Radius
+
+Border radius digunakan untuk memberikan sudut melengkung pada elemen UI, menciptakan tampilan yang lebih lembut dan modern.
+
+### Skala Border Radius
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', marginBottom: '32px' }}>
+  <div>
+    <div style={{ width: '100px', height: '100px', backgroundColor: '#1976d2', borderRadius: '4px', marginBottom: '8px' }}></div>
+    <div style={{ fontSize: '14px' }}>Small (4px)</div>
+  </div>
+  <div>
+    <div style={{ width: '100px', height: '100px', backgroundColor: '#1976d2', borderRadius: '8px', marginBottom: '8px' }}></div>
+    <div style={{ fontSize: '14px' }}>Medium (8px)</div>
+  </div>
+  <div>
+    <div style={{ width: '100px', height: '100px', backgroundColor: '#1976d2', borderRadius: '12px', marginBottom: '8px' }}></div>
+    <div style={{ fontSize: '14px' }}>Large (12px)</div>
+  </div>
+  <div>
+    <div style={{ width: '100px', height: '100px', backgroundColor: '#1976d2', borderRadius: '16px', marginBottom: '8px' }}></div>
+    <div style={{ fontSize: '14px' }}>Extra Large (16px)</div>
+  </div>
+  <div>
+    <div style={{ width: '100px', height: '100px', backgroundColor: '#1976d2', borderRadius: '50%', marginBottom: '8px' }}></div>
+    <div style={{ fontSize: '14px' }}>Round (50%)</div>
+  </div>
+</div>
+
+### Penggunaan Border Radius
+
+- **Small (4px)**: Digunakan untuk elemen kecil seperti chip, badge, dan tooltip.
+- **Medium (8px)**: Digunakan untuk tombol, input, dan elemen UI umum lainnya.
+- **Large (12px)**: Digunakan untuk kartu, dialog, dan panel.
+- **Extra Large (16px)**: Digunakan untuk kartu yang lebih besar atau elemen yang memerlukan sudut yang lebih lembut.
+- **Round (50%)**: Digunakan untuk avatar, ikon bulat, dan elemen yang memerlukan bentuk lingkaran.
+
+## Shadows
+
+Shadows memberikan kedalaman dan hierarki pada elemen UI, membantu pengguna memahami hubungan antar elemen dan fokus pada elemen yang penting.
+
+### Skala Shadows
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', marginBottom: '32px' }}>
+  <div style={{ width: '150px' }}>
+    <div style={{ width: '100%', height: '100px', backgroundColor: 'white', borderRadius: '8px', marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'none' }}>
+      Elevation 0
+    </div>
+    <div style={{ fontSize: '14px' }}>No shadow</div>
+  </div>
+  <div style={{ width: '150px' }}>
+    <div style={{ width: '100%', height: '100px', backgroundColor: 'white', borderRadius: '8px', marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.05),0px 1px 1px 0px rgba(0,0,0,0.03),0px 1px 3px 0px rgba(0,0,0,0.05)' }}>
+      Elevation 1
+    </div>
+    <div style={{ fontSize: '14px' }}>Subtle shadow</div>
+  </div>
+  <div style={{ width: '150px' }}>
+    <div style={{ width: '100%', height: '100px', backgroundColor: 'white', borderRadius: '8px', marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0px 3px 3px -2px rgba(0,0,0,0.05),0px 3px 4px 0px rgba(0,0,0,0.03),0px 1px 8px 0px rgba(0,0,0,0.05)' }}>
+      Elevation 3
+    </div>
+    <div style={{ fontSize: '14px' }}>Medium shadow</div>
+  </div>
+  <div style={{ width: '150px' }}>
+    <div style={{ width: '100%', height: '100px', backgroundColor: 'white', borderRadius: '8px', marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0px 5px 5px -3px rgba(0,0,0,0.05),0px 8px 10px 1px rgba(0,0,0,0.03),0px 3px 14px 2px rgba(0,0,0,0.05)' }}>
+      Elevation 8
+    </div>
+    <div style={{ fontSize: '14px' }}>Pronounced shadow</div>
+  </div>
+  <div style={{ width: '150px' }}>
+    <div style={{ width: '100%', height: '100px', backgroundColor: 'white', borderRadius: '8px', marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0px 8px 10px -5px rgba(0,0,0,0.05),0px 16px 24px 2px rgba(0,0,0,0.03),0px 6px 30px 5px rgba(0,0,0,0.05)' }}>
+      Elevation 16
+    </div>
+    <div style={{ fontSize: '14px' }}>Strong shadow</div>
+  </div>
+  <div style={{ width: '150px' }}>
+    <div style={{ width: '100%', height: '100px', backgroundColor: 'white', borderRadius: '8px', marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0px 11px 15px -7px rgba(0,0,0,0.05),0px 24px 38px 3px rgba(0,0,0,0.03),0px 9px 46px 8px rgba(0,0,0,0.05)' }}>
+      Elevation 24
+    </div>
+    <div style={{ fontSize: '14px' }}>Intense shadow</div>
+  </div>
+</div>
+
+### Penggunaan Shadows
+
+- **Elevation 0**: Elemen datar tanpa bayangan.
+- **Elevation 1-2**: Kartu, paper, dan elemen UI dasar.
+- **Elevation 3-4**: Appbar, toolbar, dan elemen yang sedikit menonjol.
+- **Elevation 8**: Elemen yang melayang seperti menu dropdown dan popover.
+- **Elevation 16**: Dialog dan modal yang memerlukan fokus pengguna.
+- **Elevation 24**: Drawer dan elemen yang sangat menonjol.
+
+## Mode Gelap
+
+Dalam mode gelap, shadows dinonaktifkan untuk mengurangi kontras visual yang berlebihan dan menciptakan tampilan yang lebih nyaman di lingkungan cahaya rendah.
+
+```jsx
+// Implementasi shadows berdasarkan mode di src/app/theme.ts
+if (mode === 'light') {
+  themeOptions.shadows = shadows;
+} else {
+  themeOptions.shadows = Array(25).fill('none');
+}
+```
+
+## Praktik Terbaik
+
+- Gunakan spacing yang konsisten untuk menciptakan tata letak yang harmonis.
+- Gunakan border radius yang sesuai dengan ukuran dan fungsi elemen.
+- Gunakan shadows untuk memberikan kedalaman dan hierarki pada elemen UI.
+- Hindari penggunaan shadows yang terlalu banyak atau terlalu kuat, karena dapat mengganggu fokus pengguna.
+- Pastikan elemen dengan elevation yang lebih tinggi memiliki shadow yang lebih kuat untuk menciptakan hierarki visual yang jelas. 

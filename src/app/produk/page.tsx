@@ -106,8 +106,10 @@ export default function ProductPage() {
 
   return (
     <>
+      {/* Hero Section */}
       <ProductHeader />
-      
+
+      {/* Product Filters */}
       <Container>
         <ProductFilters 
           searchTerm={searchTerm}
@@ -119,6 +121,7 @@ export default function ProductPage() {
           categories={categories}
         />
 
+        {/* Product Grid */}
         <ProductGrid 
           products={products}
           loading={loading}
@@ -127,6 +130,7 @@ export default function ProductPage() {
           categories={categories}
         />
 
+        {/* Product Pagination */}  
         <ProductPagination 
           pagination={pagination}
           currentPage={currentPage}

@@ -5,23 +5,53 @@ import {
   Box, 
   Container, 
   Typography, 
-  Grid, 
-  Card, 
   Button,
+  Card,
   Chip,
   Stack,
-  Grow,
-  Fade
+  Fade,
+  Grow
 } from '@mui/material';
 import Link from 'next/link';
-import EventIcon from '@mui/icons-material/Event';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import EventIcon from '@mui/icons-material/Event';
 
 interface PengalamanSectionProps {
   isVisible: boolean;
 }
 
 const PengalamanSection: React.FC<PengalamanSectionProps> = ({ isVisible }) => {
+  const timelineItems = [
+    {
+      year: '2023',
+      client: 'Kementerian Pariwisata',
+      description: 'Pengadaan Pembuatan Buku Panduan Pelaksanaan Kebersihan, Kesehatan, Keselamatan, dan Kelestarian Lingkungan bagi Pelaku Usaha Pariwisata.',
+      color: 'primary',
+      position: 'right'
+    },
+    {
+      year: '2020',
+      client: 'Korlantas Polri',
+      description: 'Pengadaan materiil Mutasi Luar Daerah Korlantas Polri dengan standar keamanan tinggi dan kualitas premium.',
+      color: 'secondary',
+      position: 'left'
+    },
+    {
+      year: '2020',
+      client: 'Divisi Hukum Polri',
+      description: 'Pengadaan Cetak Buku Himpunan Peraturan Kapolri dan Peraturan Polri Tahun 2019 dengan standar kualitas tinggi.',
+      color: 'secondary',
+      position: 'right'
+    },
+    {
+      year: '2020',
+      client: 'Provinsi Nusa Tenggara Timur',
+      description: 'Kontrak Katalog Elektronik Sektoral Penyediaan Buku Panduan Pendidik Tahun 2020 untuk meningkatkan kualitas pendidikan di daerah.',
+      color: 'secondary',
+      position: 'left'
+    }
+  ];
+
   return (
     <Box 
       id="pengalaman"
@@ -105,355 +135,161 @@ const PengalamanSection: React.FC<PengalamanSectionProps> = ({ isVisible }) => {
 
             {/* Timeline Items */}
             <Stack spacing={6}>
-              {/* 2023 Project */}
-              <Box>
-                <Grow in={isVisible} timeout={1000}>
-                  <Box 
-                    sx={{ 
-                      display: 'flex', 
-                      flexDirection: { xs: 'column', md: 'row' },
-                      alignItems: { xs: 'flex-start', md: 'center' },
-                      position: 'relative'
-                    }}
-                  >
-                    {/* Year chip - visible on mobile and desktop */}
+              {timelineItems.map((item, index) => (
+                <Box key={index}>
+                  <Grow in={isVisible} timeout={1000 + (index * 200)}>
                     <Box 
                       sx={{ 
-                        position: { xs: 'relative', md: 'absolute' },
-                        left: { md: '50%' },
-                        top: { md: -30 },
-                        transform: { md: 'translateX(-50%)' },
-                        zIndex: 2,
-                        mb: { xs: 2, md: 0 }
+                        display: 'flex', 
+                        flexDirection: { xs: 'column', md: 'row' },
+                        alignItems: { xs: 'flex-start', md: 'center' },
+                        position: 'relative'
                       }}
                     >
-                      <Chip
-                        icon={<EventIcon />}
-                        label="2023"
-                        color="primary"
+                      {/* Year chip - visible on mobile and desktop */}
+                      <Box 
                         sx={{ 
-                          fontWeight: 'bold',
-                          px: 1,
-                          boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
-                        }}
-                      />
-                    </Box>
-
-                    {/* Timeline node - only visible on desktop */}
-                    <Box 
-                      sx={{ 
-                        position: 'absolute', 
-                        left: '50%', 
-                        width: 20, 
-                        height: 20, 
-                        borderRadius: '50%', 
-                        bgcolor: 'primary.main', 
-                        transform: 'translateX(-50%)',
-                        zIndex: 1,
-                        boxShadow: '0 0 0 4px rgba(25, 118, 210, 0.2)',
-                        display: { xs: 'none', md: 'block' }
-                      }} 
-                    />
-
-                    {/* Left side (empty for first item) */}
-                    <Box sx={{ flex: 1, display: { xs: 'none', md: 'block' } }} />
-
-                    {/* Right side (content) */}
-                    <Box 
-                      sx={{ 
-                        flex: 1, 
-                        pl: { md: 4 },
-                        width: { xs: '100%', md: 'auto' }
-                      }}
-                    >
-                      <Card
-                        sx={{
-                          borderRadius: 3,
-                          boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-                          overflow: 'hidden',
-                          transition: 'all 0.3s ease',
-                          '&:hover': {
-                            transform: 'translateY(-5px)',
-                            boxShadow: '0 15px 35px rgba(25, 118, 210, 0.15)',
-                          }
+                          position: { xs: 'relative', md: 'absolute' },
+                          left: { md: '50%' },
+                          top: { md: -30 },
+                          transform: { md: 'translateX(-50%)' },
+                          zIndex: 2,
+                          mb: { xs: 2, md: 0 }
                         }}
                       >
-                        <Box 
+                        <Chip
+                          icon={<EventIcon />}
+                          label={item.year}
+                          color={item.color as 'primary' | 'secondary'}
                           sx={{ 
-                            p: 0.5, 
-                            bgcolor: 'primary.main',
-                            background: 'linear-gradient(90deg, #1976d2, #42a5f5)'
-                          }} 
+                            fontWeight: 'bold',
+                            px: 1,
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                          }}
                         />
-                        <Box sx={{ p: 3 }}>
-                          <Typography 
-                            variant="subtitle1" 
-                            fontWeight="bold"
-                            color="primary.main"
-                            gutterBottom
-                          >
-                            Kementerian Pariwisata
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            Pengadaan Pembuatan Buku Panduan Pelaksanaan Kebersihan, Kesehatan, Keselamatan, dan Kelestarian Lingkungan bagi Pelaku Usaha Pariwisata.
-                          </Typography>
-                        </Box>
-                      </Card>
-                    </Box>
-                  </Box>
-                </Grow>
-              </Box>
+                      </Box>
 
-              {/* 2020 Projects */}
-              <Box>
-                <Grow in={isVisible} timeout={1200}>
-                  <Box 
-                    sx={{ 
-                      display: 'flex', 
-                      flexDirection: { xs: 'column', md: 'row' },
-                      alignItems: { xs: 'flex-start', md: 'center' },
-                      position: 'relative'
-                    }}
-                  >
-                    {/* Year chip */}
-                    <Box 
-                      sx={{ 
-                        position: { xs: 'relative', md: 'absolute' },
-                        left: { md: '50%' },
-                        top: { md: -30 },
-                        transform: { md: 'translateX(-50%)' },
-                        zIndex: 2,
-                        mb: { xs: 2, md: 0 }
-                      }}
-                    >
-                      <Chip
-                        icon={<EventIcon />}
-                        label="2020"
-                        color="secondary"
+                      {/* Timeline node - only visible on desktop */}
+                      <Box 
                         sx={{ 
-                          fontWeight: 'bold',
-                          px: 1,
-                          boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
-                        }}
+                          position: 'absolute', 
+                          left: '50%', 
+                          width: 20, 
+                          height: 20, 
+                          borderRadius: '50%', 
+                          bgcolor: `${item.color}.main`, 
+                          transform: 'translateX(-50%)',
+                          zIndex: 1,
+                          boxShadow: item.color === 'primary' 
+                            ? '0 0 0 4px rgba(25, 118, 210, 0.2)'
+                            : '0 0 0 4px rgba(156, 39, 176, 0.2)',
+                          display: { xs: 'none', md: 'block' }
+                        }} 
                       />
-                    </Box>
 
-                    {/* Timeline node */}
-                    <Box 
-                      sx={{ 
-                        position: 'absolute', 
-                        left: '50%', 
-                        width: 20, 
-                        height: 20, 
-                        borderRadius: '50%', 
-                        bgcolor: 'secondary.main', 
-                        transform: 'translateX(-50%)',
-                        zIndex: 1,
-                        boxShadow: '0 0 0 4px rgba(156, 39, 176, 0.2)',
-                        display: { xs: 'none', md: 'block' }
-                      }} 
-                    />
-
-                    {/* Left side (content) - opposite of first item */}
-                    <Box 
-                      sx={{ 
-                        flex: 1, 
-                        pr: { md: 4 },
-                        width: { xs: '100%', md: 'auto' }
-                      }}
-                    >
-                      <Card
-                        sx={{
-                          borderRadius: 3,
-                          boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-                          overflow: 'hidden',
-                          transition: 'all 0.3s ease',
-                          '&:hover': {
-                            transform: 'translateY(-5px)',
-                            boxShadow: '0 15px 35px rgba(156, 39, 176, 0.15)',
-                          }
+                      {/* Left side */}
+                      <Box 
+                        sx={{ 
+                          flex: 1, 
+                          pr: { md: item.position === 'left' ? 4 : 0 },
+                          display: { xs: item.position === 'right' ? 'none' : 'block', md: 'block' },
+                          width: { xs: '100%', md: 'auto' }
                         }}
                       >
-                        <Box 
-                          sx={{ 
-                            p: 0.5, 
-                            bgcolor: 'secondary.main',
-                            background: 'linear-gradient(90deg, #9c27b0, #ba68c8)'
-                          }} 
-                        />
-                        <Box sx={{ p: 3 }}>
-                          <Typography 
-                            variant="subtitle1" 
-                            fontWeight="bold"
-                            color="secondary.main"
-                            gutterBottom
+                        {item.position === 'left' && (
+                          <Card
+                            sx={{
+                              borderRadius: 3,
+                              boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+                              overflow: 'hidden',
+                              transition: 'all 0.3s ease',
+                              '&:hover': {
+                                transform: 'translateY(-5px)',
+                                boxShadow: item.color === 'primary'
+                                  ? '0 15px 35px rgba(25, 118, 210, 0.15)'
+                                  : '0 15px 35px rgba(156, 39, 176, 0.15)',
+                              }
+                            }}
                           >
-                            Korlantas Polri
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            Pengadaan materiil Mutasi Luar Daerah Korlantas Polri dengan standar keamanan tinggi dan kualitas premium.
-                          </Typography>
-                        </Box>
-                      </Card>
-                    </Box>
+                            <Box 
+                              sx={{ 
+                                p: 0.5, 
+                                bgcolor: `${item.color}.main`,
+                                background: item.color === 'primary'
+                                  ? 'linear-gradient(90deg, #1976d2, #42a5f5)'
+                                  : 'linear-gradient(90deg, #9c27b0, #ba68c8)'
+                              }} 
+                            />
+                            <Box sx={{ p: 3 }}>
+                              <Typography 
+                                variant="subtitle1" 
+                                fontWeight="bold"
+                                color={`${item.color}.main`}
+                                gutterBottom
+                              >
+                                {item.client}
+                              </Typography>
+                              <Typography variant="body2" color="text.secondary">
+                                {item.description}
+                              </Typography>
+                            </Box>
+                          </Card>
+                        )}
+                      </Box>
 
-                    {/* Right side (empty for second item) */}
-                    <Box sx={{ flex: 1, display: { xs: 'none', md: 'block' } }} />
-                  </Box>
-                </Grow>
-              </Box>
-
-              {/* 2020 Project 2 */}
-              <Box>
-                <Grow in={isVisible} timeout={1400}>
-                  <Box 
-                    sx={{ 
-                      display: 'flex', 
-                      flexDirection: { xs: 'column', md: 'row' },
-                      alignItems: { xs: 'flex-start', md: 'center' },
-                      position: 'relative'
-                    }}
-                  >
-                    {/* Timeline node */}
-                    <Box 
-                      sx={{ 
-                        position: 'absolute', 
-                        left: '50%', 
-                        width: 20, 
-                        height: 20, 
-                        borderRadius: '50%', 
-                        bgcolor: 'secondary.main', 
-                        transform: 'translateX(-50%)',
-                        zIndex: 1,
-                        boxShadow: '0 0 0 4px rgba(156, 39, 176, 0.2)',
-                        display: { xs: 'none', md: 'block' }
-                      }} 
-                    />
-
-                    {/* Left side (empty) */}
-                    <Box sx={{ flex: 1, display: { xs: 'none', md: 'block' } }} />
-
-                    {/* Right side (content) */}
-                    <Box 
-                      sx={{ 
-                        flex: 1, 
-                        pl: { md: 4 },
-                        width: { xs: '100%', md: 'auto' }
-                      }}
-                    >
-                      <Card
-                        sx={{
-                          borderRadius: 3,
-                          boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-                          overflow: 'hidden',
-                          transition: 'all 0.3s ease',
-                          '&:hover': {
-                            transform: 'translateY(-5px)',
-                            boxShadow: '0 15px 35px rgba(156, 39, 176, 0.15)',
-                          }
+                      {/* Right side */}
+                      <Box 
+                        sx={{ 
+                          flex: 1, 
+                          pl: { md: item.position === 'right' ? 4 : 0 },
+                          display: { xs: item.position === 'left' ? 'none' : 'block', md: 'block' },
+                          width: { xs: '100%', md: 'auto' }
                         }}
                       >
-                        <Box 
-                          sx={{ 
-                            p: 0.5, 
-                            bgcolor: 'secondary.main',
-                            background: 'linear-gradient(90deg, #9c27b0, #ba68c8)'
-                          }} 
-                        />
-                        <Box sx={{ p: 3 }}>
-                          <Typography 
-                            variant="subtitle1" 
-                            fontWeight="bold"
-                            color="secondary.main"
-                            gutterBottom
+                        {item.position === 'right' && (
+                          <Card
+                            sx={{
+                              borderRadius: 3,
+                              boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+                              overflow: 'hidden',
+                              transition: 'all 0.3s ease',
+                              '&:hover': {
+                                transform: 'translateY(-5px)',
+                                boxShadow: item.color === 'primary'
+                                  ? '0 15px 35px rgba(25, 118, 210, 0.15)'
+                                  : '0 15px 35px rgba(156, 39, 176, 0.15)',
+                              }
+                            }}
                           >
-                            Divisi Hukum Polri
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            Pengadaan Cetak Buku Himpunan Peraturan Kapolri dan Peraturan Polri Tahun 2019 dengan standar kualitas tinggi.
-                          </Typography>
-                        </Box>
-                      </Card>
+                            <Box 
+                              sx={{ 
+                                p: 0.5, 
+                                bgcolor: `${item.color}.main`,
+                                background: item.color === 'primary'
+                                  ? 'linear-gradient(90deg, #1976d2, #42a5f5)'
+                                  : 'linear-gradient(90deg, #9c27b0, #ba68c8)'
+                              }} 
+                            />
+                            <Box sx={{ p: 3 }}>
+                              <Typography 
+                                variant="subtitle1" 
+                                fontWeight="bold"
+                                color={`${item.color}.main`}
+                                gutterBottom
+                              >
+                                {item.client}
+                              </Typography>
+                              <Typography variant="body2" color="text.secondary">
+                                {item.description}
+                              </Typography>
+                            </Box>
+                          </Card>
+                        )}
+                      </Box>
                     </Box>
-                  </Box>
-                </Grow>
-              </Box>
-
-              {/* 2020 Project 3 */}
-              <Box>
-                <Grow in={isVisible} timeout={1600}>
-                  <Box 
-                    sx={{ 
-                      display: 'flex', 
-                      flexDirection: { xs: 'column', md: 'row' },
-                      alignItems: { xs: 'flex-start', md: 'center' },
-                      position: 'relative'
-                    }}
-                  >
-                    {/* Timeline node */}
-                    <Box 
-                      sx={{ 
-                        position: 'absolute', 
-                        left: '50%', 
-                        width: 20, 
-                        height: 20, 
-                        borderRadius: '50%', 
-                        bgcolor: 'secondary.main', 
-                        transform: 'translateX(-50%)',
-                        zIndex: 1,
-                        boxShadow: '0 0 0 4px rgba(156, 39, 176, 0.2)',
-                        display: { xs: 'none', md: 'block' }
-                      }} 
-                    />
-
-                    {/* Left side (content) */}
-                    <Box 
-                      sx={{ 
-                        flex: 1, 
-                        pr: { md: 4 },
-                        width: { xs: '100%', md: 'auto' }
-                      }}
-                    >
-                      <Card
-                        sx={{
-                          borderRadius: 3,
-                          boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-                          overflow: 'hidden',
-                          transition: 'all 0.3s ease',
-                          '&:hover': {
-                            transform: 'translateY(-5px)',
-                            boxShadow: '0 15px 35px rgba(156, 39, 176, 0.15)',
-                          }
-                        }}
-                      >
-                        <Box 
-                          sx={{ 
-                            p: 0.5, 
-                            bgcolor: 'secondary.main',
-                            background: 'linear-gradient(90deg, #9c27b0, #ba68c8)'
-                          }} 
-                        />
-                        <Box sx={{ p: 3 }}>
-                          <Typography 
-                            variant="subtitle1" 
-                            fontWeight="bold"
-                            color="secondary.main"
-                            gutterBottom
-                          >
-                            Provinsi Nusa Tenggara Timur
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            Kontrak Katalog Elektronik Sektoral Penyediaan Buku Panduan Pendidik Tahun 2020 untuk meningkatkan kualitas pendidikan di daerah.
-                          </Typography>
-                        </Box>
-                      </Card>
-                    </Box>
-
-                    {/* Right side (empty) */}
-                    <Box sx={{ flex: 1, display: { xs: 'none', md: 'block' } }} />
-                  </Box>
-                </Grow>
-              </Box>
+                  </Grow>
+                </Box>
+              ))}
             </Stack>
 
             {/* View More Projects Button */}

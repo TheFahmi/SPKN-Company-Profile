@@ -20,7 +20,7 @@ const nextConfig = {
     minimumCacheTTL: 60,
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
   typescript: {
     // Disable TypeScript during builds
