@@ -1,5 +1,28 @@
 # Printing Company Profile
 
+## 📋 Table of Contents
+- [Main Features](#-main-features)
+- [UI Enhancements](#-recent-ui-enhancements)
+- [Technologies](#️-technologies)
+- [Getting Started](#-getting-started)
+  - [Installation](#️-installation)
+  - [Environment Variables](#-environment-variables-configuration)
+  - [Running the Application](#-running-the-application)
+  - [Cleaning Cache](#-cleaning-cache)
+- [Project Structure](#-project-structure)
+  - [Folder Structure](#-folder-structure)
+  - [Admin Features](#-admin-features)
+- [Development](#-development)
+  - [Testing](#-testing)
+  - [Design System](#-design-system-documentation)
+- [API Documentation](#-api-documentation)
+- [Security](#-security)
+- [Contribution](#-contribution)
+- [License](#-license)
+- [Contact](#-contact)
+
+---
+
 ## 🚀 Main Features
 
 - **Landing Page** with printing service information
@@ -31,7 +54,11 @@
 - **UI Documentation**: Storybook
 - **Testing**: Vitest, React Testing Library
 
-## 🛠️ Installation
+---
+
+## 🚀 Getting Started
+
+### 🛠️ Installation
 
 1. **Clone the repository**
 
@@ -58,7 +85,7 @@ cp .env.example .env
 
 Then edit the `.env` file with the appropriate configuration.
 
-## 🌐 Environment Variables Configuration
+### 🌐 Environment Variables Configuration
 
 Environment variables that need to be set:
 
@@ -80,9 +107,9 @@ SITE_NAME=Printing Company Profile
 NEXT_PUBLIC_APP_NAME=Printing Company Profile
 ```
 
-## 🚀 Running the Application
+### 🚀 Running the Application
 
-### Development
+#### Development
 
 ```bash
 npm run dev
@@ -92,7 +119,7 @@ yarn dev
 
 The application will run at [http://localhost:3000](http://localhost:3000).
 
-### Storybook
+#### Storybook
 
 To run the component documentation with Storybook:
 
@@ -104,7 +131,7 @@ yarn storybook
 
 Storybook will run at [http://localhost:6006](http://localhost:6006).
 
-### Production
+#### Production
 
 ```bash
 npm run build
@@ -114,115 +141,7 @@ yarn build
 yarn start
 ```
 
-## 🧪 Testing
-
-The project uses Vitest as the testing framework with React Testing Library for component testing.
-
-### Running Tests
-
-To run all tests:
-
-```bash
-npm run test
-```
-
-To run tests in watch mode (tests will re-run when files change):
-
-```bash
-npm run test:watch
-```
-
-To run tests with coverage report:
-
-```bash
-npm run test:coverage
-```
-
-### Test Directory Structure
-
-```
-src/__tests__/
-├── components/       # Tests for React components
-│   ├── ProductCard.test.tsx     # Tests for ProductCard component
-│   ├── ServiceCard.test.tsx     # Tests for ServiceCard component
-│   ├── TestimonialCard.test.tsx # Tests for TestimonialCard component
-│   └── PricingCard.test.tsx     # Tests for PricingCard component
-├── utils/           # Tests for utility functions
-│   ├── formatters.test.ts       # Tests for date and currency formatters
-│   ├── formatDateTime.test.ts   # Tests for datetime formatter
-│   └── mongodb.test.ts          # Tests for MongoDB utility functions
-├── api/             # Tests for API routes
-│   ├── products.test.ts         # Tests for product API endpoints
-│   └── auth.test.ts             # Tests for authentication endpoints
-└── setup.ts         # Setup file for test configuration
-```
-
-### Writing Tests
-
-#### Component Tests
-
-Create a file with the format `[ComponentName].test.tsx` in the `src/__tests__/components/` directory:
-
-```tsx
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import MyComponent from '../../components/MyComponent';
-
-describe('MyComponent', () => {
-  it('renders correctly', () => {
-    render(<MyComponent />);
-    expect(screen.getByText('Hello World')).toBeInTheDocument();
-  });
-});
-```
-
-#### Utility Function Tests
-
-Create a file with the format `[fileName].test.ts` in the `src/__tests__/utils/` directory:
-
-```ts
-import { describe, it, expect } from 'vitest';
-import { myFunction } from '../../app/utils/myUtils';
-
-describe('myFunction', () => {
-  it('returns correct result', () => {
-    expect(myFunction(1, 2)).toBe(3);
-  });
-});
-```
-
-#### API Route Tests
-
-Create a file with the format `[routeName].test.ts` in the `src/__tests__/api/` directory:
-
-```ts
-import { describe, it, expect, vi } from 'vitest';
-import { NextRequest, NextResponse } from 'next/server';
-import { GET } from '../../app/api/myRoute/route';
-
-describe('My API Route', () => {
-  it('returns correct response', async () => {
-    const req = new NextRequest(new URL('http://localhost:3000/api/myRoute'));
-    const res = await GET(req);
-    expect(res).toBeInstanceOf(NextResponse);
-    const data = await res.json();
-    expect(data).toHaveProperty('success', true);
-  });
-});
-```
-
-### Best Practices
-
-1. Use `describe` to group related tests
-2. Use `it` to describe what is being tested
-3. Use `expect` to make assertions
-4. Use `vi.mock()` for mocking dependencies
-5. Use `beforeEach` and `afterEach` for setup and teardown
-6. Ensure each test is independent and doesn't rely on state from other tests
-7. For component tests, prefer testing behavior over implementation details
-8. For API tests, mock external dependencies like databases
-
-## 🧹 Cleaning Cache
+### 🧹 Cleaning Cache
 
 If you experience issues with cache, use the following commands:
 
@@ -234,7 +153,11 @@ npm run clean
 npm run clean:win
 ```
 
-## 📁 Folder Structure
+---
+
+## 📁 Project Structure
+
+### 📁 Folder Structure
 
 ```
 percetakan-profile/
@@ -347,7 +270,7 @@ percetakan-profile/
 └── README.md             # Project documentation
 ```
 
-## 👥 Admin Features
+### 👥 Admin Features
 
 1. **Product Management**
    - Add, edit, and delete products
@@ -363,13 +286,130 @@ percetakan-profile/
    - Import products from WordPress XML files
    - Extract images and metadata
 
-## 🔒 Security
+---
 
-- All sensitive data stored in environment variables
-- Passwords encrypted using bcrypt
-- JWT authentication using NextAuth.js
-- CSRF protection
-- Rate limiting for API endpoints
+## 💻 Development
+
+### 🧪 Testing
+
+The project uses Vitest as the testing framework with React Testing Library for component testing.
+
+#### Running Tests
+
+To run all tests:
+
+```bash
+npm run test
+```
+
+To run tests in watch mode (tests will re-run when files change):
+
+```bash
+npm run test:watch
+```
+
+To run tests with coverage report:
+
+```bash
+npm run test:coverage
+```
+
+#### Test Directory Structure
+
+```
+src/__tests__/
+├── components/       # Tests for React components
+│   ├── ProductCard.test.tsx     # Tests for ProductCard component
+│   ├── ServiceCard.test.tsx     # Tests for ServiceCard component
+│   ├── TestimonialCard.test.tsx # Tests for TestimonialCard component
+│   └── PricingCard.test.tsx     # Tests for PricingCard component
+├── utils/           # Tests for utility functions
+│   ├── formatters.test.ts       # Tests for date and currency formatters
+│   ├── formatDateTime.test.ts   # Tests for datetime formatter
+│   └── mongodb.test.ts          # Tests for MongoDB utility functions
+├── api/             # Tests for API routes
+│   ├── products.test.ts         # Tests for product API endpoints
+│   └── auth.test.ts             # Tests for authentication endpoints
+└── setup.ts         # Setup file for test configuration
+```
+
+#### Writing Tests
+
+##### Component Tests
+
+Create a file with the format `[ComponentName].test.tsx` in the `src/__tests__/components/` directory:
+
+```tsx
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import MyComponent from '../../components/MyComponent';
+
+describe('MyComponent', () => {
+  it('renders correctly', () => {
+    render(<MyComponent />);
+    expect(screen.getByText('Hello World')).toBeInTheDocument();
+  });
+});
+```
+
+##### Utility Function Tests
+
+Create a file with the format `[fileName].test.ts` in the `src/__tests__/utils/` directory:
+
+```ts
+import { describe, it, expect } from 'vitest';
+import { myFunction } from '../../app/utils/myUtils';
+
+describe('myFunction', () => {
+  it('returns correct result', () => {
+    expect(myFunction(1, 2)).toBe(3);
+  });
+});
+```
+
+##### API Route Tests
+
+Create a file with the format `[routeName].test.ts` in the `src/__tests__/api/` directory:
+
+```ts
+import { describe, it, expect, vi } from 'vitest';
+import { NextRequest, NextResponse } from 'next/server';
+import { GET } from '../../app/api/myRoute/route';
+
+describe('My API Route', () => {
+  it('returns correct response', async () => {
+    const req = new NextRequest(new URL('http://localhost:3000/api/myRoute'));
+    const res = await GET(req);
+    expect(res).toBeInstanceOf(NextResponse);
+    const data = await res.json();
+    expect(data).toHaveProperty('success', true);
+  });
+});
+```
+
+#### Best Practices
+
+1. Use `describe` to group related tests
+2. Use `it` to describe what is being tested
+3. Use `expect` to make assertions
+4. Use `vi.mock()` for mocking dependencies
+5. Use `beforeEach` and `afterEach` for setup and teardown
+6. Ensure each test is independent and doesn't rely on state from other tests
+7. For component tests, prefer testing behavior over implementation details
+8. For API tests, mock external dependencies like databases
+
+### 📚 Design System Documentation
+
+This project uses a design system documented with Storybook. This documentation includes:
+
+- **Colors**: Primary, secondary, and neutral color palettes with shade variations
+- **Typography**: Typography hierarchy, font families, and text usage
+- **Spacing & Shadows**: Consistent spacing system and shadow usage for elevation
+- **UI Components**: Interactive documentation for all UI components such as Button, TextField, Card, Alert, etc.
+
+To access the design system documentation, run Storybook with the command `npm run storybook`.
+
+---
 
 ## 📚 API Documentation
 
@@ -396,6 +436,16 @@ Swagger UI allows you to:
 - Test endpoints directly from the browser
 - View response schemas for each endpoint
 
+## 🔒 Security
+
+- All sensitive data stored in environment variables
+- Passwords encrypted using bcrypt
+- JWT authentication using NextAuth.js
+- CSRF protection
+- Rate limiting for API endpoints
+
+---
+
 ## 🤝 Contribution
 
 Contributions are always welcome. To contribute:
@@ -413,17 +463,6 @@ This project is licensed under the [MIT License](LICENSE).
 ## 📧 Contact
 
 For questions, contact our team at [me@mfah.me](mailto:me@mfah.me).
-
-## 📚 Design System Documentation
-
-This project uses a design system documented with Storybook. This documentation includes:
-
-- **Colors**: Primary, secondary, and neutral color palettes with shade variations
-- **Typography**: Typography hierarchy, font families, and text usage
-- **Spacing & Shadows**: Consistent spacing system and shadow usage for elevation
-- **UI Components**: Interactive documentation for all UI components such as Button, TextField, Card, Alert, etc.
-
-To access the design system documentation, run Storybook with the command `npm run storybook`.
 
 ---
 
