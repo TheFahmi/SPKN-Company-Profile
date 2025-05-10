@@ -1,0 +1,296 @@
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {
+    "@babel/runtime": {
+      "name": "@babel/runtime",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1103025,
+          "name": "@babel/runtime",
+          "dependency": "@babel/runtime",
+          "title": "Babel has inefficient RexExp complexity in generated code with .replace when transpiling named capturing groups",
+          "url": "https://github.com/advisories/GHSA-968p-4wvh-cqc8",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-1333"
+          ],
+          "cvss": {
+            "score": 6.2,
+            "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": "<7.26.10"
+        }
+      ],
+      "effects": [],
+      "range": "<7.26.10",
+      "nodes": [
+        "node_modules/@babel/runtime"
+      ],
+      "fixAvailable": true
+    },
+    "next": {
+      "name": "next",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        {
+          "source": 1097295,
+          "name": "next",
+          "dependency": "next",
+          "title": "Next.js Server-Side Request Forgery in Server Actions",
+          "url": "https://github.com/advisories/GHSA-fr5h-rqp8-mj6g",
+          "severity": "high",
+          "cwe": [
+            "CWE-918"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+          },
+          "range": ">=13.4.0 <14.1.1"
+        },
+        {
+          "source": 1099638,
+          "name": "next",
+          "dependency": "next",
+          "title": "Next.js Cache Poisoning",
+          "url": "https://github.com/advisories/GHSA-gp8f-8m3g-qvj9",
+          "severity": "high",
+          "cwe": [
+            "CWE-349",
+            "CWE-639"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": ">=14.0.0 <14.2.10"
+        },
+        {
+          "source": 1100421,
+          "name": "next",
+          "dependency": "next",
+          "title": "Denial of Service condition in Next.js image optimization",
+          "url": "https://github.com/advisories/GHSA-g77x-44xx-532m",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-674"
+          ],
+          "cvss": {
+            "score": 5.9,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": ">=10.0.0 <14.2.7"
+        },
+        {
+          "source": 1101380,
+          "name": "next",
+          "dependency": "next",
+          "title": "Next.js authorization bypass vulnerability",
+          "url": "https://github.com/advisories/GHSA-7gfc-8cq8-jh5f",
+          "severity": "high",
+          "cwe": [
+            "CWE-285"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+          },
+          "range": ">=9.5.5 <14.2.15"
+        },
+        {
+          "source": 1101438,
+          "name": "next",
+          "dependency": "next",
+          "title": "Next.js Allows a Denial of Service (DoS) with Server Actions",
+          "url": "https://github.com/advisories/GHSA-7m27-7ghc-44w9",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-770"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": ">=14.0.0 <14.2.21"
+        }
+      ],
+      "effects": [],
+      "range": "9.5.5 - 14.2.20",
+      "nodes": [
+        "node_modules/next"
+      ],
+      "fixAvailable": {
+        "name": "next",
+        "version": "14.2.24",
+        "isSemVerMajor": false
+      }
+    },
+    "prismjs": {
+      "name": "prismjs",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1102459,
+          "name": "prismjs",
+          "dependency": "prismjs",
+          "title": "PrismJS DOM Clobbering vulnerability",
+          "url": "https://github.com/advisories/GHSA-x7hr-w5r2-h6wg",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-94"
+          ],
+          "cvss": {
+            "score": 4.9,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:C/C:L/I:L/A:N"
+          },
+          "range": "<1.30.0"
+        }
+      ],
+      "effects": [
+        "refractor"
+      ],
+      "range": "<1.30.0",
+      "nodes": [
+        "node_modules/refractor/node_modules/prismjs"
+      ],
+      "fixAvailable": {
+        "name": "swagger-ui-react",
+        "version": "3.29.0",
+        "isSemVerMajor": true
+      }
+    },
+    "quill": {
+      "name": "quill",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1098574,
+          "name": "quill",
+          "dependency": "quill",
+          "title": "Cross-site Scripting in quill",
+          "url": "https://github.com/advisories/GHSA-4943-9vgg-gr5r",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-79"
+          ],
+          "cvss": {
+            "score": 4.2,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:N"
+          },
+          "range": "<=1.3.7"
+        }
+      ],
+      "effects": [
+        "react-quill"
+      ],
+      "range": "<=1.3.7",
+      "nodes": [
+        "node_modules/quill"
+      ],
+      "fixAvailable": {
+        "name": "react-quill",
+        "version": "0.0.2",
+        "isSemVerMajor": true
+      }
+    },
+    "react-quill": {
+      "name": "react-quill",
+      "severity": "moderate",
+      "isDirect": true,
+      "via": [
+        "quill"
+      ],
+      "effects": [],
+      "range": ">=0.0.3",
+      "nodes": [
+        "node_modules/react-quill"
+      ],
+      "fixAvailable": {
+        "name": "react-quill",
+        "version": "0.0.2",
+        "isSemVerMajor": true
+      }
+    },
+    "react-syntax-highlighter": {
+      "name": "react-syntax-highlighter",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        "refractor"
+      ],
+      "effects": [
+        "swagger-ui-react"
+      ],
+      "range": ">=6.0.0",
+      "nodes": [
+        "node_modules/react-syntax-highlighter"
+      ],
+      "fixAvailable": {
+        "name": "swagger-ui-react",
+        "version": "3.29.0",
+        "isSemVerMajor": true
+      }
+    },
+    "refractor": {
+      "name": "refractor",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        "prismjs"
+      ],
+      "effects": [
+        "react-syntax-highlighter"
+      ],
+      "range": "<=4.6.0",
+      "nodes": [
+        "node_modules/refractor"
+      ],
+      "fixAvailable": {
+        "name": "swagger-ui-react",
+        "version": "3.29.0",
+        "isSemVerMajor": true
+      }
+    },
+    "swagger-ui-react": {
+      "name": "swagger-ui-react",
+      "severity": "moderate",
+      "isDirect": true,
+      "via": [
+        "react-syntax-highlighter"
+      ],
+      "effects": [],
+      "range": ">=3.30.0",
+      "nodes": [
+        "node_modules/swagger-ui-react"
+      ],
+      "fixAvailable": {
+        "name": "swagger-ui-react",
+        "version": "3.29.0",
+        "isSemVerMajor": true
+      }
+    }
+  },
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 7,
+      "high": 1,
+      "critical": 0,
+      "total": 8
+    },
+    "dependencies": {
+      "prod": 460,
+      "dev": 646,
+      "optional": 118,
+      "peer": 8,
+      "peerOptional": 0,
+      "total": 1144
+    }
+  }
+}

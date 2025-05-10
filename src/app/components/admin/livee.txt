@@ -1,0 +1,35 @@
+LIVE
+5154620016086330|04|2026|727
+Approved
+3DS STATUS : authenticate_unable_to_authenticate
+515462 - MASTERCARD - PREPAID - GIFT - BANCORP BANK, THE - United States (US)
+LIVE
+5154620016081562|04|2026|915
+Approved
+3DS STATUS : authenticate_unable_to_authenticate
+515462 - MASTERCARD - PREPAID - GIFT - BANCORP BANK, THE - United States (US)
+LIVE
+5154620016085282|04|2026|308
+Approved
+3DS STATUS : authenticate_unable_to_authenticate
+515462 - MASTERCARD - PREPAID - GIFT - BANCORP BANK, THE - United States (US)
+LIVE
+5154620016082313|04|2026|993
+Approved
+3DS STATUS : authenticate_unable_to_authenticate
+515462 - MASTERCARD - PREPAID - GIFT - BANCORP BANK, THE - United States (US)
+LIVE
+5154620016080531|04|2026|556
+Approved
+3DS STATUS : authenticate_unable_to_authenticate
+515462 - MASTERCARD - PREPAID - GIFT - BANCORP BANK, THE - United States (US)
+LIVE
+5154620016087015|04|2026|995
+Approved
+3DS STATUS : authenticate_unable_to_authenticate
+515462 - MASTERCARD - PREPAID - GIFT - BANCORP BANK, THE - United States (US)
+LIVE
+5154620016085704|04|2026|338
+Approved
+3DS STATUS : authenticate_unable_to_authenticate
+515462 - MASTERCARD - PREPAID - GIFT - BANCORP BANK, THE - United States (US)

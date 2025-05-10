@@ -45,4 +45,5 @@ export interface Product extends MongoDocument {
   size?: string;
   isbn?: string;
   images?: string[];
+  inStock?: boolean;
 } 

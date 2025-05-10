@@ -16,7 +16,7 @@ interface UseProductsHook {
   loading: boolean;
   error: string | null;
   getProducts: (page?: number, limit?: number) => Promise<void>;
-  addProduct: (product: Partial<Product>, image: File) => Promise<Product | null>;
+  addProduct: (product: Partial<Product>) => Promise<Product | null>;
 }
 
 export function useProducts(): UseProductsHook {
@@ -56,18 +56,18 @@ export function useProducts(): UseProductsHook {
     }
   }, []);
 
-  const addProduct = async (product: Partial<Product>, image: File): Promise<Product | null> => {
+  const addProduct = async (product: Partial<Product>): Promise<Product | null> => {
     try {
       setLoading(true);
       setError(null);
       
-      const formData = new FormData();
-      formData.append('image', image);
-      formData.append('product', JSON.stringify(product));
-      
+      // Kirim data produk sebagai JSON karena gambar sudah diunggah sebelumnya
       const response = await fetch('/api/admin/products', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(product),
       });
       
       if (!response.ok) {

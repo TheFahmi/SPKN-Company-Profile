@@ -1,9 +1,11 @@
 'use client';
 
+import React from 'react';
 import { ThemeProvider } from '@/app/contexts/ThemeContext';
 import { SessionProvider } from 'next-auth/react';
 import { LoadingProvider } from './contexts/LoadingContext';
 import { NotificationProvider } from './contexts/NotificationContext';
+import { ColorModeProvider } from './contexts/ColorModeContext';
 import { usePathname } from 'next/navigation';
 
 export function Providers({
@@ -25,13 +27,15 @@ export function Providers({
 
   return (
     <SessionProvider>
-      {isAdminPath ? (
-        <ThemeProvider>
-          {content}
-        </ThemeProvider>
-      ) : (
-        content
-      )}
+      <ColorModeProvider>
+        {isAdminPath ? (
+          <ThemeProvider>
+            {content}
+          </ThemeProvider>
+        ) : (
+          content
+        )}
+      </ColorModeProvider>
     </SessionProvider>
   );
 } 

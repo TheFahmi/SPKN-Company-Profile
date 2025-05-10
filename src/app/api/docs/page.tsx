@@ -57,7 +57,7 @@ export default function ApiDocsPage() {
           color: 'white'
         }
       }}>
-        <SwaggerUI url="/api/docs/swagger" />
+        <SwaggerUI url="/api/docs/swagger/route" />
       </Box>
     </Container>
   );

@@ -55,13 +55,10 @@ export default function AdminProdukPage() {
     setRefreshTrigger(prev => prev + 1);
   };
 
-  const handleSubmit = async (productData: Partial<Product>, selectedImage: File | null) => {
-    if (!selectedImage) {
-      alert('Pilih gambar produk');
-      return null;
-    }
-
-    return await addProduct(productData, selectedImage);
+  const handleSubmit = async (productData: Partial<Product>) => {
+    // Tidak perlu lagi memeriksa selectedImage karena gambar sudah diunggah sebelumnya
+    // melalui proses pemindaian antivirus
+    return await addProduct(productData);
   };
 
   if (authLoading) {

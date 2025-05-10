@@ -1,4 +1,37 @@
 /** @type {import('next').NextConfig} */
+
+// Security headers
+const securityHeaders = [
+  {
+    key: 'X-DNS-Prefetch-Control',
+    value: 'on'
+  },
+  {
+    key: 'Strict-Transport-Security',
+    value: 'max-age=63072000; includeSubDomains; preload'
+  },
+  {
+    key: 'X-Frame-Options',
+    value: 'SAMEORIGIN'
+  },
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff'
+  },
+  {
+    key: 'Referrer-Policy',
+    value: 'strict-origin-when-cross-origin'
+  },
+  {
+    key: 'Permissions-Policy',
+    value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
+  },
+  {
+    key: 'Content-Security-Policy',
+    value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://analytics.example.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://images.example.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.example.com; frame-ancestors 'self'; form-action 'self';"
+  }
+];
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -26,7 +59,7 @@ const nextConfig = {
     // Disable TypeScript during builds
     ignoreBuildErrors: true,
   },
-  webpack: (config, { isServer }) => {
+  webpack: (config, { dev, isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -42,7 +75,7 @@ const nextConfig = {
     }
     
     // Add optimization for production builds
-    if (process.env.NODE_ENV === 'production') {
+    if (!dev) {
       // Enable tree shaking
       config.optimization.usedExports = true;
       
@@ -73,29 +106,36 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ['@mui/material', '@mui/icons-material'],
-    serverActions: true,
+    serverActions: {
+      allowedOrigins: ['localhost:3000'],
+    },
   },
-  // Configure headers for better security and performance
   async headers() {
     return [
       {
-        source: '/(.*)',
+        // Apply security headers to all routes
+        source: '/:path*',
+        headers: securityHeaders,
+      },
+      {
+        // Apply CORS headers to API routes
+        source: '/api/:path*',
         headers: [
           {
-            key: 'X-DNS-Prefetch-Control',
-            value: 'on',
+            key: 'Access-Control-Allow-Credentials',
+            value: 'true',
           },
           {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
+            key: 'Access-Control-Allow-Origin',
+            value: process.env.ALLOWED_ORIGINS || 'https://yourdomain.com',
           },
           {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET,DELETE,PATCH,POST,PUT',
           },
           {
-            key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin',
+            key: 'Access-Control-Allow-Headers',
+            value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization',
           },
         ],
       },

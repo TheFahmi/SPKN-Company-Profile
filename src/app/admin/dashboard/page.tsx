@@ -56,6 +56,8 @@ import { useTheme as useMuiTheme } from "@mui/material/styles";
 import AdminSkeleton from "@/app/components/admin/AdminSkeleton";
 import Link from "next/link";
 import { useNotifications } from "@/app/contexts/NotificationContext";
+import SecurityStatus from '@/app/components/admin/SecurityStatus';
+import RedisStatusWidget from '@/app/components/admin/RedisStatusWidget';
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -841,6 +843,27 @@ export default function DashboardPage() {
             </Grid>
           </Grid>
         </Box>
+
+        {/* Status Keamanan dan Redis */}
+        <Typography
+          variant="h6"
+          sx={{
+            fontWeight: "bold",
+            mb: 2,
+            mt: 4,
+            color: muiTheme.palette.text.primary,
+          }}
+        >
+          Status Keamanan
+        </Typography>
+        <Grid container spacing={3} sx={{ mb: 4 }}>
+          <Grid item xs={12} md={8}>
+            <SecurityStatus />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <RedisStatusWidget />
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );

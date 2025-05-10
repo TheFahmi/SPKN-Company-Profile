@@ -114,6 +114,8 @@ export async function POST(request: NextRequest) {
       category: productData.category || '',
       imageUrl: productData.imageUrl || '',
       images: productData.images || [],
+      features: productData.features || [],
+      inStock: productData.inStock !== undefined ? productData.inStock : true,
       author: productData.author || '',
       publisher: productData.publisher || '',
       pages: productData.pages ? Number(productData.pages) : undefined,

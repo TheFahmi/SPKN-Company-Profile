@@ -1,119 +1,116 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 
+// Tipe untuk notifikasi
 export interface Notification {
   id: string;
   title: string;
   message: string;
   type: 'info' | 'success' | 'warning' | 'error';
-  timestamp: Date;
   read: boolean;
-  link?: string;
+  timestamp: number;
+  url?: string;
 }
 
-interface NotificationContextType {
+// Tipe untuk konteks notifikasi
+export interface NotificationContextType {
   notifications: Notification[];
-  unreadCount: number;
-  addNotification: (notification: Omit<Notification, 'id' | 'timestamp' | 'read'>) => void;
+  addNotification: (notification: Omit<Notification, 'id' | 'read' | 'timestamp'>) => void;
   markAsRead: (id: string) => void;
   markAllAsRead: () => void;
   removeNotification: (id: string) => void;
   clearAllNotifications: () => void;
 }
 
-const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
+// Membuat konteks dengan nilai default
+const NotificationContext = createContext<NotificationContextType>({
+  notifications: [],
+  addNotification: () => {},
+  markAsRead: () => {},
+  markAllAsRead: () => {},
+  removeNotification: () => {},
+  clearAllNotifications: () => {},
+});
 
-export function NotificationProvider({ children }: { children: React.ReactNode }) {
+// Hook untuk menggunakan konteks notifikasi
+export const useNotifications = () => useContext(NotificationContext);
+
+// Provider untuk konteks notifikasi
+export const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  
-  // Load notifications from localStorage on mount
+
+  // Memuat notifikasi dari localStorage saat komponen dimuat
   useEffect(() => {
-    const savedNotifications = localStorage.getItem('adminNotifications');
+    const savedNotifications = localStorage.getItem('notifications');
     if (savedNotifications) {
       try {
-        const parsedNotifications = JSON.parse(savedNotifications).map((notification: any) => ({
-          ...notification,
-          timestamp: new Date(notification.timestamp)
-        }));
-        setNotifications(parsedNotifications);
+        setNotifications(JSON.parse(savedNotifications));
       } catch (error) {
         console.error('Error parsing notifications from localStorage:', error);
       }
     }
   }, []);
-  
-  // Save notifications to localStorage whenever they change
+
+  // Menyimpan notifikasi ke localStorage saat berubah
   useEffect(() => {
-    localStorage.setItem('adminNotifications', JSON.stringify(notifications));
+    localStorage.setItem('notifications', JSON.stringify(notifications));
   }, [notifications]);
-  
-  // Calculate unread count
-  const unreadCount = notifications.filter(notification => !notification.read).length;
-  
-  // Add a new notification
-  const addNotification = (notification: Omit<Notification, 'id' | 'timestamp' | 'read'>) => {
-    const newNotification: Notification = {
-      ...notification,
-      id: Date.now().toString(),
-      timestamp: new Date(),
-      read: false
-    };
-    
-    setNotifications(prev => [newNotification, ...prev]);
-  };
-  
-  // Mark a notification as read
-  const markAsRead = (id: string) => {
-    setNotifications(prev => 
-      prev.map(notification => 
-        notification.id === id 
-          ? { ...notification, read: true } 
-          : notification
+
+  // Menambahkan notifikasi baru
+  const addNotification = useCallback((notification: Omit<Notification, 'id' | 'read' | 'timestamp'>) => {
+    setNotifications((prev) => [
+      {
+        ...notification,
+        id: `notification-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        read: false,
+        timestamp: Date.now(),
+      },
+      ...prev,
+    ]);
+  }, []);
+
+  // Menandai notifikasi sebagai sudah dibaca
+  const markAsRead = useCallback((id: string) => {
+    setNotifications((prev) =>
+      prev.map((notification) =>
+        notification.id === id ? { ...notification, read: true } : notification
       )
     );
-  };
-  
-  // Mark all notifications as read
-  const markAllAsRead = () => {
-    setNotifications(prev => 
-      prev.map(notification => ({ ...notification, read: true }))
+  }, []);
+
+  // Menandai semua notifikasi sebagai sudah dibaca
+  const markAllAsRead = useCallback(() => {
+    setNotifications((prev) =>
+      prev.map((notification) => ({ ...notification, read: true }))
     );
-  };
-  
-  // Remove a notification
-  const removeNotification = (id: string) => {
-    setNotifications(prev => 
-      prev.filter(notification => notification.id !== id)
-    );
-  };
-  
-  // Clear all notifications
-  const clearAllNotifications = () => {
+  }, []);
+
+  // Menghapus notifikasi
+  const removeNotification = useCallback((id: string) => {
+    setNotifications((prev) => prev.filter((notification) => notification.id !== id));
+  }, []);
+
+  // Menghapus semua notifikasi
+  const clearAllNotifications = useCallback(() => {
     setNotifications([]);
+  }, []);
+
+  // Nilai konteks
+  const contextValue = {
+    notifications,
+    addNotification,
+    markAsRead,
+    markAllAsRead,
+    removeNotification,
+    clearAllNotifications,
   };
-  
+
   return (
-    <NotificationContext.Provider 
-      value={{ 
-        notifications, 
-        unreadCount, 
-        addNotification, 
-        markAsRead, 
-        markAllAsRead, 
-        removeNotification, 
-        clearAllNotifications 
-      }}
-    >
+    <NotificationContext.Provider value={contextValue}>
       {children}
     </NotificationContext.Provider>
   );
-}
+};
 
-export function useNotifications() {
-  const context = useContext(NotificationContext);
-  if (context === undefined) {
-    throw new Error('useNotifications must be used within a NotificationProvider');
-  }
-  return context;
-} 
+export default NotificationContext; 

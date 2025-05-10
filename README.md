@@ -438,11 +438,47 @@ Swagger UI allows you to:
 
 ## 🔒 Security
 
-- All sensitive data stored in environment variables
-- Passwords encrypted using bcrypt
-- JWT authentication using NextAuth.js
-- CSRF protection
-- Rate limiting for API endpoints
+### Authentication & Authorization
+- **NextAuth.js Integration**
+  - JWT-based authentication
+  - Session management
+  - Role-based access control (RBAC)
+
+### Data Protection
+- **Environment Variables**
+  - All sensitive data stored in `.env`
+  - Production secrets managed securely
+  - Different configurations for development/production
+
+### API Security
+- **Rate Limiting**
+  - API endpoints protected with rate limiting
+  - Configurable limits per endpoint
+  - IP-based tracking
+
+- **Input Validation**
+  - Request body validation using Zod
+  - Sanitization of user inputs
+  - Protection against SQL injection
+
+### Network Security
+- **HTTPS**
+  - Force HTTPS in production
+  - Secure cookie handling
+  - HSTS enabled
+
+- **CORS**
+  - Configured CORS policies
+  - Whitelisted origins
+  - Secure headers
+
+### File Upload Security
+- **Image Upload**
+  - File type validation
+  - Size limits
+  - Virus scanning
+  - Secure storage
+
 
 ---
 

@@ -29,17 +29,17 @@ export default function KontakPage() {
           <Grid item xs={12} md={7}>
             <ContactForm />
           </Grid>
-          
+
           {/* Contact Information */}
           <Grid item xs={12} md={5}>
             <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
               <ContactInfo />
               <EmergencyContact />
-            </Box>
+              </Box>
           </Grid>
         </Grid>
       </Container>
-      
+
       {/* Map Section */}
       <MapSection />
       
